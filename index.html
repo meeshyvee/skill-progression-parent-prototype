@@ -1,0 +1,928 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill Progression &amp; Milestone Tracker — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF7F2; --panel:#fff; --card:#EDE7DF; --line:#E3DAD0; --line-soft:#EFE8E0;
+  --ink:#1C1A19; --muted:#6E655C;
+  --teal:#16788C; --teal-dark:#116273; --purple:#7A4FA3; --purple-soft:#F1EBFB; --purple-btn:#7C4DBC;
+  --green:#2FA86A; --amber:#EFA928; --red:#E8674A; --blue:#29A8D8;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Poppins',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.app{display:flex;min-height:100vh}
+.sidebar{width:268px;flex:0 0 268px;background:var(--panel);border-right:1px solid var(--line-soft);display:flex;flex-direction:column;padding:22px 18px;position:sticky;top:0;height:100vh}
+.logo{display:flex;align-items:center;gap:7px;font-weight:700;font-size:19px;letter-spacing:-.02em;padding:0 6px 24px}
+.logo .bolt{color:var(--amber)}
+.me{text-align:center;padding:6px 0 24px;border-bottom:1px solid var(--line-soft)}
+.me .av{width:64px;height:64px;border-radius:50%;background:#2E9C9C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:600;margin:0 auto 12px}
+.me h2{margin:0;font-size:19px;font-weight:700}
+.me p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
+.nav{padding:18px 0 0;display:flex;flex-direction:column;gap:2px}
+.nav button{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:10px;font-size:14.5px;width:100%;text-align:left}
+.nav button:hover{background:#F6F2EC}
+.nav button.on{background:#F0EBE4;font-weight:600}
+.eyebrow{font-size:11px;letter-spacing:.14em;font-weight:600;color:var(--muted);padding:22px 12px 8px}
+.learner-btn{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:12px;width:100%;text-align:left;font-size:14.5px}
+.learner-btn:hover{background:#F6F2EC}
+.learner-btn.on{background:#F0EBE4;font-weight:600}
+.dot{width:26px;height:26px;border-radius:50%;color:#fff;font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:0 0 26px}
+.side-foot{margin-top:auto;border-top:1px solid var(--line-soft);padding-top:14px;text-align:center}
+.side-foot button{font-size:14px;color:var(--muted);padding:8px}
+
+.main{flex:1;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:15px 30px;border-bottom:1px solid var(--line-soft);background:var(--bg);position:sticky;top:0;z-index:20}
+.crumbs{font-size:14.5px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.crumbs .back{width:30px;height:30px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.crumbs a{color:var(--teal);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.crumbs .sep{color:#C6BCB1}
+.topicons{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:17px}
+.topicons .chip{border:1.5px solid var(--amber);color:var(--amber);border-radius:8px;padding:4px 10px;font-size:13px}
+.page{padding:30px 34px 110px;max-width:1420px}
+
+.hcard{background:var(--card);border-radius:18px;padding:24px 26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.hcard .av{width:64px;height:64px;border-radius:50%;color:#fff;font-size:27px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.hcard h1{margin:0 0 8px;font-size:30px;font-weight:700;letter-spacing:-.01em}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#E2DACF;border-radius:7px;padding:5px 10px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#463F38}
+.btn-teal{background:var(--teal);color:#fff;border-radius:999px;padding:13px 24px;font-size:15px;display:inline-flex;gap:9px;align-items:center}
+.btn-teal:hover{background:var(--teal-dark)}
+.btn-purple{background:var(--purple-btn);color:#fff;border-radius:999px;padding:12px 22px;font-size:14.5px;display:inline-flex;gap:9px;align-items:center}
+.spacer{margin-left:auto}
+
+.tabs{display:flex;border-bottom:2px solid var(--line);margin:32px 0 26px;max-width:640px}
+.tabs button{display:flex;align-items:center;gap:11px;padding:14px 30px 15px;font-size:19px;font-weight:600;color:#9A8F84;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button.on{color:var(--purple);border-bottom-color:var(--purple)}
+
+.toolkit{background:var(--purple-soft);border-radius:18px;padding:22px 26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.toolkit h3{margin:0;font-size:17px;font-weight:700}
+.toolkit p{margin:3px 0 0;font-size:14px;color:var(--muted)}
+
+.sec-head{display:flex;align-items:center;gap:18px;margin:42px 0 16px;flex-wrap:wrap}
+.sec-head h2{margin:0;font-size:23px;font-weight:700}
+.seg{display:inline-flex;background:#EDE7DF;border-radius:999px;padding:4px;gap:2px}
+.seg button{padding:8px 18px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--muted)}
+.seg button.on{background:var(--panel);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.snap-note{font-size:12.5px;color:var(--muted);margin:0 0 16px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stat{background:var(--panel);border:1px solid var(--line-soft);border-left:5px solid var(--purple);border-radius:12px;padding:22px 22px}
+.stat .n{font-size:32px;font-weight:700;line-height:1.15}
+.stat .t{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.stat.g{border-left-color:var(--green)} .stat.t2{border-left-color:var(--teal)} .stat.a{border-left-color:var(--amber)}
+
+.panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:22px;padding:36px 36px 30px;margin-top:30px}
+.panel h2{margin:0;font-size:29px;font-weight:700;letter-spacing:-.01em}
+.panel .sub{margin:10px 0 0;font-size:14.5px;color:var(--muted);max-width:520px;line-height:1.6}
+.panel .course-tag{float:right;font-size:14px;color:var(--muted)}
+
+.legend{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:24px 0 6px;font-size:14px}
+.legend .lbl{font-size:11.5px;letter-spacing:.13em;font-weight:600;color:var(--muted)}
+.legend .grp{display:flex;align-items:center;gap:15px}
+.legend .item{display:flex;align-items:center;gap:8px;color:#3C3630}
+.legend .div{width:1px;height:26px;background:var(--line);transform:rotate(14deg);margin:0 4px}
+.mk-c{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex:0 0 22px}
+.mk-c.completed{background:var(--blue)} .mk-c.inprogress{background:var(--amber)}
+.mk-c.notstarted{background:transparent;border:2px solid #C9C0B6}
+.mk-d{width:20px;height:20px;transform:rotate(45deg);border-radius:4px;display:flex;align-items:center;justify-content:center;flex:0 0 20px}
+.mk-d span{transform:rotate(-45deg);font-size:10px;color:#fff;font-weight:700;line-height:1}
+.mk-d.mastered{background:var(--green)} .mk-d.still{background:var(--amber)}
+.mk-d.notstarted{background:transparent;border:2px solid #C9C0B6} .mk-d.notstarted span{color:#C9C0B6}
+
+/* category card */
+.cat{border:1px solid var(--line-soft);border-radius:16px;margin-top:34px;background:var(--panel);overflow:hidden}
+.cat-sum{display:flex;align-items:center;gap:26px;padding:28px 30px;background:#FAF7F3;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+.cat-sum .ico{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:25px;color:#fff;flex:0 0 56px}
+.cat-sum .who{flex:1;min-width:260px}
+.cat-sum h3{margin:0;font-size:23px;font-weight:700;letter-spacing:-.01em}
+.cat-sum .msub{font-size:14px;color:var(--muted);margin-top:6px}
+.pbar{display:flex;align-items:center;gap:14px;margin-top:14px;max-width:460px}
+.pbar .track{flex:1;height:9px;border-radius:99px;background:#E7DFD5;overflow:hidden}
+.pbar .fill{height:100%;border-radius:99px;transition:width .5s}
+.pbar .pct{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.viewall{display:inline-block;margin-top:16px;font-size:14px;color:var(--teal);text-decoration:underline;text-underline-offset:3px}
+.tally{display:flex;flex-direction:column;gap:16px;padding-left:30px;border-left:1px solid var(--line);min-width:196px}
+.tally .t{display:flex;align-items:center;gap:11px;font-size:14px}
+.tally .t b{font-size:16px;min-width:16px}
+
+.bucket{border-top:1px solid var(--line-soft)}
+.bucket:first-of-type{border-top:none}
+.bk-head{display:flex;align-items:center;gap:15px;width:100%;text-align:left;padding:20px 30px}
+.bk-head .bi{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex:0 0 30px}
+.bk-head .bt{font-size:16px;font-weight:700}
+.bk-head .bc{font-size:12.5px;color:var(--muted);margin-top:3px}
+.bk-head .car{margin-left:auto;font-size:12px;color:var(--muted);transition:transform .18s}
+.bucket.done .bk-head{background:#F4FAF6} .bucket.done .bt{color:#1F7A4C} .bucket.done .bi{background:var(--green)}
+.bucket.now .bk-head{background:#FDF8EE} .bucket.now .bt{color:#8A5D06} .bucket.now .bi{background:var(--amber)}
+.bucket.todo .bk-head{background:#F7F5F2} .bucket.todo .bt{color:#5C544C} .bucket.todo .bi{background:#9A9088}
+.bucket.shut .car{transform:rotate(-90deg)}
+.bucket.shut .bk-body{display:none}
+
+.mrow{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:22px;align-items:center;
+  width:100%;text-align:left;padding:22px 30px;border-top:1px solid #F4EEE7;transition:background .15s}
+.mrow:hover{background:#FAF7F3}
+.mrow.open{background:#F7F3EE}
+.mdia{width:30px;height:30px;transform:rotate(45deg);border-radius:7px;display:flex;align-items:center;justify-content:center;border:2px solid transparent;transition:transform .15s}
+.mdia span{transform:rotate(-45deg);font-size:13px;color:#fff;line-height:1}
+.mdia.mastered{background:var(--green)} .mdia.still{background:var(--amber)}
+.mdia.notstarted{background:transparent;border-color:#CFC6BB} .mdia.notstarted span{color:#B9AEA2;font-size:15px}
+.mdia:hover{transform:rotate(45deg) scale(1.1)}
+.mname{font-size:15.5px;font-weight:600;line-height:1.4}
+.msubcat{font-size:11.5px;color:#A79C90;margin-top:5px;letter-spacing:.02em}
+.nodes{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px}
+.node{width:17px;height:17px;border-radius:50%;border:1.5px solid #D6CDC2;background:var(--panel);
+  display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;flex:0 0 17px}
+.node.completed{border-color:var(--blue);background:var(--blue)}
+.node.inprogress{border-color:var(--amber);background:var(--amber)}
+.mrow .count{font-size:12px;color:var(--muted);margin-top:10px}
+.rt{display:flex;align-items:center;gap:20px}
+.rt .num{text-align:right;font-size:12.5px;color:var(--muted);line-height:1.7;white-space:nowrap}
+.rt .num b{display:block;color:#3C3630;font-weight:500}
+.rt .chev{color:#BCB2A7;font-size:12px}
+.act{border:1.5px solid var(--teal);color:var(--teal);border-radius:999px;padding:9px 17px;font-size:13.5px;font-weight:500;white-space:nowrap}
+.act:hover{background:#F0F7F9}
+.act.warm{border-color:var(--amber);color:#8A5D06}
+.act.warm:hover{background:#FDF6E9}
+.todaychip{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:#8A5D06;background:#FCF0DA;border-radius:5px;padding:4px 9px;margin-top:10px}
+.morebtn{display:block;width:100%;text-align:left;padding:18px 30px;font-size:13.5px;color:var(--teal);border-top:1px solid #F4EEE7}
+.morebtn:hover{background:#FAF7F3}
+.orphan{padding:20px 30px;border-top:1px solid #F4EEE7;font-size:12.5px;color:var(--muted);background:#FCFAF7;line-height:1.6}
+.orphan b{color:#3C3630;font-weight:600}
+
+.key{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:36px;padding:20px 24px;
+  border:1px solid var(--line-soft);border-radius:14px;background:#FAF7F3;font-size:13.5px}
+.key .lbl{font-size:11px;letter-spacing:.13em;font-weight:600;color:var(--muted)}
+.key .item{display:flex;align-items:center;gap:7px;color:#3C3630}
+.key .div{width:1px;height:22px;background:var(--line);margin:0 4px}
+
+.drill{background:#FAF7F3;border-top:1px solid var(--line-soft);padding:8px 30px 24px}
+.drill .dh{font-size:11.5px;letter-spacing:.13em;font-weight:600;color:var(--muted);padding:20px 0 10px}
+.drill ol{list-style:none;margin:0;padding:0;columns:2;column-gap:36px}
+.drill li{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid #EFE9E2;font-size:14px;break-inside:avoid}
+.drill .num{font-size:11.5px;color:#A79C90;width:22px;flex:0 0 22px}
+.drill .cname{flex:1}
+.drill .cstat{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.drill-foot{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid #E9E2D9}
+.dnote{font-size:12.5px;color:var(--muted);line-height:1.65;flex:1;min-width:240px}
+.dnote b{color:#3C3630}
+.drill-foot .act{padding:12px 22px;font-size:14px}
+
+/* dashboard */
+.dash-grid{display:grid;grid-template-columns:1fr 320px;gap:22px;align-items:start}
+.wcard{background:var(--panel);border:1px solid var(--line-soft);border-radius:18px;padding:22px 24px}
+.wcard h3{margin:0 0 4px;font-size:19px;font-weight:700}
+.wcard .sub{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+.counter{background:var(--card);border-radius:18px;padding:22px 24px;text-align:center}
+.counter .n{font-size:44px;font-weight:700;line-height:1}
+.counter .t{font-size:14.5px;font-weight:600;margin-top:4px}
+.counter .h{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+.lcard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:16px 18px;border:1px solid var(--line);border-radius:18px;margin-bottom:12px}
+.lcard:hover{background:#FAF6F1;border-color:#D3C8BB}
+.lcard .nm{font-size:17px;font-weight:700}
+.lcard .meta{font-size:12.5px;color:var(--muted)}
+.bars{flex:1;max-width:340px;display:flex;flex-direction:column;gap:9px}
+.bar{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.bar .track{flex:1;height:8px;border-radius:99px;background:#EDE6DE;overflow:hidden}
+.bar .fill{height:100%;border-radius:99px;background:var(--purple);transition:width .5s}
+.bar .fill.ela{background:var(--teal)}
+.bar .cnt{font-variant-numeric:tabular-nums;white-space:nowrap}
+.prompt{border:1px solid #E4D6BA;background:#FDF7EA;border-radius:18px;padding:18px 20px;margin-bottom:14px}
+.prompt .tag{font-size:11px;letter-spacing:.12em;font-weight:600;color:#8A5D06;text-transform:uppercase}
+.prompt h4{margin:7px 0 3px;font-size:17px;font-weight:700}
+.prompt .who{font-size:13px;color:var(--muted)}
+.prompt ol{margin:14px 0 16px;padding-left:20px;font-size:14px;color:#4A423B}
+.prompt li{margin-bottom:6px}
+.empty{font-size:14px;color:var(--muted);padding:12px 0}
+
+.scrim{position:fixed;inset:0;background:rgba(28,26,25,.42);display:flex;align-items:center;justify-content:center;padding:20px;z-index:60}
+.scrim[hidden]{display:none}
+.modal{background:var(--panel);border-radius:22px;padding:28px 30px;width:100%;max-width:470px;box-shadow:0 24px 60px rgba(0,0,0,.2)}
+.modal .eb{font-size:11px;letter-spacing:.13em;font-weight:600;color:var(--muted);text-transform:uppercase}
+.modal h3{margin:8px 0 4px;font-size:22px;font-weight:700;line-height:1.25}
+.modal .ctx{font-size:13.5px;color:var(--muted);margin-bottom:20px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:15px 16px;border:1.5px solid var(--line);border-radius:14px;margin-bottom:10px}
+.opt:hover{border-color:#BFB4A6;background:#FAF7F3}
+.opt.sel{border-color:var(--teal);background:#F0F7F9}
+.opt .t{font-size:15.5px;font-weight:600} .opt .d{font-size:12.5px;color:var(--muted);margin-top:2px}
+.attrib{font-size:12.5px;color:var(--muted);background:#F7F3EE;border-radius:10px;padding:11px 13px;margin:6px 0 14px;line-height:1.5}
+.mfoot{display:flex;justify-content:flex-end}
+.btn-ghost{padding:11px 18px;border-radius:999px;font-size:14.5px;color:var(--muted)}
+.btn-ghost:hover{background:#F4F0EA}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:#1C1A19;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;z-index:80;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.notes{position:fixed;right:20px;bottom:20px;z-index:50}
+.notes-btn{background:#1C1A19;color:#fff;border-radius:999px;padding:11px 18px;font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.notes-body{display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;width:400px;max-height:68vh;overflow:auto;box-shadow:0 18px 50px rgba(0,0,0,.16);margin-bottom:10px}
+.notes.open .notes-body{display:block}
+.notes-body h4{margin:0 0 4px;font-size:15px}
+.notes-body h5{margin:16px 0 6px;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.notes-body ul{margin:0;padding-left:17px;font-size:13px;line-height:1.6;color:#413A34}
+
+@media (max-width:1150px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .dash-grid{grid-template-columns:1fr}
+  .drill ol{columns:1}
+  .run{grid-template-columns:26px minmax(0,1fr);gap:14px}
+  .mcol{grid-column:2;flex-direction:row;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-start}
+  .mcol .cap{text-align:left}
+  .tail{display:none}
+}
+@media (max-width:820px){
+  .sidebar{display:none}
+  .page{padding:20px 14px 90px}
+  .notes-body{width:auto;max-width:88vw}
+  .panel{padding:20px 16px}
+  .sub-row{padding:16px 14px}
+  .cat-head{padding:14px 16px}
+}
+</style>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo"><span class="bolt">⚡</span>strongmind</div>
+    <div class="me"><div class="av">D</div><h2>Danny</h2><p>Dad / Learning Coach</p></div>
+    <nav class="nav">
+      <button id="navHome" onclick="goDash()">Today's Plan</button>
+      <button onclick="oos('Planner')">🗓 Planner</button>
+    </nav>
+    <div class="eyebrow">LEARNERS</div>
+    <div id="learnerNav"></div>
+    <div class="side-foot"><button onclick="oos('Switch View')">Switch View</button></div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="crumbs"><span class="back">←</span><span id="crumbs"></span></div>
+      <div class="topicons"><span class="chip">▤</span><span onclick="oos('Notifications')" style="cursor:pointer">🔔</span><span onclick="oos('Settings')" style="cursor:pointer">⚙</span></div>
+    </div>
+    <div class="page" id="page"></div>
+  </div>
+</div>
+<div class="scrim" id="scrim" hidden onclick="if(event.target===this)closeModal()"></div>
+<div class="toast" id="toast"></div>
+
+<div class="notes" id="notes">
+  <div class="notes-body">
+    <h4>Prototype notes</h4>
+    <h5>Structure</h5>
+    <ul>
+      <li>Kindergarten Math is the real cartridge list you sent: 7 categories, 15 subcategories, 265 components, 44 milestones, in course order.</li>
+      <li>Each category card sorts its milestones into <b>Completed</b>, <b>In Progress</b> and <b>To Do</b>, derived from status, not hand-placed. Completed = Mastered. In Progress = Still Learning, scheduled today, or components already underway. To Do = untouched, capped at five with a link for the rest. Anything scheduled today floats to the top of In Progress.</li>
+      <li><b>Record mastery lives in the expanded row</b>, not on the row itself — open a milestone, read the skills that build to it, then set the level with the current value and who set it right there. Clicking the diamond still opens the picker directly from the collapsed row.</li>
+      <li>The subcategory still names itself under each milestone, so the category → subcategory → component hierarchy the PRD requires stays visible even though rows are grouped by status.</li>
+      <li>Language Arts is placeholder shaped the same way, and the other two learners run against this same catalog with different progress. Only K Math is real.</li>
+    </ul>
+    <h5>Wired to the PRD</h5>
+    <ul>
+      <li><b>R-01 / R-02</b> — dashboard learner card and left-nav name both open the profile.</li>
+      <li><b>R-03</b> — select a run to list its components in course order with status; the milestone is excluded from that list.</li>
+      <li><b>R-04</b> — milestone drawn as a diamond after the components for its subcategory.</li>
+      <li><b>R-05</b> — select a diamond to set mastery level from the progression.</li>
+      <li><b>R-06</b> — dashboard prompt for milestones scheduled today, suppressed once recorded.</li>
+      <li><b>R-07</b> — subcategory and category rollups derive from component status.</li>
+      <li><b>R-08</b> — dashboard chart, percent of skills complete per course.</li>
+      <li><b>R-09</b> — "Milestones to Review", read-only, shows at zero.</li>
+      <li><b>NFR-02</b> — mastery changes attributed and timestamped.</li>
+    </ul>
+    <h5>Not built, on purpose</h5>
+    <ul>
+      <li>Celebration events, adaptive pathways, LOR mapping, gradebook links, learner-facing view, sharing/export.</li>
+      <li>Learning Evidence, Teaching Resource Guide, Planner and Switch View are layout only and say so when clicked.</li>
+    </ul>
+    <h5>Decisions to make</h5>
+    <ul>
+      <li><b>No Continue / Start action.</b> Your earlier mock put a launch button on those rows, but launching the SM Player from the progression page isn't in this PRD — R-05 only grants mastery marking here. If launching from the progression is wanted, it's a new requirement.</li>
+      <li><b>Counting has 91 components.</b> That is a third of the course in one subcategory. Ask LIT whether it should be split.</li>
+      <li><b>Milestone numbers are out of order</b> in the source list — Counting runs 1, 3, 4, 5, 7, 10, 12, 34, 35, and Milestone 19 sits at the end of Equations after Milestone 36. Confirm the numbers are a global ID, not a sequence.</li>
+      <li><b>Two components appear twice</b> — "Sort Two-Dimensional Shapes" is in both Sorting Objects and 2D Shapes. Decide whether one component can sit under two subcategories.</li>
+      <li><b>R-09 vs. the glossary</b> — R-09 counts milestones scheduled today, the glossary counts all not-yet-Mastered. Prototype follows R-09.</li>
+      <li><b>Status wording</b> — glossary says To Do / In Progress / Done, the mock says Not Started / In Progress / Completed. Prototype follows the mock.</li>
+    </ul>
+  </div>
+  <button class="notes-btn" onclick="document.getElementById('notes').classList.toggle('open')">Prototype notes</button>
+</div>
+
+<script>
+/* ============ CARTRIDGE: Kindergarten Math (from the sample list) ============ */
+/* "*" prefix marks a milestone component. Everything else is a component. */
+const K_MATH = [
+["Number Sense","#6C93CE",[
+ ["Counting",[
+  "Count One Thing","Know Number One","Count Two Things","Know Number Two","Draw Two Things",
+  "Count Three Things","Know Number Three","Draw Three Things","Show One to Three with Objects",
+  "Show One to Three with a Ten-Frame","Count Four Things","Know Number Four","Draw Four Things",
+  "Count Five Things","Know Number Five","Draw Five Things","Count Up to Three","Count Up to Four",
+  "Count Up to Five","Show Four and Five with Objects","Show Four and Five with a Ten-Frame",
+  "*Milestone 1: Count Numbers 1 to 5",
+  "Count in Different Directions","Count Things in Different Places","How Many Things?","Recognize the Number of Objects",
+  "*Milestone 3: Know the Amount",
+  "Use Cubes to Model Numbers",
+  "*Milestone 4: Show a Number with Objects",
+  "Count Six Things","Count Up to Six","Show Six with Objects","Show Six with a Ten-Frame","Know Number Six",
+  "Count Seven Things","Count Up to Seven","Show Seven with Objects","Show Seven with a Ten-Frame","Know Number Seven",
+  "Count Eight Things","Count Up to Eight","Show Eight with Objects","Show Eight with a Ten-Frame","Know Number Eight",
+  "Count Nine Things","Count Up to Nine","Show Nine with Objects","Show Nine with a Ten-Frame","Know Number Nine",
+  "The Number That Means None","Count 10 Things","Count to 10",
+  "*Milestone 5: Count to 10",
+  "Show 10 with Objects","Show 10 with a Ten-Frame","Know Number 10","How Many Are There?",
+  "Show a Number with Objects","Show a Number with a Ten-Frame",
+  "*Milestone 7: Show a Number with a Ten-Frame",
+  "Count 11 Things","Count Up to 11","Count 12 Things","Count Up to 12","Count 13 Things","Count Up to 13",
+  "Count 14 Things","Count Up to 14","Count 15 Things","Count Up to 15","Count 11 and 12 Things",
+  "Count 13 to 15 Things","Count 11 to 15 Using Cubes","Count 11 to 15 Using a Ten-Frame",
+  "Count 16 and 17 Things","Count 18 to 20 Things","Count 16 to 20 Using Cubes","Count 16 to 20 Using a Ten-Frame",
+  "*Milestone 10: Count to 20",
+  "Count the Next Number","Count from a Number Between 1 and 5","Count from a Number Between 6 and 10",
+  "Count from a Given Number to an Ending Number",
+  "*Milestone 12: Count on from a Given Number",
+  "Count to 22","Count to 25","Count to 27","Count to 30","Count to 30 and Within 30","Count to 32",
+  "Count to 35","Count to 37","Count to 40","Count to 40 and Within 40","Count to 50 and Within 50",
+  "Count On from a Given Number to 100 Using a Hundreds Chart","Count Within 100 Using a Number Line",
+  "*Milestone 34: Count to 100",
+  "Count by Tens Using the Hundreds Chart",
+  "*Milestone 35: Skip Count By 10s to 100"
+ ]],
+ ["Comparing Numbers",[
+  "Order Numbers up to 10 on a Number Line","Order Numbers up to 20 on a Number Line",
+  "*Milestone 13: Order Numbers within 10",
+  "One More Than 0 to 4","One More Than 5 to 9","One More Than 0 to 9",
+  "*Milestone 14: Find One More within 10",
+  "Compare 1 to 5","Compare 6 to 10",
+  "*Milestone 15: Compare Groups within 10",
+  "Find Groups of the Same Value","Compare 0 to 10 on a Number Line",
+  "*Milestone 16: Find Greater Than, Less Than, and Equal to within 10",
+  "Which Has More or Less?","Which Have the Same?"
+ ]]
+]],
+["Place Value","#7A4FA3",[
+ ["Writing Numbers",[
+  "Write Number One","Write Number Two","Write Number Three","Write Number Four","Write Number Five",
+  "Write How Many Things",
+  "*Milestone 2: Write Numbers 1 to 5",
+  "Write Number Six","Write Number Seven","Write Number Eight","Write Number Nine","How to Write Zero",
+  "Write Number 10","Write from 0 to 10",
+  "*Milestone 6: Write 0 to 10",
+  "Identify and Write the Numbers 11 and 12","Identify and Write the Numbers 13 to 15",
+  "Identify and Write Numbers 16 and 17","Identify and Write Numbers 18 to 20",
+  "*Milestone 9: Write Numbers 11 to 20"
+ ]],
+ ["Building Numbers",[
+  "Identify How Many More Than 10","Model 11 to 15 Using Cubes","Model 11 to 15 Using a Ten-Frame",
+  "Model 16 to 20 Using Cubes","Model 16 to 20 Using a Ten-Frame","Show 11 to 20 as 10 Plus a Number",
+  "*Milestone 11: Build Teen Numbers with 10 and Ones"
+ ]]
+]],
+["Data and Graphs","#2E9C9C",[
+ ["Sorting Objects",[
+  "Sort by Color","Sort by Size","Sort by Kind","Sort by Texture","Sort by Animal and Count How Many",
+  "*Milestone 8: Sort Objects by Attribute",
+  "Sort by Shape","Sort Flat Shapes by Size","Sort by Number of Sides and Count How Many",
+  "Sort Two-Dimensional Shapes (also 2D Shapes)",
+  "*Milestone 31: Sort by Number of Sides",
+  "Collect Data","Sort Data","Count Data","Compare Data","Sort Objects to Get Data"
+ ]],
+ ["Picture Graphs",[
+  "Identify Categories and Numbers in a Picture Graph","Describe Data from a Picture Graph",
+  "Compare Data from a Picture Graph","Identify the Categories and Number in Each Category",
+  "Describe a Picture Graph","Explain a Picture Graph",
+  "*Milestone 32: Explain Picture Graphs",
+  "Use Data to Make a Graph with Objects","Share What You Know from Your Graph","Use Data to Make a Graph with Pictures",
+  "*Milestone 33: Build a Picture Graph"
+ ]]
+]],
+["Number Thinking","#E08A3C",[
+ ["Addition and Subtraction Strategies",[
+  "Add and Subtract Using Number Lines","Break Apart Numbers 1 to 5 to Find Number Partners",
+  "Use Number Partners to Make Addition Sentences","Use Number Partners to Write Number Bonds",
+  "Use Number Bonds to Make Addition Sentences",
+  "*Milestone 17: Make Addition Number Partners within 5",
+  "Use Number Partners to Make Subtraction Sentences","Use Number Bonds to Make Subtraction Sentences",
+  "*Milestone 18: Make Subtraction Number Partners within 5",
+  "Create Addition Facts Using Number Bonds","Create Subtraction Facts Using Number Bonds",
+  "Add 1 to 5 with Objects","Add 1 to 5 with Drawings","Add 1 to 5 with Fingers","Add 1 to 5 on the Number Line",
+  "*Milestone 21: Use Strategies to Add within 10",
+  "One Less Than 1 to 5","One Less Than 1 to 10","One Less Than 1 to 10 on the Number Line",
+  "*Milestone 22: Find One Less within 10",
+  "Subtract 1 to 5 with Objects","Subtract 1 to 5 with Drawings","Subtract 1 to 5 with Fingers",
+  "Subtract 1 to 5 on the Number Line",
+  "*Milestone 23: Use Strategies to Subtract within 10",
+  "Model and Count Back Using a Ten-Frame"
+ ]],
+ ["Equations",[
+  "Rewrite an Addition Equation","Solve Equations That Equal 5","Explain Why an Addition Equation Is True",
+  "Explain Why a Subtraction Equation Is True","Add 1 to 5 with Expressions and Equations",
+  "Subtract 1 to 5 with Expressions and Equations","Add On to 5 Using a Drawing and Equation",
+  "Find Number Partners for 10 Using a Ten-Frame","Make Number Partners for 10 with Drawings",
+  "Find Number Partners for 10 with Your Fingers","Solve Equations That Equal 10",
+  "*Milestone 24: Find Number Partners for 10",
+  "Number Partners of 6 and 7","Number Partners of 8 and 9","Find Number Partners and Bonds to 10",
+  "An Equation for the Model",
+  "*Milestone 25: Write Addition Sentences within 10",
+  "Model a Ten-Frame with an Equation","Write Addition Equations to Model a Number Line",
+  "Write Subtraction Equations with Number Bonds",
+  "*Milestone 27: Write Subtraction Sentences within 10",
+  "Model Subtraction from 10 with Equations","Model a Ten-Frame with a Subtraction Equation",
+  "Count Back from 10 on a Number Line","Count Backward to Subtract","Solve an \"Add to\" Word Problem",
+  "Solve a \"Put Together\" Word Problem","Solve a \"Take Apart\" Word Problem","Solve a \"Take from\" Word Problem",
+  "Decide What Type of Problem It Is Within 5","Take Apart or Put Together to Solve",
+  "Solve Problems with Objects and Drawings","Solve Problems by Acting Them Out",
+  "Solve Addition Problems to 10 Using Number Partners","Act Out Addition Word Problems to 10",
+  "Use Drawings and Number Bonds to Solve Addition Word Problems","Match the Model for Addition",
+  "Use Objects or Drawings to Solve \"Add to\" Word Problems up to 10","Solve \"Add to\" Word Problems up to 10",
+  "Solve \"Put Together\" Word Problems up to 10","Solve Problems with Subtraction Using Objects and Drawings",
+  "Solve Problems with Subtraction by Acting Them Out","Act Out Subtraction Word Problems from 10",
+  "Solve Subtraction Word Problems from 10 Using Number Bonds","Solve \"Take Apart\" Word Problems up to 10",
+  "Solve \"Take from\" Word Problems up to 10","Decide What Type of Problem It Is Within 10",
+  "Write an Equation and Solve the Problem",
+  "*Milestone 36: Solve Word Problems within 10",
+  "*Milestone 19: Find Number Bonds for 5"
+ ]]
+]],
+["Operations and Fluency","#2FA86A",[
+ ["Addition",[
+  "Add 0 and 1","Count On to Add","Add Doubles","Use Number Bonds to Change Order","Add Up to 5",
+  "Add On to 5 Using a Ten-Frame","Model Using a Ten-Frame",
+  "*Milestone 26: Add within 10"
+ ]],
+ ["Subtraction",[
+  "Subtract 0 and 1","Count Back to Subtract","Count Up to Subtract","Subtract a Group of 5 Using a Ten-Frame",
+  "Match the Model for Subtraction",
+  "*Milestone 28: Subtract within 10"
+ ]],
+ ["Addition/Subtraction",[
+  "Add or Subtract to Solve Within 5",
+  "*Milestone 20: Add or Subtract Fluently within 5"
+ ]]
+]],
+["Shapes and Geometry","#C0577B",[
+ ["2D Shapes",[
+  "Triangles","Above or Below","Squares","Rectangles","Beside and Between","Circles","In Front of and Behind",
+  "*Milestone 29: Identify Circles, Triangles, Squares, and Rectangles",
+  "Describe the Parts of Flat Shapes","Describe Where the Shapes Are",
+  "*Milestone 30: Use Position Words",
+  "Learn About Patterns","Make a Pattern","Sort Two-Dimensional Shapes (also Sorting Objects)",
+  "Draw Circles and Triangles","Draw Squares and Rectangles","Draw Hexagons",
+  "*Milestone 42: Draw 2D Shapes",
+  "Combine Triangles to Form Bigger Shapes","Combine Squares and Rectangles to Form Bigger Shapes",
+  "Combine Different Shapes to Form Bigger Shapes",
+  "*Milestone 43: Compose Shapes"
+ ]],
+ ["3D Shapes",[
+  "Identify Spheres","Describe Spheres","Identify Cubes","Describe Cubes","Identify Cylinders",
+  "Describe Cylinders","Identify Cones","Describe Cones",
+  "*Milestone 40: Identify Spheres, Cubes, Cylinders, and Cones",
+  "Sort Spheres, Cubes, Cylinders, and Cones","Sort Three-Dimensional Shapes",
+  "Compare the Different 3-Dimensional Shapes",
+  "*Milestone 41: Compare 3D Shapes by Attribute",
+  "Find Three-Dimensional Shapes in the World","Model Three-Dimensional Shapes",
+  "*Milestone 44: Model 3D Shapes"
+ ]]
+]],
+["Measurement","#D2703A",[
+ ["Measuring Length",[
+  "Let's Talk About Length","Let's Talk About Width","Let's Talk About Height",
+  "*Milestone 37: Describe Length, Width, and Height"
+ ]],
+ ["Comparing Attributes",[
+  "Let's Talk About Weight","Let's Talk About Temperature",
+  "*Milestone 38: Describe Weight, Temperature, and Other Measurable Attributes",
+  "What Can Be Measured?","Compare Measures",
+  "*Milestone 39: Compare Measures"
+ ]]
+]]
+];
+
+/* Placeholder ELA cartridge, same shape */
+const K_ELA = [
+["Foundational Reading","#6C93CE",[
+ ["Print Concepts",["Letters A to D","Letters E to H","Letters I to M","*Milestone 1: Name Letters A to M",
+   "Letters N to R","Letters S to V","Letters W to Z","*Milestone 2: Name Letters N to Z",
+   "Match Uppercase and Lowercase","*Milestone 3: Match Upper and Lowercase Letters"]],
+ ["Phonological Awareness",["Hear a Rhyme","Finish the Rhyme","Make Your Own Rhyme","*Milestone 4: Recognize Rhyming Words",
+   "First Sound in a Word","Match Sounds to Letters","Sort by First Sound","*Milestone 5: Identify Beginning Sounds",
+   "Count Syllables","Blend Sounds into Words","*Milestone 6: Blend Sounds into Words"]]
+]],
+["Comprehension","#2E9C9C",[
+ ["Story Elements",["Who and Where","What Happened First","Retell in Order","*Milestone 7: Retell a Story in Order",
+   "Ask About a Story","Answer About a Story","*Milestone 8: Ask and Answer Questions"]]
+]],
+["Writing","#E08A3C",[
+ ["Writing My Name",["Trace My Name","Write My First Name","Write My Last Name","*Milestone 9: Write First and Last Name"]],
+ ["Drawing and Telling",["Draw to Tell an Idea","Label a Drawing","Tell About My Drawing","*Milestone 10: Share an Idea with Drawing and Labels"]]
+]]
+];
+
+/* ============ build course objects + seed progress ============ */
+function buildCourse(src, label, icon, tag, seed){
+  const cats = src.map(([cname,color,subs])=>({
+    name:cname, color,
+    subs: subs.map(([sname,items])=>({
+      name:sname,
+      items: items.map(t=>{
+        const isM = t[0]==='*';
+        const raw = isM ? t.slice(1) : t;
+        const m = raw.match(/^Milestone (\d+):\s*(.+)$/);
+        return isM
+          ? {type:'m', num:m?+m[1]:null, name:m?m[2]:raw, mastery:'notstarted', by:null, at:null, today:false}
+          : {type:'c', name:raw, status:'notstarted'};
+      })
+    }))
+  }));
+  const course = {label,icon,tag,cats};
+  // seed component progress in course order
+  const comps=[], ms=[];
+  cats.forEach(c=>c.subs.forEach(s=>s.items.forEach(it=> it.type==='c'?comps.push(it):ms.push(it))));
+  comps.forEach((c,i)=>{ c.status = i<seed.done ? 'completed' : (i<seed.done+seed.doing ? 'inprogress' : 'notstarted'); });
+  ms.forEach((m,i)=>{
+    if(i<seed.mastered){ m.mastery='mastered'; m.by='Danny (Learning Coach)'; m.at='Aug 18, 2026, 9:40 AM'; }
+    else if(i<seed.mastered+seed.still){ m.mastery='still'; m.by='Danny (Learning Coach)'; m.at='Aug 21, 2026, 4:05 PM'; }
+  });
+  if(seed.today!=null && ms[seed.today]) ms[seed.today].today = true;
+  course.totals = {comps:comps.length, ms:ms.length, subs:cats.reduce((a,c)=>a+c.subs.length,0), cats:cats.length};
+  // "this week" = the tail of completed work + everything in progress
+  course.week = {done:Math.min(seed.done,9), doing:seed.doing, mastered:seed.weekMastered||0, scheduled:seed.weekScheduled||0};
+  return course;
+}
+
+const DATA = {
+  michelle:{name:'Michelle', grade:'Kindergarten', color:'#7A4FA3', track:'On Track', courses:{
+    math: buildCourse(K_MATH,'Math','🧮','Kindergarten Math',{done:62,doing:3,mastered:4,still:1,today:5,weekMastered:1,weekScheduled:2}),
+    ela:  buildCourse(K_ELA,'Language Arts','✒️','Kindergarten Language Arts',{done:9,doing:2,mastered:2,still:1,today:null,weekMastered:1,weekScheduled:1})
+  }},
+  stephanie:{name:'Stephanie', grade:'Kindergarten', color:'#E0A526', track:'On Track', courses:{
+    math: buildCourse(K_MATH,'Math','🧮','Kindergarten Math',{done:131,doing:2,mastered:11,still:1,today:12,weekMastered:2,weekScheduled:1}),
+    ela:  buildCourse(K_ELA,'Language Arts','✒️','Kindergarten Language Arts',{done:18,doing:1,mastered:5,still:1,today:null,weekMastered:0,weekScheduled:0})
+  }},
+  dj:{name:'DJ', grade:'Kindergarten', color:'#C87B6E', track:'Needs Attention', courses:{
+    math: buildCourse(K_MATH,'Math','🧮','Kindergarten Math',{done:24,doing:2,mastered:1,still:1,today:2,weekMastered:0,weekScheduled:1}),
+    ela:  buildCourse(K_ELA,'Language Arts','✒️','Kindergarten Language Arts',{done:4,doing:1,mastered:0,still:1,today:null,weekMastered:0,weekScheduled:1})
+  }}
+};
+
+/* ============ state + helpers ============ */
+const state={view:'learner',learner:'michelle',course:'math',snap:'course',shutBuckets:{},showAll:{},openSeg:null,editing:null};
+const USER='Danny (Learning Coach)';
+const LABEL={completed:'Completed',inprogress:'In Progress',notstarted:'Not Started'};
+const MLABEL={mastered:'Mastered',still:'Still Learning',notstarted:'Not Started'};
+const MGLYPH={mastered:'★',still:'—',notstarted:'—'};
+const esc=t=>String(t).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const cur=()=>DATA[state.learner].courses[state.course];
+
+/* split a subcategory's items into runs ending at a milestone */
+function runs(sub){
+  const out=[]; let buf=[];
+  sub.items.forEach(it=>{
+    if(it.type==='c') buf.push(it);
+    else { out.push({comps:buf, m:it}); buf=[]; }
+  });
+  if(buf.length) out.push({comps:buf, m:null});
+  return out;
+}
+function subStats(sub){
+  const ms=sub.items.filter(i=>i.type==='m');
+  const done=ms.filter(m=>m.mastery==='mastered').length;
+  const comps=sub.items.filter(i=>i.type==='c');
+  return {ms:ms.length, msDone:done, pct:ms.length?Math.round(done/ms.length*100):0, comps:comps.length,
+          compsDone:comps.filter(c=>c.status==='completed').length};
+}
+function catStats(cat){
+  let ms=0,done=0,comps=0,cd=0;
+  cat.subs.forEach(s=>{const t=subStats(s); ms+=t.ms; done+=t.msDone; comps+=t.comps; cd+=t.compsDone;});
+  return {ms,done,pct:ms?Math.round(done/ms*100):0,comps,cd};
+}
+function courseStats(c){
+  let ms=0,done=0,comps=0,cd=0;
+  c.cats.forEach(cat=>{const t=catStats(cat); ms+=t.ms; done+=t.done; comps+=t.comps; cd+=t.cd;});
+  return {ms,done,comps,cd,subs:c.totals.subs,cats:c.totals.cats};
+}
+function allMilestones(c){ const o=[]; c.cats.forEach(cat=>cat.subs.forEach(s=>s.items.forEach(i=>{if(i.type==='m')o.push({i,cat,s});}))); return o; }
+function todayMilestones(){
+  const out=[];
+  for(const [lid,l] of Object.entries(DATA))
+    for(const [cid,c] of Object.entries(l.courses))
+      allMilestones(c).forEach(({i,cat,s})=>{ if(i.today) out.push({lid,cid,l,c,cat,sub:s,m:i}); });
+  return out;
+}
+const reviewCount=()=>todayMilestones().filter(x=>x.m.mastery!=='mastered').length;
+
+/* ============ render ============ */
+function renderSidebar(){
+  document.getElementById('learnerNav').innerHTML=Object.entries(DATA).map(([id,l])=>`
+    <button class="learner-btn ${state.view==='learner'&&state.learner===id?'on':''}" onclick="goLearner('${id}')">
+      <span class="dot" style="background:${l.color}">${l.name[0]}</span>${esc(l.name)}</button>`).join('');
+  document.getElementById('navHome').className=state.view==='dash'?'on':'';
+}
+function render(){
+  renderSidebar();
+  document.getElementById('crumbs').innerHTML = state.view==='dash' ? `Today's Plan`
+    : `<a onclick="goDash()">Danny</a> <span class="sep">/</span> <a onclick="goLearner('${state.learner}')">${esc(DATA[state.learner].name)}</a> <span class="sep">/</span> Learning Journey`;
+  document.getElementById('page').innerHTML = state.view==='dash'?dashHTML():learnerHTML();
+}
+
+function statsHTML(){
+  const c=cur(), t=courseStats(c);
+  if(state.snap==='course'){
+    return `<p class="snap-note">Everything in ${esc(c.tag)}, from the course cartridge.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">${t.ms}</div><div class="t">Milestones to celebrate</div></div>
+      <div class="stat g"><div class="n">${t.done}</div><div class="t">Mastered so far</div></div>
+      <div class="stat t2"><div class="n">${t.comps}</div><div class="t">Total skills in the year</div></div>
+      <div class="stat a"><div class="n">${t.subs}</div><div class="t">Skill areas across the course</div></div>
+    </div>`;
+  }
+  const w=c.week;
+  return `<p class="snap-note">Week of Aug 24 – Aug 28, 2026.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">${w.scheduled}</div><div class="t">Milestones scheduled</div></div>
+    <div class="stat g"><div class="n">${w.mastered}</div><div class="t">Mastered this week</div></div>
+    <div class="stat t2"><div class="n">${w.done}</div><div class="t">Skills completed</div></div>
+    <div class="stat a"><div class="n">${w.doing}</div><div class="t">Skills in progress now</div></div>
+  </div>`;
+}
+
+function learnerHTML(){
+  const l=DATA[state.learner], c=cur();
+  return `
+  <div class="hcard">
+    <div class="av" style="background:${l.color}">${l.name[0]}</div>
+    <div><h1>${esc(l.name)}</h1>
+      <span class="pill">${esc(l.grade)}</span><span style="color:#B0A79C;margin:0 8px">•</span>
+      <span class="pill">✓ ${esc(l.track)}</span></div>
+    <button class="btn-teal spacer" onclick="oos('Learning Evidence')">🗎 Learning Evidence</button>
+  </div>
+
+  <div class="tabs">${Object.entries(l.courses).map(([cid,cc])=>`
+    <button class="${cid===state.course?'on':''}" onclick="setCourse('${cid}')">${cc.icon} ${esc(cc.label)}</button>`).join('')}</div>
+
+  <div class="toolkit"><span style="font-size:22px">🍎</span>
+    <div><h3>Your teaching toolkit</h3><p>Helpful resources for guiding ${esc(l.name)} through ${esc(c.label)}.</p></div>
+    <button class="btn-purple spacer" onclick="oos('Teaching Resource Guide')">📖 Teaching Resource Guide</button></div>
+
+  <div class="sec-head">
+    <h2>Subject's Snapshot</h2>
+    <div class="seg">
+      <button class="${state.snap==='course'?'on':''}" onclick="setSnap('course')">This course</button>
+      <button class="${state.snap==='week'?'on':''}" onclick="setSnap('week')">This week</button>
+    </div>
+  </div>
+  ${statsHTML()}
+
+  <div class="panel">
+    <span class="course-tag">${esc(c.tag)}</span>
+    <h2>Skills Progression</h2>
+    <p class="sub">See how ${esc(l.name)} is growing in each skill. Focus on what's next, or open any milestone for more detail.</p>
+    ${c.cats.map((cat,ci)=>catHTML(cat,ci)).join('')}
+    <div class="key">
+      <span class="lbl">KEY</span>
+      <span class="item"><span class="mk-c completed">✓</span>Completed</span>
+      <span class="item"><span class="mk-c inprogress"></span>In Progress</span>
+      <span class="item"><span class="mk-c notstarted"></span>Not Started</span>
+      <span class="div"></span>
+      <span class="lbl">MILESTONE STATUS</span>
+      <span class="item"><span class="mk-d mastered"><span>★</span></span>Mastered</span>
+      <span class="item"><span class="mk-d still"><span>—</span></span>Still Learning</span>
+      <span class="item"><span class="mk-d notstarted"><span>—</span></span>Not Started</span>
+    </div>
+  </div>`;
+}
+
+function catIcon(n){
+  return {'Number Sense':'🔢','Place Value':'🧮','Data and Graphs':'📊','Number Thinking':'💡',
+    'Operations and Fluency':'➕','Shapes and Geometry':'◇','Measurement':'📏',
+    'Foundational Reading':'📖','Comprehension':'🔍','Writing':'✏️'}[n]||'✦';
+}
+
+/* every milestone in a category, with the run of components it closes */
+function catMilestones(cat,ci){
+  const out=[];
+  cat.subs.forEach((sub,si)=>{
+    runs(sub).forEach(r=>{
+      if(r.m) out.push({m:r.m, comps:r.comps, sub:sub.name, ci, si, ii:sub.items.indexOf(r.m)});
+    });
+  });
+  return out;
+}
+/* components in a category that no milestone closes */
+function catOrphans(cat){
+  const out=[];
+  cat.subs.forEach(sub=>{ const rs=runs(sub); const last=rs[rs.length-1];
+    if(last && !last.m) out.push({sub:sub.name, n:last.comps.length}); });
+  return out;
+}
+function runProgress(comps){
+  const done=comps.filter(c=>c.status==='completed').length;
+  const doing=comps.filter(c=>c.status==='inprogress').length;
+  return {done, doing, total:comps.length, touched:done+doing};
+}
+function bucketize(items){
+  const done=[], now=[], todo=[];
+  items.forEach(x=>{
+    const p=runProgress(x.comps);
+    if(x.m.mastery==='mastered') done.push(x);
+    else if(x.m.mastery==='still' || x.m.today || (p.touched>0 && p.done<p.total)) now.push(x);
+    else todo.push(x);
+  });
+  // anything scheduled today floats to the top of In Progress
+  now.sort((a,b)=>(b.m.today?1:0)-(a.m.today?1:0));
+  return {done, now, todo};
+}
+
+function catHTML(cat,ci){
+  const items=catMilestones(cat,ci);
+  const b=bucketize(items);
+  const total=items.length, mastered=b.done.length;
+  const still=items.filter(x=>x.m.mastery==='still').length;
+  const notst=total-mastered-still;
+  const pct=total?Math.round(mastered/total*100):0;
+  const key=state.learner+'|'+state.course+'|'+ci;
+
+  return `<div class="cat">
+    <div class="cat-sum">
+      <span class="ico" style="background:${cat.color}">${catIcon(cat.name)}</span>
+      <span class="who">
+        <h3>${esc(cat.name)}</h3>
+        <div class="msub">${mastered} of ${total} milestones mastered</div>
+        <div class="pbar"><span class="track"><span class="fill" style="width:${pct}%;background:${cat.color}"></span></span>
+          <span class="pct">${pct}%</span></div>
+        <button class="viewall" onclick="expandCat('${key}')">View all milestones in ${esc(cat.name)} →</button>
+      </span>
+      <span class="tally">
+        <span class="t"><span class="mk-d mastered"><span>★</span></span><b>${mastered}</b> Mastered</span>
+        <span class="t"><span class="mk-d still"><span>—</span></span><b>${still}</b> Still Learning</span>
+        <span class="t"><span class="mk-d notstarted"><span>—</span></span><b>${notst}</b> Not Started</span>
+      </span>
+    </div>
+    ${bucketHTML('done','Completed','✓',b.done,ci,key)}
+    ${bucketHTML('now','In Progress','⧗',b.now,ci,key)}
+    ${bucketHTML('todo','To Do','○',b.todo,ci,key)}
+    ${catOrphans(cat).map(o=>`<div class="orphan">
+      <b>${o.n} more skills</b> in ${esc(o.sub)} come after its last milestone, so no mastery check closes them.</div>`).join('')}
+  </div>`;
+}
+
+function bucketHTML(kind,title,glyph,list,ci,catKey){
+  if(!list.length) return '';
+  const bkey=catKey+'|'+kind;
+  const shut=bucketShut(bkey);
+  const capped = kind==='todo' && !state.showAll[catKey];
+  const shown = capped ? list.slice(0,5) : list;
+  const hidden = list.length-shown.length;
+  return `<div class="bucket ${kind} ${shut?'shut':''}">
+    <button class="bk-head" onclick="shutBucket('${bkey}')">
+      <span class="bi">${glyph}</span>
+      <span><span class="bt">${title}</span><div class="bc">${list.length} milestone${list.length>1?'s':''}</div></span>
+      <span class="car">▼</span>
+    </button>
+    <div class="bk-body">
+      ${shown.map(x=>mrowHTML(x,kind)).join('')}
+      ${hidden>0?`<button class="morebtn" onclick="event.stopPropagation();showAll('${catKey}')">+ ${hidden} more milestone${hidden>1?'s':''}</button>`:''}
+    </div>
+  </div>`;
+}
+
+function mrowHTML(x,kind){
+  const m=x.m, p=runProgress(x.comps);
+  const rowKey=[state.learner,state.course,x.ci,x.si,x.ii].join('|');
+  const open=state.openSeg===rowKey;
+  const label = m.num?`Milestone ${m.num}: ${m.name}`:m.name;
+  const cap = kind==='todo' ? 18 : 26;
+  const nodes=x.comps.slice(0,cap).map(c=>
+    `<span class="node ${c.status}" title="${esc(c.name)} — ${LABEL[c.status]}">${c.status==='completed'?'✓':''}</span>`).join('')
+    + (x.comps.length>cap?`<span style="font-size:11px;color:#A79C90;margin-left:4px">+${x.comps.length-cap}</span>`:'');
+
+  const right = kind==='done'
+    ? `<span class="num">${p.total} skills<b>Mastered</b></span>`
+    : `<span class="num">${p.done} of ${p.total} skills<b>${MLABEL[m.mastery]}</b></span>`;
+
+  return `<div class="mrow-wrap">
+    <button class="mrow ${open?'open':''}" onclick="openSeg('${rowKey}')" aria-expanded="${open}">
+      <span class="mdia ${m.mastery}" onclick="event.stopPropagation();openMastery('${state.learner}','${state.course}',${x.ci},${x.si},${x.ii})"><span>${MGLYPH[m.mastery]}</span></span>
+      <span>
+        <span class="mname">${esc(label)}</span>
+        <div class="msubcat">${esc(x.sub)}</div>
+        ${m.today?'<span class="todaychip">Scheduled for today</span>':''}
+        <span class="nodes">${nodes}</span>
+      </span>
+      <span class="rt">${right}<span class="chev">${open?'▲':'▶'}</span></span>
+    </button>
+    ${open?drillHTML(x,kind):''}
+  </div>`;
+}
+
+function drillHTML(x,kind){
+  const m=x.m;
+  return `<div class="drill">
+    <div class="dh">SKILLS THAT BUILD TO THIS MILESTONE — IN COURSE ORDER</div>
+    <ol>${x.comps.map((c,i)=>`<li><span class="num">${i+1}</span>
+      <span class="mk-c ${c.status}">${c.status==='completed'?'✓':''}</span>
+      <span class="cname">${esc(c.name)}</span>
+      <span class="cstat">${LABEL[c.status]}</span></li>`).join('')}
+    </ol>
+    <div class="drill-foot">
+      <div class="dnote">Mastery on “${esc(m.name)}” is set by you after the offline assessment. It does not follow component completion.${m.by?` Currently <b>${MLABEL[m.mastery]}</b>, set by ${esc(m.by)} on ${esc(m.at)}.`:''}</div>
+      <button class="act ${kind==='done'?'':'warm'}" onclick="event.stopPropagation();openMastery('${state.learner}','${state.course}',${x.ci},${x.si},${x.ii})">
+        ${m.by?'Change mastery level':'Record mastery level'}</button>
+    </div>
+  </div>`;
+}
+
+function dashHTML(){
+  const prompts=todayMilestones().filter(x=>x.m.mastery==='notstarted');
+  const n=reviewCount();
+  return `<div class="dash-grid"><div>
+    <div class="wcard" style="margin-bottom:22px">
+      <h3>Today's milestones</h3>
+      <p class="sub">Run the online activity, assess offline, then record where they landed.</p>
+      ${prompts.length?prompts.map(p=>`<div class="prompt">
+        <div class="tag">Milestone scheduled today</div>
+        <h4>${esc(p.m.name)}</h4>
+        <div class="who">${esc(p.l.name)} · ${esc(p.c.tag)} · ${esc(p.cat.name)} → ${esc(p.sub.name)}</div>
+        <ol><li>Have ${esc(p.l.name)} work through the online milestone activity.</li>
+        <li>Print the offline assessment PDF and deliver it yourself.</li>
+        <li>Record the mastery level here or on the skill progression.</li></ol>
+        <button class="btn-teal" onclick="openMasteryRef('${p.lid}','${p.cid}',${p.m.num})">Record mastery level</button>
+      </div>`).join('')
+      :`<div class="empty">Nothing left to record today. Every milestone scheduled for Aug 24, 2026 has a mastery level.</div>`}
+    </div>
+    <div class="wcard">
+      <h3>Skills complete by course</h3>
+      <p class="sub">Select a learner to open their full skill progression.</p>
+      ${Object.entries(DATA).map(([id,l])=>{
+        const bars=Object.entries(l.courses).map(([cid,c])=>{
+          const t=courseStats(c), pct=Math.round(t.cd/t.comps*100);
+          return `<div class="bar"><span style="width:88px">${esc(c.label)}</span>
+            <span class="track"><span class="fill ${cid==='ela'?'ela':''}" style="width:${pct}%"></span></span>
+            <span class="cnt">${t.cd} of ${t.comps}</span></div>`;}).join('');
+        return `<button class="lcard" onclick="goLearner('${id}')">
+          <span class="dot" style="background:${l.color};width:40px;height:40px;flex:0 0 40px;font-size:15px">${l.name[0]}</span>
+          <span><span class="nm">${esc(l.name)}</span><br><span class="meta">${esc(l.grade)}</span></span>
+          <span class="bars" style="margin-left:auto">${bars}</span></button>`;}).join('')}
+    </div></div>
+    <div><div class="counter"><div class="n">${n}</div>
+      <div class="t">${n===1?'Milestone':'Milestones'} to Review</div>
+      <div class="h">Across every learner in the household, scheduled today and not yet Mastered.</div></div></div>
+  </div>`;
+}
+
+/* ============ mastery modal ============ */
+function openMastery(lid,cid,ci,si,ii){
+  const m=DATA[lid].courses[cid].cats[ci].subs[si].items[ii];
+  showModal(lid,cid,m,DATA[lid].courses[cid].cats[ci].name,DATA[lid].courses[cid].cats[ci].subs[si].name);
+}
+function openMasteryRef(lid,cid,num){
+  const c=DATA[lid].courses[cid];
+  for(const cat of c.cats) for(const s of cat.subs) for(const it of s.items)
+    if(it.type==='m'&&it.num===num) return showModal(lid,cid,it,cat.name,s.name);
+}
+function showModal(lid,cid,m,catName,subName){
+  state.editing={m};
+  const opt=(v,t,d)=>`<button class="opt ${m.mastery===v?'sel':''}" onclick="setMastery('${v}')">
+    <span class="mk-d ${v}"><span>${MGLYPH[v]}</span></span>
+    <span><span class="t">${t}</span><span class="d">${d}</span></span></button>`;
+  document.getElementById('scrim').innerHTML=`<div class="modal" role="dialog" aria-modal="true">
+    <div class="eb">Record mastery level</div>
+    <h3>${esc(m.name)}</h3>
+    <div class="ctx">${esc(DATA[lid].name)} · ${esc(DATA[lid].courses[cid].tag)} · ${esc(catName)} → ${esc(subName)}</div>
+    ${opt('notstarted','Not Started',"You haven't assessed this milestone yet.")}
+    ${opt('still','Still Learning',"They're getting there and need more practice.")}
+    ${opt('mastered','Mastered','They can do this on their own, consistently.')}
+    <div class="attrib">${m.by?`Last set to <b>${MLABEL[m.mastery]}</b> by ${esc(m.by)} on ${esc(m.at)}.`
+      :`No level recorded yet. Whatever you choose is saved with your name and the time you set it.`}</div>
+    <div class="mfoot"><button class="btn-ghost" onclick="closeModal()">Cancel</button></div></div>`;
+  document.getElementById('scrim').hidden=false;
+}
+function setMastery(v){
+  const m=state.editing.m;
+  m.mastery=v; m.by=USER; m.at='Aug 24, 2026, 2:14 PM';
+  closeModal(); render(); toast(`Saved as ${MLABEL[v]} · ${USER}`);
+}
+function closeModal(){document.getElementById('scrim').hidden=true;state.editing=null;}
+
+/* ============ nav ============ */
+function goDash(){state.view='dash';render();scrollTo(0,0);}
+function goLearner(id){state.view='learner';state.learner=id;state.course=Object.keys(DATA[id].courses)[0];state.openSeg=null;render();scrollTo(0,0);}
+function setCourse(c){state.course=c;state.openSeg=null;render();}
+function setSnap(s){state.snap=s;render();}
+function bucketShut(k){ return (k in state.shutBuckets) ? state.shutBuckets[k] : k.endsWith('|done'); }
+function shutBucket(k){state.shutBuckets[k]=!bucketShut(k);render();}
+function showAll(k){state.showAll[k]=true;render();}
+function expandCat(k){
+  state.showAll[k]=true;
+  ['done','now','todo'].forEach(b=>state.shutBuckets[k+'|'+b]=false);
+  render();
+}
+function openSeg(k){state.openSeg=state.openSeg===k?null:k;render();}
+function oos(n){toast(`${n} is outside this PRD — shown for layout only.`);}
+let tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2600);}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+render();
+</script>
