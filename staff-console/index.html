@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StrongMind Staff Console — clickable prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F1;
+  --card:#FFFFFF;
+  --ink:#22201E;
+  --ink-2:#4A4643;
+  --muted:#7C756D;
+  --line:#E8E1D7;
+  --line-soft:#F1EBE2;
+  --purple:#6D4AA7;
+  --purple-ink:#513480;
+  --purple-soft:#F2EDF9;
+  --teal:#1E7D8C;
+  --coral:#D9583A;
+  --amber:#EFAF23;
+  --green:#2C7A57;
+  --green-soft:#EAF3EE;
+  --red-soft:#FBECE8;
+  --rail:#241F1C;
+  --rail-2:#332C27;
+  --rail-text:#EDE6DC;
+  --rail-muted:#A39A90;
+  --gap:#A25E13;
+  --gap-soft:#FBF0DF;
+  --slate:#2E3440;
+  --field:#F1EFF6;
+  --field-line:#E2DEEC;
+  --r-card:14px;
+  --r-pill:999px;
+  --shadow:0 1px 2px rgba(34,32,30,.05), 0 8px 24px -16px rgba(34,32,30,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:Outfit,-apple-system,Segoe UI,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+.mono,code{font-family:"IBM Plex Mono",ui-monospace,monospace}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:var(--purple);text-decoration:none}
+:focus-visible{outline:2px solid var(--purple);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ============ sign-in ============ */
+.signin{min-height:100vh;background:var(--paper);display:flex;justify-content:center;padding:0 24px}
+.signin-col{width:100%;max-width:452px;padding:64px 0 48px;text-align:center}
+.logo-stack{display:grid;justify-items:center;gap:6px;margin-bottom:26px}
+.logo-stack svg{width:38px;height:38px}
+.wordmark{font-size:29px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.wordmark .s{color:var(--purple)}
+.wordmark .m{color:#F0A81F}
+.wordmark sup{font-size:9px;font-weight:500;color:var(--muted);vertical-align:super;margin-left:1px}
+.signin-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:34px 30px 30px}
+.signin h1{font-size:30px;font-weight:700;color:var(--ink);letter-spacing:-.03em;margin:0 0 26px}
+.pill-field{position:relative;margin-bottom:9px}
+.signin .pill-field input{
+  width:100%;background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-pill);
+  padding:15px 20px 15px 48px;font-size:15px;color:var(--ink);transition:border-color .12s,background .12s;
+}
+.signin .pill-field input::placeholder{color:#9E958B}
+.signin .pill-field input:focus{outline:none;border-color:var(--purple);background:var(--card)}
+.pill-field .fi{position:absolute;left:19px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted);pointer-events:none}
+.mini-link{display:block;text-align:right;font-size:13px;color:var(--purple);margin:0 6px 20px 0}
+.mini-link:hover{text-decoration:underline}
+.row-between{display:flex;align-items:center;justify-content:space-between;margin:14px 6px 24px}
+.remember{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2)}
+.remember .box{width:17px;height:17px;border:1.5px solid #CFC5B7;border-radius:5px;background:var(--card);display:grid;place-items:center}
+.remember .box svg{width:11px;height:11px;opacity:0;color:#fff}
+.remember[aria-pressed=true] .box{background:var(--purple);border-color:var(--purple)}
+.remember[aria-pressed=true] .box svg{opacity:1}
+.pill-btn{width:100%;border-radius:var(--r-pill);padding:14px 20px;font-size:15px;font-weight:600;transition:filter .12s,background .12s}
+.pill-btn-primary{background:var(--purple);color:#fff;margin-bottom:11px}
+.pill-btn-primary:hover{filter:brightness(1.08)}
+.pill-btn-secondary{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.pill-btn-secondary:hover{background:var(--line-soft)}
+.or{font-size:13px;font-weight:500;color:var(--muted);margin:24px 0 12px}
+.bolt-door{
+  position:relative;width:54px;height:54px;border-radius:50%;display:inline-grid;place-items:center;
+  transition:background .14s;border:1.5px solid transparent
+}
+.bolt-door:hover{background:var(--paper);border-color:var(--line)}
+.bolt-door svg{width:28px;height:28px}
+.bolt-door .tip{
+  position:absolute;top:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  background:var(--ink);color:#fff;font-size:12px;padding:5px 10px;border-radius:7px;
+  opacity:0;pointer-events:none;transition:opacity .12s
+}
+.bolt-door:hover .tip,.bolt-door:focus-visible .tip{opacity:1}
+.signin-foot{font-size:12.5px;color:var(--muted);margin-top:26px}
+.signin-foot a{color:var(--muted);text-decoration:underline}
+.hint-msg{font-size:13px;color:var(--gap);background:var(--gap-soft);border:1px solid #EBD6AE;border-radius:10px;padding:11px 14px;margin-bottom:18px;text-align:left}
+.path{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--ink-2);margin-bottom:18px;overflow-x:auto;white-space:nowrap}
+.disclose{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--paper)}
+.disclose ul{margin:8px 0 0;padding-left:20px;font-size:13.5px;color:var(--ink-2)}
+.disclose li{margin-bottom:5px}
+
+/* ============ shell ============ */
+.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.rail{background:var(--rail);color:var(--rail-text);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.rail-top{padding:20px 18px 14px}
+.mark{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:-.02em;color:var(--rail-text)}
+.mark svg{width:24px;height:24px;flex:none}
+.staff-tag{display:inline-block;margin-top:12px;font-size:10.5px;font-weight:600;letter-spacing:.11em;color:#F0C87A;border:1px solid #5B4A2E;background:#3A2F1D;border-radius:5px;padding:3px 7px}
+nav{padding:16px 10px;flex:1;overflow-y:auto;border-top:1px solid var(--rail-2)}
+.nav-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 10px;border-radius:9px;color:#D8D0C6;font-size:14px;transition:background .12s,color .12s}
+.nav-item:hover{background:var(--rail-2);color:#fff}
+.nav-item[aria-current=page]{background:#3D342D;color:#fff;font-weight:600}
+.nav-item svg{width:17px;height:17px;flex:none;opacity:.85}
+.nav-item .count{margin-left:auto;font-size:11.5px;font-family:"IBM Plex Mono",monospace;background:#4A3F36;color:#E4DACB;border-radius:5px;padding:1px 6px}
+.nav-item .count.hot{background:#5C2E1E;color:#FFC7B2}
+.rail-foot{border-top:1px solid var(--rail-2);padding:14px;display:grid;gap:12px}
+.who-row{display:flex;gap:11px;align-items:center}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:13.5px;flex:none}
+.who-row .nm{font-weight:600;font-size:14px;line-height:1.2}
+.who-row .rl{font-size:11.5px;color:var(--rail-muted)}
+.signout{margin-left:auto;font-size:12.5px;color:#BFB5A9;border:1px solid var(--rail-2);border-radius:8px;padding:5px 10px}
+.signout:hover{background:var(--rail-2);color:#fff}
+.toggle{display:flex;align-items:center;gap:9px;font-size:12.5px;color:#CFC6BB;padding:4px;width:100%;text-align:left}
+.sw{width:34px;height:19px;border-radius:999px;background:#4A4038;position:relative;flex:none;transition:background .15s}
+.sw::after{content:"";position:absolute;top:2.5px;left:2.5px;width:14px;height:14px;border-radius:50%;background:#B9AFA3;transition:transform .15s,background .15s}
+.toggle[aria-pressed=true] .sw{background:#8A5A18}
+.toggle[aria-pressed=true] .sw::after{transform:translateX(15px);background:#FFD79A}
+
+main{min-width:0;display:flex;flex-direction:column}
+.topbar{background:var(--card);border-bottom:1px solid var(--line);padding:14px 30px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:5}
+.crumb{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--muted);min-width:0}
+.crumb a,.crumb button{color:var(--purple);font-weight:500}
+.crumb .sep{color:#C9BFB1}
+.crumb .now{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;color:var(--ink-2);flex:none}
+.back:hover{background:var(--line-soft)}
+.env{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--gap);background:var(--gap-soft);border:1px solid #EBD6AE;border-radius:6px;padding:4px 8px;flex:none}
+.page{padding:26px 30px 70px;max-width:1180px;width:100%}
+.page-head{margin-bottom:20px}
+.page-head h1{font-size:29px;letter-spacing:-.025em;margin:0 0 5px}
+.page-head p{color:var(--muted);margin:0;max-width:64ch}
+
+/* ============ primitives ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);box-shadow:var(--shadow)}
+.card-pad{padding:18px 20px}
+.card-head{padding:15px 20px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.card-head h2{font-size:16px;margin:0;letter-spacing:-.01em}
+.card-head .hint{font-size:12.5px;color:var(--muted)}
+.card-head .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.split{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.stack{display:grid;gap:16px}
+@media(max-width:1050px){.split{grid-template-columns:1fr}}
+
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.07em;color:#8A8177;background:var(--paper);padding:10px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--line-soft);vertical-align:middle;font-size:14px}
+tbody tr:last-child td{border-bottom:0}
+tr.row:hover{background:#FCFAF6;cursor:pointer}
+.rowlink{font-weight:600;color:var(--ink);display:inline-block}
+.rowlink:hover{color:var(--purple);text-decoration:underline}
+.t-sub{font-size:12.5px;color:var(--muted)}
+.num{font-family:"IBM Plex Mono",monospace;font-size:13px}
+.em{font-weight:600}
+
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:var(--r-pill);padding:3px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill .bud{width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill-active{background:var(--green-soft);color:#1F6244}
+.pill-off{background:var(--red-soft);color:#A63B21}
+.pill-paused{background:#FDF3DC;color:#8A5A0B}
+.pill-trial{background:var(--purple-soft);color:var(--purple-ink)}
+.pill-flat{background:var(--line-soft);color:var(--ink-2)}
+.pill-read{background:#EAF1F3;color:#14606D}
+.pill-match{background:var(--purple-soft);color:var(--purple-ink);font-weight:500;font-size:11px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r-pill);padding:10px 18px;font-weight:600;font-size:14.5px;transition:filter .12s,background .12s}
+.btn:hover{filter:brightness(1.06)}
+.btn-primary{background:var(--purple);color:#fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink-2);border:1.5px solid var(--line)}
+.btn-ghost:hover{background:var(--line-soft);filter:none}
+.btn-danger{background:var(--coral);color:#fff}
+.btn-sm{padding:7px 14px;font-size:13.5px}
+.btn-full{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+
+.field{display:block;margin-bottom:14px}
+.field .lb{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.field .help{font-size:12.5px;color:var(--muted);margin-top:6px}
+input[type=text],input[type=search],textarea,select{
+  width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;transition:border-color .12s
+}
+input:focus,textarea:focus,select:focus{border-color:var(--purple);outline:none}
+textarea{resize:vertical;min-height:76px}
+.searchbar{position:relative;flex:1;min-width:230px}
+.searchbar svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+.searchbar input{padding-left:37px;border-radius:var(--r-pill)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);border-radius:var(--r-pill);padding:6px 13px;font-size:13px;color:var(--ink-2);font-weight:500}
+.chip:hover{background:var(--line-soft)}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.result-bar{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--line-soft);font-size:13px;color:var(--muted)}
+.result-bar button{color:var(--purple);font-weight:500;font-size:13px}
+
+.kv{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;font-size:14px;margin:0}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-weight:500}
+.empty{padding:44px 24px;text-align:center}
+.empty h3{margin:0 0 6px;font-size:17px}
+.empty p{margin:0 auto 16px;color:var(--muted);max-width:48ch;font-size:14px}
+.note{border-left:3px solid var(--purple);background:var(--purple-soft);padding:12px 15px;border-radius:0 10px 10px 0;font-size:13.5px;color:var(--purple-ink)}
+.note.warn{border-color:var(--gap);background:var(--gap-soft);color:#7A4A10}
+.note.read{border-color:var(--teal);background:#EAF1F3;color:#14606D}
+.worm{font-size:12px;color:var(--muted);display:flex;gap:7px;align-items:center}
+
+.ctx{display:flex;align-items:center;gap:12px;background:var(--purple-soft);border:1px solid #DFD2F0;border-radius:12px;padding:11px 15px;margin-bottom:18px;font-size:13.5px;color:var(--purple-ink);flex-wrap:wrap}
+.ctx .x{margin-left:auto;color:var(--purple-ink);opacity:.6;font-size:13px;padding:2px 6px}
+.ctx .x:hover{opacity:1;text-decoration:underline}
+
+.fold-head{display:flex;align-items:center;gap:9px;width:100%;text-align:left;font-size:14px;font-weight:600;padding:14px 20px}
+.fold-head .chev{margin-left:auto;transition:transform .15s;color:var(--muted)}
+.fold-head[aria-expanded=true] .chev{transform:rotate(90deg)}
+.fold-body{padding:0 20px 18px}
+.locked{display:flex;align-items:center;gap:8px;background:var(--line-soft);color:var(--ink-2);border-radius:var(--r-pill);padding:6px 12px;font-size:13px}
+
+.plan-panel{border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:15px 17px;margin-top:12px}
+.plan-panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.plan-link{font-weight:600;color:var(--purple);text-align:left}
+.plan-link:hover{text-decoration:underline}
+
+.pausecard{border:1px solid #EBDCBC;background:#FFFCF4;border-radius:12px;padding:14px 16px}
+.pausecard + .pausecard{margin-top:10px}
+
+.audit-row{display:grid;grid-template-columns:78px 1fr;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line-soft)}
+.audit-row:last-child{border-bottom:0}
+.audit-row .when{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);padding-top:2px}
+.audit-row .meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+.audit-row .reason{font-size:13px;color:var(--ink-2);margin-top:6px;border-left:2px solid var(--line);padding-left:10px}
+
+.tick{display:flex;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line-soft);align-items:flex-start}
+.tick:last-child{border-bottom:0}
+.tick .sub{font-weight:600;font-size:14.5px}
+.tick .body{font-size:13.5px;color:var(--ink-2);margin-top:3px;max-width:70ch}
+.tick .from{font-size:12.5px;color:var(--muted);margin-top:6px}
+.tick .act{margin-left:auto;flex:none;display:grid;gap:7px;justify-items:end}
+
+/* ============ backstage ============ */
+.seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:var(--r-pill);padding:4px;gap:2px;margin-bottom:20px;flex-wrap:wrap}
+.seg button{border-radius:var(--r-pill);padding:8px 15px;font-size:13.5px;font-weight:500;color:var(--ink-2)}
+.seg button:hover{background:var(--line-soft)}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff;font-weight:600}
+.seg .n{font-family:"IBM Plex Mono",monospace;font-size:11px;opacity:.7;margin-left:5px}
+.sbadge{display:inline-flex;gap:5px;align-items:center;background:#EAF1F3;color:#14606D;border-radius:6px;padding:2px 8px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.fbadge{display:inline-flex;gap:5px;align-items:center;background:#FDF3DC;color:#8A5A0B;border-radius:6px;padding:2px 8px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.post{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff}
+.post + .post{margin-top:12px}
+.post.pinned{border-color:#E2D2AB;background:#FFFDF7}
+.post h3{font-size:16px;margin:0 0 6px;letter-spacing:-.01em}
+.post .byline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.post .body{font-size:14px;color:var(--ink-2)}
+.post .foot{display:flex;align-items:center;gap:14px;margin-top:12px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.post .foot .acts{margin-left:auto;display:flex;gap:7px}
+.achip{display:inline-flex;align-items:center;gap:6px;background:var(--purple-soft);color:var(--purple-ink);border-radius:7px;padding:4px 9px;font-size:12px;font-weight:500}
+.achip button{color:var(--purple-ink);opacity:.6;font-size:13px;line-height:1}
+.achip button:hover{opacity:1}
+.attach-row{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.attach-btn{border:1.5px solid var(--line);border-radius:var(--r-pill);padding:6px 12px;font-size:12.5px;font-weight:500;color:var(--ink-2)}
+.attach-btn:hover{background:var(--line-soft)}
+.inline-err{font-size:12.5px;color:#A63B21;background:var(--red-soft);border-radius:8px;padding:8px 11px;margin-top:8px}
+.opt{margin-bottom:12px}
+.opt .top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+.opt .top .pc{font-family:"IBM Plex Mono",monospace;color:var(--muted)}
+.bar{height:8px;background:var(--line-soft);border-radius:999px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--purple);border-radius:999px}
+.flagcard{border:1px solid #EBC9BE;background:#FFFAF8;border-radius:12px;padding:15px 17px}
+.flagcard + .flagcard{margin-top:12px}
+.flagcard .excerpt{font-size:13.5px;color:var(--ink-2);border-left:2px solid #E3B6A6;padding-left:11px;margin:10px 0}
+
+/* ============ gap annotation ============ */
+.gap{position:relative}
+body.gaps-on .gap{box-shadow:inset 0 -2px 0 0 var(--amber)}
+body.gaps-on td.gap,body.gaps-on th.gap{background:#FDF8EE}
+body.gaps-on .gap-block{outline:1.5px dashed var(--gap);outline-offset:3px;border-radius:8px}
+.gap-tag{display:none}
+body.gaps-on .gap-tag{
+  display:inline-flex;align-items:center;gap:5px;font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;color:var(--gap);background:var(--gap-soft);border:1px solid #E9D3AC;
+  border-radius:5px;padding:1px 6px;vertical-align:middle;margin-left:7px;font-weight:500
+}
+.legend{display:none}
+body.gaps-on .legend{display:block}
+
+/* ============ modal ============ */
+.scrim{position:fixed;inset:0;background:rgba(30,26,22,.5);display:grid;place-items:center;padding:24px;z-index:40}
+.modal{background:var(--card);border-radius:18px;width:100%;max-width:548px;max-height:88vh;overflow-y:auto;box-shadow:0 40px 90px -30px rgba(0,0,0,.5)}
+.modal-head{padding:22px 24px 0}
+.modal-head h2{font-size:21px;letter-spacing:-.02em;margin:0 0 8px}
+.modal-head p{margin:0;color:var(--ink-2);font-size:14px}
+.modal-body{padding:20px 24px 4px}
+.modal-foot{padding:16px 24px 22px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.ack{display:flex;gap:11px;align-items:flex-start;border:1.5px solid #E4C9A6;background:var(--gap-soft);border-radius:12px;padding:14px 15px;margin-bottom:16px;font-size:13.5px;color:#6E430D;text-align:left;width:100%}
+.ack[aria-pressed=true]{border-color:var(--gap);background:#F7E6C9}
+.ack .box{width:18px;height:18px;border:1.5px solid #B08A55;border-radius:5px;flex:none;margin-top:1px;display:grid;place-items:center;background:#fff}
+.ack[aria-pressed=true] .box{background:var(--gap);border-color:var(--gap);color:#fff}
+.ack .box svg{width:12px;height:12px;opacity:0}
+.ack[aria-pressed=true] .box svg{opacity:1}
+
+.toasts{position:fixed;bottom:22px;right:22px;display:grid;gap:10px;z-index:60}
+.toast{background:var(--ink);color:#fff;border-radius:12px;padding:13px 17px;font-size:14px;box-shadow:0 18px 40px -16px rgba(0,0,0,.5);max-width:370px;display:flex;gap:10px}
+.toast .tk{font-weight:600}
+.toast svg{width:17px;height:17px;flex:none;margin-top:2px}
+
+@media(max-width:860px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:static;height:auto}
+  .page{padding:20px 16px 60px}
+  .topbar{padding:12px 16px}
+  .tick{flex-wrap:wrap}.tick .act{margin-left:0;justify-items:start}
+  .signin-col{padding-top:52px}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<div class="toasts" id="toasts"></div>
+<div id="modal-root"></div>
+
+<script>
+/* ============================================================
+   Icons
+============================================================ */
+const I = {
+  bolt:'<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 2 4.5 13.2h5.2L9 22l8.7-11.6h-5.2L13 2z" fill="#EFAF23"/><path d="M3 5h3M2 8.5h4" stroke="#EFAF23" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M2.8 20c0-3.4 2.8-5.6 6.2-5.6s6.2 2.2 6.2 5.6"/><path d="M16.5 5.6a3 3 0 0 1 0 5.6M18 14.6c2 .7 3.3 2.3 3.3 4.4"/></svg>',
+  pause:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.4"/><path d="M10 9.2v5.6M14 9.2v5.6"/></svg>',
+  audit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3.2h8.5L19 7.8V20.8H6z"/><path d="M9 11h7M9 15h7M9 7h3"/></svg>',
+  ticket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.2 8.2A2 2 0 0 1 5.2 6h13.6a2 2 0 0 1 2 2.2 2 2 0 0 0 0 3.9 2 2 0 0 1-2 2.2H5.2a2 2 0 0 1-2-2.2 2 2 0 0 0 0-3.9z"/><path d="M9.6 6v9.2"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10.5" cy="10.5" r="6.4"/><path d="M15.4 15.4 20 20"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" width="15" height="15"><path d="M11 6l-5 6 5 6M6.5 12H19"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12.6l4.4 4.4L19 7.4"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="14" height="14"><rect x="5" y="10.4" width="14" height="9.6" rx="2.2"/><path d="M8.4 10.4V8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>',
+  lockField:'<svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="10.4" width="14" height="9.6" rx="2.4"/><path d="M8.4 10.4V8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>',
+  personField:'<svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8.4" r="3.6"/><path d="M4.8 20c0-3.7 3.2-6 7.2-6s7.2 2.3 7.2 6"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" width="15" height="15"><path d="M5 12h13M13 6.5l5.5 5.5L13 17.5"/></svg>',
+  stage:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.4 9.2h17.2v10.4H3.4z"/><path d="M6.8 9.2 12 4l5.2 5.2M8.6 19.6v-4.2h6.8v4.2"/></svg>',
+  chev:'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M9 5.5l6.5 6.5L9 18.5"/></svg>'
+};
+
+/* ============================================================
+   Seed data
+============================================================ */
+const SEED_USERS = [
+  {id:'u_8841', email:'danny.thompson@gmail.com', provider:'google', profiles:3, onboarded:true, created:'2025-08-02', trial:null, status:'active', org:'o_4417'},
+  {id:'u_8802', email:'a.okonkwo@outlook.com', provider:'password', profiles:1, onboarded:true, created:'2025-06-19', trial:null, status:'active', org:'o_3902'},
+  {id:'u_8790', email:'britt.halvorsen@icloud.com', provider:'apple', profiles:2, onboarded:true, created:'2025-04-27', trial:null, status:'active', org:'o_5120'},
+  {id:'u_8776', email:'lvasquez.home@gmail.com', provider:'google', profiles:4, onboarded:true, created:'2025-01-14', trial:null, status:'deactivated', org:'o_2288'},
+  {id:'u_8903', email:'nguyen.family22@gmail.com', provider:'google', profiles:2, onboarded:false, created:'2026-08-28', trial:{ends:'2026-09-09'}, status:'active', org:'o_6003'},
+  {id:'u_8712', email:'d.thompson.work@gmail.com', provider:'password', profiles:0, onboarded:false, created:'2025-07-30', trial:null, status:'deactivated', org:'o_4417'},
+  {id:'u_8858', email:'mercer.kids@yahoo.com', provider:'password', profiles:2, onboarded:true, created:'2025-11-03', trial:null, status:'active', org:'o_5566'}
+];
+
+const SEED_ORGS = [
+  {id:'o_4417', founding:true, guidelines:"2026-08-28", bsRemoved:false, bsActivity:{posts:3, replies:11, votes:2}, name:'Thompson household', status:'active', plan:'hs_comp_m', seats:3, owner:'u_8841', parentPause:null, learners:['Michelle (K)','Stephanie (Gr 4)','DJ (Gr 7)'], since:'2025-08-02'},
+  {id:'o_3902', founding:true, guidelines:"2026-08-29", bsRemoved:false, bsActivity:{posts:1, replies:4, votes:1}, name:'Okonkwo household', status:'active', plan:'hs_core_m', seats:1, owner:'u_8802', parentPause:null, learners:['Chidi (Gr 2)'], since:'2025-06-19'},
+  {id:'o_5120', founding:true, guidelines:"2026-08-28", bsRemoved:false, bsActivity:{posts:2, replies:9, votes:2}, name:'Halvorsen household', status:'active', plan:'hs_comp_y', seats:2, owner:'u_8790', parentPause:{id:'p_2214', requested:'2026-08-24', reason:'Family requested pause through Sept'}, learners:['Ingrid (Gr 6)','Soren (Gr 3)'], since:'2025-04-27'},
+  {id:'o_2288', founding:false, name:'Vasquez household', status:'deactivated', plan:'hs_comp_m', seats:4, owner:'u_8776', parentPause:null, learners:['4 learners'], since:'2025-01-14'},
+  {id:'o_6003', founding:false, name:'Nguyen household', status:'active', plan:'hs_launch_m', seats:2, owner:'u_8903', parentPause:null, learners:['Bao (Gr 1)','Linh (Gr 5)'], since:'2026-08-28'},
+  {id:'o_5566', founding:true, guidelines:null, bsRemoved:false, bsActivity:{posts:1, replies:2, votes:1}, name:'Mercer household', status:'active', plan:'hs_core_m', seats:2, owner:'u_8858', parentPause:{id:'p_2231', requested:'2026-09-01', reason:'Card on file expired, parent paused billing'}, learners:['Ada (Gr 8)','Nate (Gr 4)'], since:'2025-11-03'}
+];
+
+const SEED_PAUSES = [
+  {id:'p_2198', org:'o_5566', requested:'2026-08-12', days:22, stage:'awaiting_final_invoice', detail:'Final invoice job returned a 502 twice; pause never advanced past manual review.'},
+  {id:'p_2205', org:'o_3902', requested:'2026-08-20', days:14, stage:'payment_method_declined', detail:'Refund of the unused seat could not settle — card on file was declined.'},
+  {id:'p_2214', org:'o_5120', requested:'2026-08-24', days:10, stage:'awaiting_final_invoice', detail:'Waiting on proration for a mid-cycle seat removal.'}
+];
+
+const SEED_PLANS = [
+  {code:'hs_core_m', name:'Homeschool Core', cadence:'monthly', price:'$59.00', seats:'1 learner included', state:'active'},
+  {code:'hs_core_y', name:'Homeschool Core', cadence:'annual', price:'$590.00', seats:'1 learner included', state:'active'},
+  {code:'hs_comp_m', name:'Homeschool Complete', cadence:'monthly', price:'$89.00', seats:'up to 3 learners', state:'active'},
+  {code:'hs_comp_y', name:'Homeschool Complete', cadence:'annual', price:'$890.00', seats:'up to 3 learners', state:'active'},
+  {code:'hs_seat_m', name:'Additional learner seat', cadence:'monthly', price:'$19.00', seats:'per learner', state:'active'},
+  {code:'hs_launch_m', name:'Homeschool Launch (legacy)', cadence:'monthly', price:'$39.00', seats:'1 learner included', state:'archived'}
+];
+
+const SEED_TICKETS = [
+  {id:'SM-1042', subject:'Charged twice for August', email:'danny.thompson@gmail.com', body:'We were billed on the 2nd and again on the 14th. Can you check what happened and refund the second one?', from:'Danny T.', age:'2h', kind:'Billing'},
+  {id:'SM-1038', subject:'Why is our account frozen?', email:'britt.halvorsen@icloud.com', body:'We paused billing through September like your team suggested, but now nobody can log in at all. The kids are mid-unit.', from:'Britt H.', age:'5h', kind:'Account'},
+  {id:'SM-1033', subject:'Cancelling — still being charged', email:'mercer.kids@yahoo.com', body:'I cancelled three weeks ago and the account still shows open. I do not want another invoice.', from:'Renata M.', age:'1d', kind:'Billing'},
+  {id:'SM-1031', subject:'Cannot get into our account', email:'k.whitfield.hs@gmail.com', body:'My wife set this up and I have never been able to log in with my own email. Can you look me up?', from:'Ken W.', age:'1d', kind:'Account'},
+  {id:'SM-1029', subject:'Which plan are we actually on?', email:'a.okonkwo@outlook.com', body:'The site says Core but I thought we upgraded last spring. What does my account say on your end?', from:'Amara O.', age:'2d', kind:'Billing'}
+];
+
+const STAFF = {label:'Support & Operations', person:{name:'Priya Raman', initials:'PR', color:'#6D4AA7'}};
+
+/* Backstage — Founding-Member-only space. Staff author here through the Platform
+   Admin Account (R-22), a different identity from the account-lookup work above. */
+const SEED_BS_POSTS = [
+  {id:'bs_31', author:'Erin Dow', role:'Product Manager', when:'2026-08-28', pinned:true, pinOrder:2,
+   title:'Welcome, Founding Members', reactions:14, replies:6, attach:[],
+   body:'You are the first fifty families on the platform. This space is where we show you what we are building before it ships, and where we ask you what to build next. Everything here is a draft until you tell us otherwise.'},
+  {id:'bs_29', author:'Erin Dow', role:'Product Manager', when:'2026-08-24', pinned:false, pinOrder:0,
+   title:'Offline mode is coming to the lesson player', reactions:22, replies:11,
+   attach:[{t:'video', label:'offline-walkthrough.mp4'}],
+   body:'Lessons will download for a week at a time and sync evidence uploads when you reconnect. Targeting late October. The open question we need your read on: how many weeks ahead is actually useful?'},
+  {id:'bs_27', author:'Michelle Vilavanh', role:'UX Lead', when:'2026-08-15', pinned:false, pinOrder:0,
+   title:'Planner redesign — what changed and why', reactions:9, replies:4,
+   attach:[{t:'link', label:'figma.com/file/planner-v2'}],
+   body:'The week view now leads with what is unfinished rather than what is scheduled. This came almost entirely out of the feedback prompt on daily barriers.'}
+];
+
+const SEED_BS_POLLS = [
+  {id:'bs_poll_7', q:'Which should we build next in the Planner?', opens:'2026-08-26', closes:'2026-09-12',
+   state:'open', pinned:true, pinOrder:1,
+   options:[{l:'Drag-and-drop rescheduling', v:19},{l:'Printable weekly plan', v:11},{l:'Auto-shift missed lessons', v:26}]},
+  {id:'bs_poll_5', q:'How do you prefer to record milestone mastery?', opens:'2026-07-01', closes:'2026-07-30',
+   state:'closed', pinned:false, pinOrder:0,
+   options:[{l:'A short note', v:8},{l:'A four-level scale', v:31},{l:'Photo or file evidence only', v:6}]}
+];
+
+const SEED_BS_PROMPTS = [
+  {id:'bs_fb_4', q:'What is the biggest barrier to getting daily lessons done?', posted:'2026-08-27',
+   responses:[
+     {who:'Britt H.', org:'o_5120', text:'Mornings. If a lesson gets missed on Monday the whole week slides and I end up rebuilding the plan by hand.'},
+     {who:'Danny T.', org:'o_4417', text:'Three learners at three grade levels. I can only sit with one at a time and the other two stall out waiting.'},
+     {who:'Renata M.', org:'o_5566', text:'Honestly it is me, not the platform. I need something that tells me the one thing to do first.'},
+     {who:'Amara O.', org:'o_3902', text:'Printing. I want the week on paper on the fridge and right now I screenshot it.'}
+   ]},
+  {id:'bs_fb_2', q:'Tell us about a moment the platform got in your way.', posted:'2026-08-08',
+   responses:[
+     {who:'Danny T.', org:'o_4417', text:'Recording a milestone took four taps and I lost what I had typed when I backed out.'},
+     {who:'Britt H.', org:'o_5120', text:'I could not tell whether an offline lesson had been counted until the next day.'}
+   ]}
+];
+
+const SEED_BS_FLAGS = [
+  {id:'bs_f_12', when:'2h', why:'AI moderation — possible promotional link', kind:'reply',
+   target:'reply under “Offline mode is coming to the lesson player”', who:'Renata M.', org:'o_5566',
+   excerpt:'We switched to a paid planner app that does this already, happy to share my referral link if anyone wants it.'},
+  {id:'bs_f_09', when:'1d', why:'Member flagged — meetup coordination', kind:'post',
+   target:'post “Anyone else in Mesa?”', who:'Amara O.', org:'o_3902',
+   excerpt:'Would love to get a few families together at the library on Thursdays if anyone is close by.'}
+];
+
+/* ============================================================
+   State
+============================================================ */
+let S = {
+  signedIn:false,
+  wantFocus:true,         // focus the entry field once, not on every re-render
+  remember:false,
+  signinMsg:'',
+  view:{name:'inbox'},
+  from:null,              // 'inbox' when an account was opened from a ticket
+  ticket:null,            // {id, subject, email}
+  q:{accounts:''},        // scoped per section
+  statusFilter:'all',
+  showGaps:false,
+  planPanel:null,
+  foldLocked:false,
+  bsTab:'feed',
+  bsPrompt:null,
+  draft:{title:'', body:'', attach:[], err:''},
+  pollDraft:null,
+  users:JSON.parse(JSON.stringify(SEED_USERS)),
+  orgs:JSON.parse(JSON.stringify(SEED_ORGS)),
+  pauses:JSON.parse(JSON.stringify(SEED_PAUSES)),
+  bsPosts:JSON.parse(JSON.stringify(SEED_BS_POSTS)),
+  bsPolls:JSON.parse(JSON.stringify(SEED_BS_POLLS)),
+  bsPrompts:JSON.parse(JSON.stringify(SEED_BS_PROMPTS)),
+  bsFlags:JSON.parse(JSON.stringify(SEED_BS_FLAGS)),
+  audit:[
+    {t:'09:14', actor:'Marcus Lyle', action:'Deactivated user', target:'lvasquez.home@gmail.com', reason:'Duplicate household created during migration; consolidating onto o_2288.', ref:'SM-0994'},
+    {t:'08:47', actor:'Priya Raman', action:'Deactivated user', target:'d.thompson.work@gmail.com', reason:'Parent asked us to remove the work email that never finished onboarding.', ref:'SM-1017'},
+    {t:'Yest', actor:'Marcus Lyle', action:'Deactivated org', target:'o_2288 — Vasquez household', reason:'Non-payment after three dunning cycles. Parent notified 2026-08-29.', ref:'SM-0981', override:false}
+  ],
+  modal:null
+};
+
+const el = id => document.getElementById(id);
+const orgById = id => S.orgs.find(o=>o.id===id);
+const userById = id => S.users.find(u=>u.id===id);
+const planByCode = c => SEED_PLANS.find(p=>p.code===c);
+const ticketById = id => SEED_TICKETS.find(t=>t.id===id);
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gapTag = t => `<span class="gap-tag">${esc(t)}</span>`;
+const statusPill = s => s==='active'
+  ? `<span class="pill pill-active"><span class="bud"></span>Active</span>`
+  : `<span class="pill pill-off"><span class="bud"></span>Deactivated</span>`;
+
+function toast(title, body){
+  const t=document.createElement('div');
+  t.className='toast';
+  t.innerHTML=`${I.check}<div><div class="tk">${esc(title)}</div>${body?`<div style="opacity:.8;font-size:13px;margin-top:2px">${esc(body)}</div>`:''}</div>`;
+  el('toasts').appendChild(t);
+  setTimeout(()=>t.remove(),4200);
+}
+function logAudit(entry){ S.audit.unshift(Object.assign({t:'now', actor:STAFF.person.name}, entry)); }
+
+/* ============================================================
+   Routing — real hashes so account rows are openable in a new tab
+============================================================ */
+function routeToHash(v){
+  if(v.name==='account') return '#/account/'+v.id;
+  return '#/'+v.name;
+}
+function parseHash(){
+  const h=(location.hash||'').replace(/^#\/?/,'');
+  if(!h) return {name:'inbox'};
+  const [a,b]=h.split('/');
+  if(a==='account' && userById(b)) return {name:'account', id:b};
+  if(['inbox','accounts','pauses','audit','plans','backstage'].includes(a)) return {name:a};
+  return {name:'inbox'};
+}
+let suppressHash=false;
+function go(name, id){
+  S.view={name, id};
+  const h=routeToHash(S.view);
+  if(location.hash!==h){ suppressHash=true; location.hash=h; }
+  window.scrollTo(0,0);
+  render();
+}
+window.addEventListener('hashchange', ()=>{
+  if(suppressHash){ suppressHash=false; return; }
+  S.view=parseHash();
+  render();
+});
+
+/* ============================================================
+   Sign-in — customer page, bolt is the staff door
+============================================================ */
+function viewSignin(){
+  return `
+  <div class="signin">
+    <div class="signin-col">
+      <div class="logo-stack">
+        ${I.bolt}
+        <div class="wordmark"><span class="s">strong</span><span class="m">mind</span><sup>&reg;</sup></div>
+      </div>
+
+      <div class="signin-card">
+        <h1>Sign In</h1>
+        ${S.signinMsg?`<div class="hint-msg">${esc(S.signinMsg)}</div>`:''}
+        <div class="pill-field">
+          ${I.personField}
+          <input type="text" id="username" placeholder="Username" autocomplete="username">
+        </div>
+        <a class="mini-link" href="#" data-act="noop">Forgot Username?</a>
+        <div class="pill-field">
+          ${I.lockField}
+          <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+        </div>
+        <div class="row-between">
+          <button class="remember" data-act="remember" aria-pressed="${S.remember}">
+            <span class="box">${I.check}</span><span>Remember me</span>
+          </button>
+          <a class="mini-link" style="margin:0" href="#" data-act="noop">Forgot Password?</a>
+        </div>
+        <button class="pill-btn pill-btn-primary" id="customer-signin" data-act="customer-signin">Sign In</button>
+        <button class="pill-btn pill-btn-secondary" data-act="customer-signin">Send Me a Login Link</button>
+
+        <div class="or">or login with</div>
+        <button class="bolt-door" data-act="signin" aria-label="Employee sign-in">
+          <span class="tip">Employee sign-in</span>${I.bolt}
+        </button>
+      </div>
+
+      <div class="signin-foot">&copy; 2026 StrongMind &ndash;
+        <a href="#" data-act="noop">Privacy</a></div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   Shell
+============================================================ */
+const NAV = [
+  {k:'inbox', label:'Support inbox', icon:'ticket'},
+  {k:'backstage', label:'Backstage', icon:'stage'},
+  {k:'pauses', label:'Parked pauses', icon:'pause'},
+  {k:'accounts', label:'Accounts', icon:'users'},
+  {k:'audit', label:'Activity log', icon:'audit'}
+];
+
+function crumbFor(){
+  const v=S.view;
+  const root=`<a href="#/inbox" data-act="go" data-name="inbox">Support inbox</a>`;
+  const labels={accounts:'Accounts', pauses:'Parked pauses', audit:'Activity log',
+    plans:'Plans &amp; pricing', backstage:'Backstage'};
+  if(v.name==='inbox') return `<span class="now">Support inbox</span>`;
+  if(v.name==='account'){
+    const u=userById(v.id);
+    const mid = S.from==='inbox' && S.ticket
+      ? `<a href="#/inbox" data-act="go" data-name="inbox">${esc(S.ticket.id)}</a>`
+      : `<a href="#/accounts" data-act="go" data-name="accounts">Accounts</a>`;
+    return root+`<span class="sep">/</span>`+mid+`<span class="sep">/</span><span class="now">${esc(u?u.email:'—')}</span>`;
+  }
+  if(v.name==='plans'){
+    return root+`<span class="sep">/</span><a href="#/accounts" data-act="go" data-name="accounts">Accounts</a><span class="sep">/</span><span class="now">Plans &amp; pricing</span>`;
+  }
+  return root+`<span class="sep">/</span><span class="now">${labels[v.name]||''}</span>`;
+}
+
+function viewShell(){
+  return `
+  <div class="shell">
+    <aside class="rail">
+      <div class="rail-top">
+        <div class="mark">${I.bolt}<span>strongmind</span></div>
+        <span class="staff-tag">STAFF CONSOLE</span>
+      </div>
+      <nav>
+        ${NAV.map(n=>{
+          const active = S.view.name===n.k
+            || (n.k==='accounts' && (S.view.name==='account'||S.view.name==='plans'));
+          let count='';
+          if(n.k==='pauses') count=`<span class="count ${S.pauses.length?'hot':''}">${S.pauses.length}</span>`;
+          if(n.k==='inbox') count=`<span class="count">${SEED_TICKETS.length}</span>`;
+          if(n.k==='backstage' && S.bsFlags.length) count=`<span class="count hot">${S.bsFlags.length}</span>`;
+          return `<button class="nav-item" data-act="go" data-name="${n.k}" ${active?'aria-current="page"':''}>
+            ${I[n.icon]}<span>${n.label}</span>${count}</button>`;
+        }).join('')}
+      </nav>
+      <div class="rail-foot">
+        <button class="toggle" data-act="gaps" aria-pressed="${S.showGaps}">
+          <span class="sw"></span><span>Show backend gaps</span>
+        </button>
+        <div class="who-row">
+          <div class="av" style="background:${STAFF.person.color};color:#fff">${STAFF.person.initials}</div>
+          <div><div class="nm">${esc(STAFF.person.name)}</div><div class="rl">${esc(STAFF.label)}</div></div>
+          <button class="signout" data-act="signout">Sign out</button>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <div class="topbar">
+        <button class="back" data-act="back" aria-label="Back">${I.back}</button>
+        <div class="crumb">${crumbFor()}</div>
+        <span class="env">PROTOTYPE DATA</span>
+      </div>
+      <div class="page">${pageBody()}</div>
+    </main>
+  </div>`;
+}
+
+function pageBody(){
+  switch(S.view.name){
+    case 'inbox': return pageInbox();
+    case 'accounts': return pageAccounts();
+    case 'account': return pageAccount(S.view.id);
+    case 'pauses': return pagePauses();
+    case 'backstage': return pageBackstage();
+    case 'plans': return pagePlans();
+    case 'audit': return pageAudit();
+  }
+  return '';
+}
+
+function ctxStrip(){
+  if(!S.ticket) return '';
+  return `<div class="ctx">
+    ${I.ticket}
+    <span>Working ticket <span class="mono em">${esc(S.ticket.id)}</span> &mdash; ${esc(S.ticket.subject)}</span>
+    <a href="#/inbox" data-act="go" data-name="inbox">Back to ticket</a>
+    <button class="x" data-act="dropticket">Clear</button>
+  </div>`;
+}
+
+/* ============================================================
+   Support inbox
+============================================================ */
+function pageInbox(){
+  return `
+  <div class="page-head">
+    <h1>Support inbox</h1>
+    <p>Tickets arrive naming a customer by email and nothing else. Each one starts the same way:
+       find the account, read its real state, act if it is one of the three things staff can change.</p>
+  </div>
+  <div class="note warn gap-block" style="margin-bottom:18px">
+    The inbox itself lives in the ticketing tool, not in this console. It is here so the prototype
+    starts where the work actually starts. ${gapTag('no endpoint — external system')}
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>Open tickets</h2><span class="hint">${SEED_TICKETS.length} unassigned</span></div>
+    ${SEED_TICKETS.map(t=>{
+      const u=S.users.find(x=>x.email===t.email);
+      return `<div class="tick">
+        <div>
+          <div class="sub">${esc(t.subject)} <span class="pill pill-flat">${esc(t.kind)}</span></div>
+          <div class="body">${esc(t.body)}</div>
+          <div class="from">${esc(t.from)} &middot; <span class="mono">${esc(t.email)}</span> &middot; ${esc(t.age)} ago &middot; <span class="mono">${t.id}</span></div>
+        </div>
+        <div class="act">
+          <button class="btn btn-ghost btn-sm" data-act="lookup" data-id="${t.id}">Find this account ${I.arrow}</button>
+          ${u?'':`<span class="t-sub">no account under this email</span>`}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+/* ============================================================
+   Accounts — one list over logins and households
+============================================================ */
+function matchWhy(u,q){
+  if(!q) return null;
+  const o=orgById(u.org);
+  if(u.email.toLowerCase().includes(q)) return null;          // the obvious match needs no label
+  if(u.id.toLowerCase().includes(q)) return 'user ID';
+  if(o && o.name.toLowerCase().includes(q)) return 'household name';
+  if(o && o.id.toLowerCase().includes(q)) return 'household ID';
+  return null;
+}
+function matchesQuery(u,q){
+  if(!q) return true;
+  const o=orgById(u.org);
+  return u.email.toLowerCase().includes(q) || u.id.toLowerCase().includes(q) ||
+         (o && (o.name.toLowerCase().includes(q) || o.id.toLowerCase().includes(q)));
+}
+function filteredAccounts(){
+  const q=S.q.accounts.trim().toLowerCase();
+  return S.users.filter(u=>{
+    if(S.statusFilter!=='all' && u.status!==S.statusFilter) return false;
+    return matchesQuery(u,q);
+  });
+}
+
+function accountsResultsHTML(){
+  const q=S.q.accounts.trim();
+  const rows=filteredAccounts();
+  const bar = `<div class="result-bar">
+    <span>${rows.length} ${rows.length===1?'account':'accounts'}${q?` matching “${esc(q)}”`:''}${S.statusFilter!=='all'?` &middot; ${S.statusFilter} only`:''}</span>
+    ${(q||S.statusFilter!=='all')?`<button data-act="clearsearch">Clear filters</button>`:''}
+  </div>`;
+
+  if(!rows.length){
+    const isEmail = q.includes('@');
+    return bar+`<div class="empty">
+      <h3>${isEmail?'No account uses that email':'Nothing matches that'}</h3>
+      <p>${isEmail
+        ? `Nothing on the platform is registered to <span class="mono">${esc(q)}</span>. The person writing in may be a second parent who was never added as a learning coach, or they may be using a different address than the one on the account. Try the household name instead.`
+        : `Try a full email address, a user ID like <span class="mono">u_8841</span>, or a household name.`}</p>
+      <button class="btn btn-ghost" data-act="clearsearch">Clear filters</button>
+    </div>`;
+  }
+
+  return bar+`
+  <table>
+    <thead><tr>
+      <th>Email</th>
+      <th>Sign-in</th>
+      <th class="gap">Household</th>
+      <th class="gap">Status</th>
+      <th>Profiles</th>
+      <th>Joined</th>
+    </tr></thead>
+    <tbody>
+    ${rows.map(u=>{
+      const o=orgById(u.org);
+      const why=matchWhy(u,q.toLowerCase());
+      return `<tr class="row" data-act="rowgo" data-id="${u.id}">
+        <td>
+          <a class="rowlink" href="#/account/${u.id}" data-act="go" data-name="account" data-id="${u.id}">${esc(u.email)}</a>
+          ${why?`<span class="pill pill-match">matched ${esc(why)}</span>`:''}
+          <div class="t-sub mono">${u.id}${u.trial?' &middot; trial':''}${u.onboarded?'':' &middot; onboarding not finished'}</div>
+        </td>
+        <td><span class="pill pill-flat">${esc(u.provider)}</span></td>
+        <td class="gap">${o?`<div>${esc(o.name)}</div><div class="t-sub mono">${o.id} &middot; ${o.status}</div>`:'<span class="t-sub">—</span>'}</td>
+        <td class="gap">${statusPill(u.status)}</td>
+        <td class="num">${u.profiles}</td>
+        <td class="num">${esc(u.created)}</td>
+      </tr>`;
+    }).join('')}
+    </tbody>
+  </table>`;
+}
+
+function pageAccounts(){
+  return `
+  ${ctxStrip()}
+  <div class="page-head">
+    <h1>Accounts</h1>
+    <p>Every family login, with the household it belongs to. Search on whatever the ticket gave you
+       &mdash; an email, a user ID, or a household name.</p>
+  </div>
+
+  <div class="legend note warn" style="margin-bottom:18px">
+    Amber marks everything the API cannot feed today. <span class="mono">GET /api/v1/admin</span>
+    takes a page number and returns email, provider, profile count, onboarding flag, created date,
+    and trial fields &mdash; no search, no status, no <span class="mono">org_id</span>. There is no
+    household list endpoint at all, so the household column is invented here.
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="searchbar gap gap-block">
+        ${I.search}
+        <input type="search" id="q-accounts" placeholder="Search email, user ID, or household"
+               value="${esc(S.q.accounts)}" data-act="search" aria-label="Search accounts">
+      </div>
+      ${gapTag('search param')}
+      <div class="right">
+        <div class="chips">
+          ${[['all','All'],['active','Active'],['deactivated','Deactivated']].map(([k,l])=>
+            `<button class="chip gap" data-act="filter" data-k="${k}" aria-pressed="${S.statusFilter===k}">${l}</button>`
+          ).join('')}
+        </div>
+        ${gapTag('status filter')}
+      </div>
+    </div>
+    <div id="acct-results">${accountsResultsHTML()}</div>
+  </div>
+  <div style="margin-top:12px" class="worm">${I.lock} Read access is unrestricted. Every write is appended to the activity log.</div>`;
+}
+
+/* ============================================================
+   Account — merged login + household view
+============================================================ */
+function pageAccount(id){
+  const u=userById(id); if(!u) return '';
+  const o=orgById(u.org);
+  const owner=o?userById(o.owner):null;
+  const siblings=o?S.users.filter(x=>x.org===o.id && x.id!==u.id):[];
+  const parked=o?S.pauses.filter(p=>p.org===o.id):[];
+  const plan=o?planByCode(o.plan):null;
+  const uActive=u.status==='active';
+  const oActive=o&&o.status==='active';
+
+  return `
+  ${ctxStrip()}
+  <div class="page-head">
+    <h1>${esc(u.email)}</h1>
+    <p>Login <span class="mono">${u.id}</span> ${statusPill(u.status)}
+      ${o?` &middot; ${esc(o.name)} <span class="mono">${o.id}</span> ${statusPill(o.status)}`:''}</p>
+  </div>
+
+  ${o&&o.parentPause?`
+  <div class="note" style="margin-bottom:18px">
+    <strong>This family set their own billing pause</strong> on
+    <span class="mono">${esc(o.parentPause.requested)}</span> &mdash; ${esc(o.parentPause.reason)}
+    A staff status change on the household has to acknowledge that it overrides them.
+  </div>`:''}
+
+  <div class="split">
+    <div class="stack">
+      <div class="card">
+        <div class="card-head"><h2>This login</h2><span class="hint">from GET /api/v1/admin</span></div>
+        <div class="card-pad">
+          <dl class="kv">
+            <dt>Email</dt><dd class="mono">${esc(u.email)}</dd>
+            <dt>Sign-in provider</dt><dd>${esc(u.provider)}</dd>
+            <dt>Learner profiles</dt><dd>${u.profiles}</dd>
+            <dt>Finished onboarding</dt><dd>${u.onboarded?'Yes':'No'}</dd>
+            <dt>Created</dt><dd class="mono">${esc(u.created)}</dd>
+            <dt>Trial</dt><dd>${u.trial?`ends <span class="mono">${esc(u.trial.ends)}</span>`:'—'}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card gap-block">
+        <div class="card-head"><h2>Household</h2>${gapTag('org_id not in response')}
+          <div class="right"><span class="hint">${gapTag('no household list endpoint')}</span></div>
+        </div>
+        <div class="card-pad">
+          ${o?`
+          <dl class="kv">
+            <dt>Household</dt><dd>${esc(o.name)} <span class="t-sub mono">${o.id}</span></dd>
+            <dt>Status</dt><dd>${statusPill(o.status)}</dd>
+            <dt>Plan</dt><dd><button class="plan-link" data-act="planpanel" data-code="${o.plan}"
+                aria-expanded="${S.planPanel===o.plan}">${esc(plan?plan.name:o.plan)}</button></dd>
+            <dt>Seats</dt><dd>${o.seats}</dd>
+            <dt>Learners</dt><dd>${o.learners.map(esc).join(', ')}</dd>
+            <dt>Account owner</dt><dd>${owner?`<span class="mono">${esc(owner.email)}</span>${owner.id===u.id?' <span class="pill pill-flat">this login</span>':''}`:'—'}</dd>
+            <dt>Customer since</dt><dd class="mono">${esc(o.since)}</dd>
+            <dt>Billing pause</dt><dd>${o.parentPause?`<span class="pill pill-paused"><span class="bud"></span>Set by the family</span>`:'None'}</dd>
+          </dl>
+          ${S.planPanel===o.plan&&plan?`
+          <div class="plan-panel">
+            <div class="ph"><span class="em">${esc(plan.name)}</span>
+              <span class="pill pill-read">${I.lock} Read-only</span></div>
+            <dl class="kv" style="grid-template-columns:120px 1fr">
+              <dt>Price</dt><dd class="num">${esc(plan.price)} / ${esc(plan.cadence)}</dd>
+              <dt>Code</dt><dd class="mono">${esc(plan.code)}</dd>
+              <dt>Includes</dt><dd>${esc(plan.seats)}</dd>
+              <dt>Catalog state</dt><dd>${plan.state==='active'
+                ? '<span class="pill pill-active"><span class="bud"></span>Active</span>'
+                : '<span class="pill pill-flat">Archived</span>'}</dd>
+            </dl>
+            <p class="t-sub" style="margin:12px 0 0">Plan and price editing left the staff console
+              during the Go migration and stayed out.
+              <a href="#/plans" data-act="go" data-name="plans">View the full catalog</a></p>
+          </div>`:''}
+          `:'<p class="t-sub">Not linked to a household.</p>'}
+        </div>
+      </div>
+
+      ${siblings.length?`
+      <div class="card">
+        <div class="card-head"><h2>Other logins in this household</h2><span class="hint">${siblings.length}</span></div>
+        <table><tbody>
+          ${siblings.map(x=>`
+            <tr class="row" data-act="rowgo" data-id="${x.id}">
+              <td>
+                <a class="rowlink" href="#/account/${x.id}" data-act="go" data-name="account" data-id="${x.id}">${esc(x.email)}</a>
+                <div class="t-sub mono">${x.id} &middot; ${esc(x.provider)}</div>
+              </td>
+              <td style="text-align:right">${statusPill(x.status)}</td>
+            </tr>`).join('')}
+        </tbody></table>
+      </div>`:''}
+
+      ${parked.length?`
+      <div class="card gap-block">
+        <div class="card-head"><h2>Parked pauses on this household</h2>${gapTag('needs list endpoint')}</div>
+        <div class="card-pad">
+          ${parked.map(p=>`
+            <div class="pausecard">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <span class="pill ${p.days>20?'pill-off':'pill-paused'}">${p.days} days stuck</span>
+                <span class="mono t-sub">${p.id}</span>
+                <span class="t-sub">requested ${esc(p.requested)}</span>
+                <button class="btn btn-primary btn-sm" style="margin-left:auto"
+                  data-act="resolvepause" data-id="${p.id}" data-focus-key="pause-${p.id}">Resolve</button>
+              </div>
+              <div style="margin-top:8px;font-size:13.5px">${esc(p.detail)}</div>
+              <div class="t-sub mono">${esc(p.stage)}</div>
+            </div>`).join('')}
+        </div>
+      </div>`:''}
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <div class="card-head"><h2>Actions</h2></div>
+        <div class="card-pad">
+          <div class="gap-block">
+            <div class="t-sub" style="margin-bottom:7px">This login only</div>
+            ${uActive
+              ? `<button class="btn btn-danger btn-full" data-act="userstatus" data-id="${u.id}" data-to="deactivated" data-focus-key="user-status">Deactivate this user</button>`
+              : `<button class="btn btn-primary btn-full" data-act="userstatus" data-id="${u.id}" data-to="active" data-focus-key="user-status">Reactivate this user</button>`}
+            ${gapTag('PATCH exists, no UI today')}
+          </div>
+          <p class="t-sub" style="margin:10px 0 20px">
+            ${uActive
+              ? 'Blocks sign-in for this login only. Learner work, the household, and billing are untouched.'
+              : 'Restores sign-in for this login. Nothing else about the account changes.'}
+          </p>
+
+          ${o?`
+          <div class="gap-block" style="border-top:1px solid var(--line-soft);padding-top:16px">
+            <div class="t-sub" style="margin-bottom:7px">The whole household &mdash; ${o.seats} ${o.seats===1?'seat':'seats'}</div>
+            ${oActive
+              ? `<button class="btn btn-danger btn-full" data-act="orgstatus" data-id="${o.id}" data-to="deactivated" data-focus-key="org-status">Deactivate this household</button>`
+              : `<button class="btn btn-primary btn-full" data-act="orgstatus" data-id="${o.id}" data-to="active" data-focus-key="org-status">Reactivate this household</button>`}
+            ${gapTag('PATCH exists, no UI today')}
+          </div>
+          <p class="t-sub" style="margin:10px 0 0">
+            ${oActive
+              ? 'Locks out every login in the household and stops billing at the end of the cycle.'
+              : 'Restores access for every login in the household and resumes billing on the next cycle.'}
+          </p>`:''}
+        </div>
+      </div>
+
+      ${o?`
+      <div class="card">
+        <div class="card-head"><h2>Backstage</h2>
+          <div class="right">${o.founding?'<span class="fbadge">Founding Member</span>':''}</div>
+        </div>
+        <div class="card-pad">
+          ${o.founding?`
+          <dl class="kv" style="grid-template-columns:130px 1fr">
+            <dt>Backstage access</dt><dd class="gap">${o.bsRemoved
+              ? '<span class="pill pill-off"><span class="bud"></span>Removed by a moderator</span>'
+              : '<span class="pill pill-active"><span class="bud"></span>Granted</span>'}${gapTag('gating mechanism TBD')}</dd>
+            <dt>Guidelines</dt><dd>${o.guidelines
+              ? `Accepted <span class="mono">${esc(o.guidelines)}</span>`
+              : '<span class="pill pill-paused">Not accepted yet</span>'}</dd>
+            <dt>Activity</dt><dd class="t-sub">${(o.bsActivity||{}).posts||0} posts &middot; ${(o.bsActivity||{}).replies||0} replies &middot; ${(o.bsActivity||{}).votes||0} votes</dd>
+          </dl>
+          <p class="t-sub" style="margin:14px 0 0">Founding Member status is granted on org creation
+            and is not editable from this console. Removing someone from Backstage is a moderation
+            action, separate from deactivating their login.</p>
+          <div style="margin-top:12px"><button class="btn btn-ghost btn-sm" data-act="gobs" data-tab="members">Open in Backstage ${I.arrow}</button></div>
+          `:`
+          <p class="t-sub" style="margin:0">Not a Founding Member, so Backstage never appears in this
+            family's navigation and the access check fails at each attempt. Learner profiles are
+            never granted access under any status.</p>`}
+        </div>
+      </div>`:''}
+
+      ${o?`
+      <div class="card">
+        <div class="card-head"><h2>What a parent sees right now</h2></div>
+        <div class="card-pad">
+          <p class="t-sub" style="margin:0 0 12px">Their Settings screen reflects the household row directly.</p>
+          <div style="border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--paper)">
+            <div style="font-weight:600;font-size:15px">Account:
+              <span style="color:${oActive?'var(--green)':'var(--coral)'}">${oActive?'Active':'Deactivated'}</span></div>
+            <div class="t-sub">Manage your household account.</div>
+          </div>
+        </div>
+      </div>`:''}
+
+      <div class="card">
+        <button class="fold-head" data-act="foldlocked" aria-expanded="${S.foldLocked}">
+          ${I.lock}<span>Not available to staff</span>${I.chev}
+        </button>
+        ${S.foldLocked?`
+        <div class="fold-body">
+          <p class="t-sub" style="margin:0 0 12px">Retired on purpose during the Go migration. These are not gaps to close.</p>
+          <div style="display:grid;gap:7px">
+            ${['Delete a user','Bulk actions','Extend a trial','Create or edit a plan or price']
+              .map(x=>`<div class="locked">${I.lock} ${x}</div>`).join('')}
+          </div>
+        </div>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   Parked pauses queue
+============================================================ */
+function pagePauses(){
+  return `
+  <div class="page-head">
+    <h1>Parked pauses</h1>
+    <p>Offboarding pauses that stalled in manual review. Every day one sits here is a day a family
+       is billed, locked out, or both, with no way to tell which.</p>
+  </div>
+  <div class="legend note warn" style="margin-bottom:18px">
+    This whole screen is the deepest gap in the blueprint.
+    <span class="mono">POST /admin/offboarding/pauses/{id}/resolve</span> already works, but there is
+    no list endpoint &mdash; today it can only be called by someone who already has a
+    <span class="mono">pause_id</span> in hand from an escalation.
+  </div>
+  ${S.pauses.length?`
+  <div class="card gap-block">
+    <div class="card-head"><h2>Stuck in manual review</h2>${gapTag('needs list endpoint')}
+      <div class="right"><span class="hint">${S.pauses.length} parked</span></div></div>
+    <table>
+      <thead><tr><th>Pause</th><th>Household</th><th class="gap">Household status</th><th>Stuck</th><th>Why it parked</th><th></th></tr></thead>
+      <tbody>
+      ${S.pauses.map(p=>{
+        const o=orgById(p.org);
+        const owner=o?userById(o.owner):null;
+        return `<tr>
+          <td class="mono">${p.id}<div class="t-sub">requested ${esc(p.requested)}</div></td>
+          <td>${o?`${owner
+              ? `<a class="rowlink" href="#/account/${owner.id}" data-act="go" data-name="account" data-id="${owner.id}">${esc(o.name)}</a>`
+              : esc(o.name)}<div class="t-sub mono">${o.id}</div>`:'—'}</td>
+          <td class="gap">${o?statusPill(o.status):'—'}</td>
+          <td><span class="pill ${p.days>20?'pill-off':'pill-paused'}">${p.days} days</span></td>
+          <td style="max-width:320px">${esc(p.detail)}<div class="t-sub mono">${esc(p.stage)}</div></td>
+          <td style="text-align:right">
+            <button class="btn btn-primary btn-sm" data-act="resolvepause" data-id="${p.id}" data-focus-key="pause-${p.id}">Resolve</button>
+          </td>
+        </tr>`;
+      }).join('')}
+      </tbody>
+    </table>
+  </div>`:`
+  <div class="card empty">
+    <h3>Nothing is parked</h3>
+    <p>Pauses land here when the offboarding job cannot finish on its own. An empty queue is the goal state.</p>
+  </div>`}`;
+}
+
+
+/* ============================================================
+   Backstage — Founding Member space, staff side
+   Staff author here through the Platform Admin Account (R-22), which is a
+   different identity and a different permission check (NFR-06) from the
+   account-lookup work in the rest of the console.
+============================================================ */
+function pinnedItems(){
+  const items=[
+    ...S.bsPosts.filter(p=>p.pinned).map(p=>({...p, type:'post'})),
+    ...S.bsPolls.filter(p=>p.pinned).map(p=>({...p, type:'poll'}))
+  ];
+  return items.sort((a,b)=>a.pinOrder-b.pinOrder);
+}
+function foundingOrgs(){ return S.orgs.filter(o=>o.founding); }
+function pollTotal(p){ return p.options.reduce((n,o)=>n+o.v,0); }
+
+function pageBackstage(){
+  const tabs=[
+    ['feed','Roadmap feed', S.bsPosts.length],
+    ['polls','Polls', S.bsPolls.filter(p=>p.state==='open').length],
+    ['feedback','Feedback', S.bsPrompts.length],
+    ['moderation','Moderation', S.bsFlags.length],
+    ['members','Members', foundingOrgs().filter(o=>!o.bsRemoved).length]
+  ];
+  return `
+  <div class="page-head">
+    <h1>Backstage</h1>
+    <p>The Founding Member space. You are posting here as StrongMind staff, and members
+       can see that &mdash; your name carries a staff badge on everything you publish.
+       The community guidelines gate is a member-side screen; staff go straight in.</p>
+  </div>
+  <div class="seg">
+    ${tabs.map(([k,l,n])=>`<button data-act="bstab" data-k="${k}" aria-pressed="${S.bsTab===k}">
+      ${l}${n?`<span class="n">${n}</span>`:''}</button>`).join('')}
+  </div>
+  ${{feed:bsFeed, polls:bsPolls, feedback:bsFeedback, moderation:bsModeration, members:bsMembers}[S.bsTab]()}`;
+}
+
+/* ---- roadmap feed + composer ---- */
+function attachChip(a,i){
+  const label={video:'Video',link:'Link',audio:'Audio',gif:'GIF'}[a.t]||a.t;
+  return `<span class="achip">${label}: ${esc(a.label)}
+    <button data-act="unattach" data-i="${i}" aria-label="Remove attachment">&times;</button></span>`;
+}
+function postCard(p){
+  return `<div class="post ${p.pinned?'pinned':''}">
+    ${p.pinned?`<div style="font-size:11.5px;font-weight:600;color:#8A5A0B;margin-bottom:8px">PINNED POST</div>`:''}
+    <h3>${esc(p.title)}</h3>
+    <div class="byline">
+      <span class="em" style="color:var(--ink)">${esc(p.author)}</span>
+      <span class="sbadge">StrongMind &mdash; ${esc(p.role)}</span>${gapTag('role/title source TBD')}
+      <span>${esc(p.when)}</span>
+    </div>
+    <div class="body">${esc(p.body)}</div>
+    ${p.attach.length?`<div class="attach-row">${p.attach.map(a=>{
+      const label={video:'Video',link:'Link',audio:'Audio',gif:'GIF'}[a.t]||a.t;
+      return `<span class="achip">${label}: ${esc(a.label)}</span>`;}).join('')}</div>`:''}
+    <div class="foot">
+      <span>${p.reactions} reactions</span><span>${p.replies} replies</span>
+      <span class="mono t-sub">${p.id}</span>
+      <span class="acts">
+        ${p.pinned
+          ? `<button class="btn btn-ghost btn-sm" data-act="unpin" data-kind="post" data-id="${p.id}">Unpin</button>`
+          : `<button class="btn btn-ghost btn-sm" data-act="pin" data-kind="post" data-id="${p.id}">Pin to top</button>`}
+      </span>
+    </div>
+  </div>`;
+}
+
+function bsFeed(){
+  const pins=pinnedItems();
+  const unpinned=S.bsPosts.filter(p=>!p.pinned);
+  const d=S.draft;
+  return `
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head"><h2>Post a roadmap update</h2>
+      <div class="right"><span class="sbadge">Posting as StrongMind &mdash; ${esc(STAFF.label)}</span></div>
+    </div>
+    <div class="card-pad">
+      <label class="field">
+        <span class="lb">Headline</span>
+        <input type="text" data-act="draft-title" value="${esc(d.title)}" placeholder="What is changing?">
+      </label>
+      <label class="field" style="margin-bottom:6px">
+        <span class="lb">Update</span>
+        <textarea data-act="draft-body" placeholder="What members should know, and what you want their read on.">${esc(d.body)}</textarea>
+      </label>
+      <div class="attach-row">
+        ${d.attach.map(attachChip).join('')}
+      </div>
+      <div class="attach-row">
+        <button class="attach-btn" data-act="attach" data-t="video">+ Video</button>
+        <button class="attach-btn" data-act="attach" data-t="link">+ Link</button>
+        <button class="attach-btn" data-act="attach" data-t="audio">+ Audio</button>
+        <button class="attach-btn" data-act="attach" data-t="gif">+ GIF</button>
+        <button class="attach-btn" data-act="attach" data-t="pdf">+ PDF</button>
+      </div>
+      ${d.err?`<div class="inline-err">${esc(d.err)}</div>`:''}
+      <div style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap">
+        <button class="btn btn-primary" data-act="publishpost" ${d.title.trim()&&d.body.trim()?'':'disabled'}>Publish update</button>
+        <span class="t-sub">Publishing is not one of the audited account writes &mdash; no reason field.
+          It is still recorded in the activity log.</span>
+      </div>
+    </div>
+  </div>
+
+  ${pins.length>1?`
+  <div class="note" style="margin-bottom:14px">
+    ${pins.length} items are pinned to the top of Backstage, labelled by type. Members see them
+    in this order.
+    <div style="margin-top:10px;display:grid;gap:7px">
+      ${pins.map((it,i)=>`<div style="display:flex;align-items:center;gap:9px;font-size:13px">
+        <span class="pill pill-flat">${it.type==='poll'?'Poll':'Post'}</span>
+        <span>${esc(it.type==='poll'?it.q:it.title)}</span>
+        ${i>0?`<button class="btn btn-ghost btn-sm" style="margin-left:auto"
+          data-act="pinup" data-kind="${it.type}" data-id="${it.id}">Move up</button>`:'<span style="margin-left:auto" class="t-sub">Top</span>'}
+      </div>`).join('')}
+    </div>
+  </div>`:''}
+
+  ${S.bsPosts.filter(p=>p.pinned).map(postCard).join('')}
+  ${unpinned.length?`<div style="margin-top:${S.bsPosts.some(p=>p.pinned)?'12px':'0'}">${unpinned.map(postCard).join('')}</div>`:''}`;
+}
+
+/* ---- polls ---- */
+function pollCard(p){
+  const total=pollTotal(p);
+  const members=foundingOrgs().filter(o=>!o.bsRemoved).length;
+  return `<div class="post ${p.pinned?'pinned':''}">
+    ${p.pinned?`<div style="font-size:11.5px;font-weight:600;color:#8A5A0B;margin-bottom:8px">PINNED POLL</div>`:''}
+    <h3>${esc(p.q)}</h3>
+    <div class="byline">
+      ${p.state==='open'
+        ? `<span class="pill pill-active"><span class="bud"></span>Open until ${esc(p.closes)}</span>`
+        : `<span class="pill pill-flat">Closed ${esc(p.closes)}</span>`}
+      <span>opened ${esc(p.opens)}</span>
+      <span class="mono t-sub">${p.id}</span>
+    </div>
+    ${p.options.map(o=>{
+      const pct=total?Math.round(o.v/total*100):0;
+      return `<div class="opt">
+        <div class="top"><span>${esc(o.l)}</span><span class="pc">${o.v} &middot; ${pct}%</span></div>
+        <div class="bar"><span style="width:${pct}%"></span></div>
+      </div>`;
+    }).join('')}
+    <div class="foot">
+      <span>${total} votes from ${members} members</span>
+      <span class="gap">participation rate ${gapTag('not instrumented — Open Q5')}</span>
+      <span class="acts">
+        ${p.state==='open'?`<button class="btn btn-ghost btn-sm" data-act="closepoll" data-id="${p.id}">Close now</button>`:''}
+        ${p.pinned
+          ? `<button class="btn btn-ghost btn-sm" data-act="unpin" data-kind="poll" data-id="${p.id}">Unpin</button>`
+          : `<button class="btn btn-ghost btn-sm" data-act="pin" data-kind="poll" data-id="${p.id}">Pin to top</button>`}
+      </span>
+    </div>
+  </div>`;
+}
+
+function bsPolls(){
+  const d=S.pollDraft;
+  return `
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head"><h2>Polls</h2>
+      <div class="right">
+        ${d?'':`<button class="btn btn-primary btn-sm" data-act="newpoll">New poll</button>`}
+      </div>
+    </div>
+    ${d?`
+    <div class="card-pad">
+      <label class="field">
+        <span class="lb">Question</span>
+        <input type="text" data-act="poll-q" value="${esc(d.q)}" placeholder="What decision do you want members to weigh in on?">
+      </label>
+      ${d.options.map((o,i)=>`
+      <label class="field" style="margin-bottom:8px">
+        <span class="lb">Option ${i+1}</span>
+        <input type="text" data-act="poll-opt" data-i="${i}" value="${esc(o)}" placeholder="Option ${i+1}">
+      </label>`).join('')}
+      <button class="attach-btn" data-act="poll-addopt" style="margin-bottom:16px">+ Add option</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <label class="field"><span class="lb">Opens</span>
+          <input type="text" data-act="poll-opens" value="${esc(d.opens)}" placeholder="2026-09-05"></label>
+        <label class="field"><span class="lb">Closes</span>
+          <input type="text" data-act="poll-closes" value="${esc(d.closes)}" placeholder="2026-09-19"></label>
+      </div>
+      <p class="t-sub" style="margin:0 0 14px">One vote per member, enforced on submit. Results stay
+        hidden from a member until they vote, or until the poll closes. A closed poll stays in
+        Backstage as a record with its final tally.</p>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary" data-act="createpoll"
+          ${d.q.trim()&&d.options.filter(o=>o.trim()).length>=2&&d.closes.trim()?'':'disabled'}>Publish poll</button>
+        <button class="btn btn-ghost" data-act="cancelpoll">Cancel</button>
+      </div>
+    </div>`:''}
+  </div>
+  ${S.bsPolls.map(pollCard).join('')}`;
+}
+
+/* ---- structured feedback, shown in aggregate (R-11) ---- */
+function bsFeedback(){
+  if(S.bsPrompt){
+    const pr=S.bsPrompts.find(x=>x.id===S.bsPrompt);
+    return `
+    <button class="btn btn-ghost btn-sm" data-act="bsprompt" data-id="" style="margin-bottom:16px">${I.back} All prompts</button>
+    <div class="card">
+      <div class="card-head"><h2>${esc(pr.q)}</h2>
+        <div class="right"><span class="hint">${pr.responses.length} responses &middot; posted ${esc(pr.posted)}</span></div>
+      </div>
+      <div class="card-pad">
+        <p class="t-sub" style="margin:0 0 16px">Every response to this prompt, in one place. This is
+          the aggregate view the product team reads &mdash; members see each other's replies in
+          Backstage, but this roll-up only exists here.</p>
+        ${pr.responses.map(r=>{
+          const o=orgById(r.org); const owner=o?userById(o.owner):null;
+          return `<div style="border-top:1px solid var(--line-soft);padding:14px 0">
+            <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px">
+              <span class="em">${esc(r.who)}</span>
+              <span class="fbadge">Founding Member</span>
+              ${owner?`<a class="t-sub" href="#/account/${owner.id}" data-act="go" data-name="account" data-id="${owner.id}">open account</a>`:''}
+            </div>
+            <div style="font-size:14px;color:var(--ink-2)">${esc(r.text)}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
+  return `
+  <div class="card">
+    <div class="card-head"><h2>Structured feedback prompts</h2>
+      <span class="hint">a channel of its own, separate from the roadmap feed</span></div>
+    <table>
+      <thead><tr><th>Prompt</th><th>Posted</th><th>Responses</th><th class="gap">Response rate</th><th></th></tr></thead>
+      <tbody>
+      ${S.bsPrompts.map(pr=>`<tr class="row" data-act="bsprompt" data-id="${pr.id}">
+        <td><span class="rowlink">${esc(pr.q)}</span><div class="t-sub mono">${pr.id}</div></td>
+        <td class="num">${esc(pr.posted)}</td>
+        <td class="num">${pr.responses.length}</td>
+        <td class="gap"><span class="t-sub">&mdash;</span>${gapTag('not instrumented — Open Q5')}</td>
+        <td style="text-align:right">${I.arrow}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+/* ---- moderation ---- */
+function bsModeration(){
+  return `
+  <div class="note read" style="margin-bottom:18px">
+    Every StrongMind account with Backstage access is a moderator, platform-wide. There is no
+    separate moderator role to assign. ${I.lock}
+  </div>
+  ${S.bsFlags.length?S.bsFlags.map(f=>{
+    const o=orgById(f.org); const owner=o?userById(o.owner):null;
+    return `<div class="flagcard">
+      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+        <span class="pill pill-off"><span class="bud"></span>${esc(f.why)}</span>
+        <span class="t-sub">${esc(f.when)} ago</span>
+        <span class="mono t-sub">${f.id}</span>
+      </div>
+      <div style="font-size:14px;margin-top:9px">${esc(f.target)}</div>
+      <div class="excerpt">${esc(f.excerpt)}</div>
+      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+        <span class="em">${esc(f.who)}</span><span class="fbadge">Founding Member</span>
+        ${owner?`<a class="t-sub" href="#/account/${owner.id}" data-act="go" data-name="account" data-id="${owner.id}">open account</a>`:''}
+      </div>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <button class="btn btn-danger btn-sm" data-act="removecontent" data-id="${f.id}" data-focus-key="flag-${f.id}">Remove ${esc(f.kind)}</button>
+        <button class="btn btn-ghost btn-sm" data-act="removemember" data-id="${f.org}" data-flag="${f.id}" data-focus-key="flag-${f.id}">Remove member from Backstage</button>
+        <button class="btn btn-ghost btn-sm" data-act="escalate" data-id="${f.id}" data-focus-key="flag-${f.id}">Escalate</button>
+        <button class="btn btn-ghost btn-sm" data-act="dismissflag" data-id="${f.id}">No action needed</button>
+      </div>
+    </div>`;
+  }).join(''):`
+  <div class="card empty">
+    <h3>Nothing is flagged</h3>
+    <p>AI moderation and member reports both land here. An empty queue is the normal state, not a
+       sign the tooling is off.</p>
+  </div>`}`;
+}
+
+/* ---- members ---- */
+function bsMembers(){
+  const rows=foundingOrgs();
+  return `
+  <div class="legend note warn" style="margin-bottom:18px">
+    Founding Member status is granted on org creation during the founding window and is owned by
+    the User Role &amp; Org Structure PRD, not by this console &mdash; there is no button here to grant
+    or revoke it. Backstage access is evaluated from that status at each access attempt.
+    ${gapTag('gating mechanism TBD — Open Q1')}
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>Founding Members with Backstage access</h2>
+      <div class="right"><span class="hint">${rows.filter(o=>!o.bsRemoved).length} of ${rows.length}</span></div>
+    </div>
+    <table>
+      <thead><tr>
+        <th>Household</th><th>Admin parent</th><th class="gap">Backstage access</th>
+        <th>Guidelines accepted</th><th>Activity</th>
+      </tr></thead>
+      <tbody>
+      ${rows.map(o=>{
+        const owner=userById(o.owner);
+        const a=o.bsActivity||{posts:0,replies:0,votes:0};
+        return `<tr class="row" data-act="rowgo" data-id="${owner?owner.id:''}">
+          <td><span class="em">${esc(o.name)}</span><div class="t-sub mono">${o.id}</div></td>
+          <td>${owner?`<a class="rowlink" href="#/account/${owner.id}" data-act="go" data-name="account" data-id="${owner.id}">${esc(owner.email)}</a>`:'—'}</td>
+          <td class="gap">${o.bsRemoved
+            ? '<span class="pill pill-off"><span class="bud"></span>Removed by a moderator</span>'
+            : '<span class="pill pill-active"><span class="bud"></span>Granted</span>'}</td>
+          <td>${o.guidelines
+            ? `<span class="t-sub mono">${esc(o.guidelines)}</span>`
+            : '<span class="pill pill-paused">Not accepted yet</span>'}</td>
+          <td class="t-sub">${a.posts} posts &middot; ${a.replies} replies &middot; ${a.votes} votes</td>
+        </tr>`;
+      }).join('')}
+      </tbody>
+    </table>
+    <div class="card-pad" style="border-top:1px solid var(--line-soft)">
+      <p class="t-sub" style="margin:0">No plan, price, or payment detail appears in Backstage or on
+        this roster. Billing data is deliberately kept out of the community surface, so a moderator
+        acting on a post cannot see what the family pays.</p>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   Plans — reachable from an account, not from the nav
+============================================================ */
+function pagePlans(){
+  return `
+  <div class="page-head">
+    <h1>Plans &amp; pricing</h1>
+    <p>The live catalog, so you can answer "which plan and what does it cost" without leaving the
+       console or asking billing.</p>
+  </div>
+  <div class="note read" style="margin-bottom:18px">
+    Read-only by design. Creating, editing, and archiving plans left the staff console during the
+    Go migration and stayed out. ${I.lock}
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>Catalog</h2><span class="hint">GET /api/v1/admin/plans</span>
+      <div class="right"><span class="pill pill-read">${I.lock} Read-only</span></div></div>
+    <table>
+      <thead><tr><th>Plan</th><th>Code</th><th>Billing</th><th>Price</th><th>Includes</th><th>State</th></tr></thead>
+      <tbody>
+      ${SEED_PLANS.map(p=>`<tr>
+        <td class="em">${esc(p.name)}</td>
+        <td class="mono">${esc(p.code)}</td>
+        <td>${esc(p.cadence)}</td>
+        <td class="num">${esc(p.price)}</td>
+        <td class="t-sub">${esc(p.seats)}</td>
+        <td>${p.state==='active'
+          ? '<span class="pill pill-active"><span class="bud"></span>Active</span>'
+          : '<span class="pill pill-flat">Archived</span>'}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+/* ============================================================
+   Activity log
+============================================================ */
+function pageAudit(){
+  const rows=S.audit;
+  return `
+  <div class="page-head">
+    <h1>Activity log</h1>
+    <p>Every staff write, in order, with the reason attached. Entries cannot be edited or removed
+       once written &mdash; that is what makes a reason field enough on its own.</p>
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>Writes</h2>
+      <div class="right"><span class="worm">${I.lock} Append-only</span></div></div>
+    ${rows.length?rows.map(a=>`
+      <div class="audit-row">
+        <div class="when">${esc(a.t)}</div>
+        <div>
+          <div><strong>${esc(a.action)}</strong> &mdash; <span class="mono">${esc(a.target)}</span></div>
+          <div class="meta">${esc(a.actor)}${a.ref?` &middot; ticket <span class="mono">${esc(a.ref)}</span>`:''}${a.override?' &middot; overrode a family billing pause':''}</div>
+          ${a.reason?`<div class="reason">${esc(a.reason)}</div>`:''}
+        </div>
+      </div>`).join(''):`<div class="empty"><h3>No writes yet</h3><p>Deactivate a user or clear a parked pause and it shows up here immediately.</p></div>`}
+  </div>`;
+}
+
+/* ============================================================
+   One confirmation component for all three writes
+============================================================ */
+function openConfirm(cfg, triggerKey){
+  S.modal={
+    cfg,
+    v:{reason:'', ref:cfg.refPrefill||(S.ticket?S.ticket.id:''), outcome:''},
+    ack:false,
+    triggerKey:triggerKey||null
+  };
+  renderModal();
+}
+
+function modalReady(){
+  const m=S.modal; if(!m) return false;
+  const c=m.cfg;
+  if(!m.v.reason.trim()) return false;
+  if(c.refRequired!==false && !m.v.ref.trim()) return false;
+  if(c.outcome && !m.v.outcome) return false;
+  if(c.ack && !m.ack) return false;
+  return true;
+}
+
+function modalHTML(){
+  const m=S.modal, c=m.cfg;
+  const reasonPlaceholder = S.ticket
+    ? `Re: ${S.ticket.subject} — what did the customer ask for, and what did you verify?`
+    : (c.reasonPlaceholder||'What did the customer ask for, and what did you verify?');
+  return `
+  <div class="scrim" data-act="scrim">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head">
+        <h2 id="modal-title">${c.title}</h2>
+        <p>${c.lead}</p>
+      </div>
+      <div class="modal-body">
+        ${c.consequences&&c.consequences.length?`
+        <div class="disclose" style="margin-bottom:16px">
+          <div class="em" style="font-size:14px">What happens</div>
+          <ul>${c.consequences.map(x=>`<li>${x}</li>`).join('')}</ul>
+        </div>`:''}
+
+        ${c.ack?`
+        <button class="ack" data-act="ack" aria-pressed="${m.ack}">
+          <span class="box">${I.check}</span><span>${c.ack}</span>
+        </button>`:''}
+
+        ${c.outcome?`
+        <label class="field">
+          <span class="lb">Resolution</span>
+          <select data-act="outcome">
+            <option value="">Choose an outcome</option>
+            ${c.outcome.map(([v,l])=>`<option value="${v}" ${m.v.outcome===v?'selected':''}>${l}</option>`).join('')}
+          </select>
+        </label>`:''}
+
+        <label class="field">
+          <span class="lb">${c.reasonLabel||'Reason'}</span>
+          <textarea data-act="reason" placeholder="${esc(reasonPlaceholder)}">${esc(m.v.reason)}</textarea>
+          <span class="help">Written to the append-only log and can't be edited later. This is the record of why, so write what the next person would need.</span>
+        </label>
+        <label class="field">
+          <span class="lb">${c.refLabel||'Ticket reference'}</span>
+          <input type="text" data-act="ref" placeholder="${esc(c.refPlaceholder||'SM-1042')}" value="${esc(m.v.ref)}">
+          <span class="help">${c.refHelp
+            || (S.ticket?'Prefilled from the ticket you are working.':'Ties this write back to the request that prompted it.')}</span>
+        </label>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" data-act="closemodal">Cancel</button>
+        <button class="btn ${c.destructive?'btn-danger':'btn-primary'}" data-act="confirm" ${modalReady()?'':'disabled'}>${c.cta}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderModal(){
+  const root=el('modal-root');
+  if(!S.modal){ root.innerHTML=''; return; }
+  root.innerHTML=modalHTML();
+  const first=root.querySelector('textarea,input,select,button:not([disabled])');
+  if(first) first.focus();
+}
+// Enable/disable composer buttons without re-rendering the field being typed in.
+function syncPublish(){
+  const b=document.querySelector('[data-act="publishpost"]');
+  if(b) b.disabled=!(S.draft.title.trim()&&S.draft.body.trim());
+}
+function syncCreatePoll(){
+  const b=document.querySelector('[data-act="createpoll"]');
+  const d=S.pollDraft; if(!b||!d) return;
+  b.disabled=!(d.q.trim() && d.options.filter(o=>o.trim()).length>=2 && d.closes.trim());
+}
+function syncModalConfirm(){
+  const b=el('modal-root').querySelector('[data-act="confirm"]');
+  if(b) b.disabled=!modalReady();
+}
+function closeModal(){
+  const key=S.modal?S.modal.triggerKey:null;
+  S.modal=null;
+  renderModal();
+  if(key){
+    const t=document.querySelector(`[data-focus-key="${key}"]`);
+    if(t) t.focus();
+  }
+}
+function focusables(root){
+  return [...root.querySelectorAll('a[href],button:not([disabled]),input,select,textarea')]
+    .filter(x=>x.offsetParent!==null);
+}
+
+/* ---- the three writes, expressed through the one component ---- */
+function confirmUserStatus(id,to,key){
+  const u=userById(id), off=to==='deactivated';
+  openConfirm({
+    title:`${off?'Deactivate':'Reactivate'} ${esc(u.email)}?`,
+    lead: off
+      ? 'This login stops working immediately. Nothing else about the family changes.'
+      : 'This login starts working again on the next sign-in attempt.',
+    consequences: off?[
+      'Sign-in fails for this email with a message pointing them to support.',
+      'Learner profiles, lesson history, and evidence uploads are untouched.',
+      'The household stays active and billing continues unchanged.',
+      'Other logins in the household keep working.'
+    ]:[],
+    cta: off?'Deactivate user':'Reactivate user',
+    destructive: off,
+    onConfirm(){
+      u.status=to;
+      logAudit({action:off?'Deactivated user':'Reactivated user', target:u.email,
+        reason:S.modal.v.reason.trim(), ref:S.modal.v.ref.trim()});
+      toast(off?'User deactivated':'User reactivated', u.email+' — logged with your reason');
+    }
+  },key);
+}
+
+function confirmOrgStatus(id,to,key){
+  const o=orgById(id), off=to==='deactivated';
+  const logins=S.users.filter(u=>u.org===o.id).length;
+  const needsAck = off && !!o.parentPause;
+  openConfirm({
+    title:`${off?'Deactivate':'Reactivate'} ${esc(o.name)}?`,
+    lead: off
+      ? 'Every login in this household loses access, and billing stops at the end of the current cycle.'
+      : 'Access returns for every login in this household and billing resumes next cycle.',
+    consequences: off?[
+      `${o.seats} learner ${o.seats===1?'seat':'seats'} lose access to lessons and evidence uploads.`,
+      `All ${logins} logins in the household stop working, including the account owner.`,
+      'Billing stops at the end of the current cycle. No refund is issued by this action.',
+      'Lesson history is retained and returns intact on reactivation.'
+    ]:[],
+    ack: needsAck
+      ? `<strong>This family already paused their own billing</strong> on <span class="mono">${esc(o.parentPause.requested)}</span>. Deactivating overrides that pause and replaces their choice with a staff decision. I have a reason to override it.`
+      : null,
+    cta: off?'Deactivate household':'Reactivate household',
+    destructive: off,
+    onConfirm(){
+      const overrode = off && !!o.parentPause;
+      o.status=to;
+      if(overrode) o.parentPause=null;
+      logAudit({action:off?'Deactivated org':'Reactivated org', target:o.id+' — '+o.name,
+        reason:S.modal.v.reason.trim(), ref:S.modal.v.ref.trim(), override:overrode});
+      toast(off?'Household deactivated':'Household reactivated',
+        overrode?'Family billing pause overridden and logged':o.name);
+    }
+  },key);
+}
+
+function confirmPause(id,key){
+  const p=S.pauses.find(x=>x.id===id), o=orgById(p.org);
+  openConfirm({
+    title:`Clear pause ${p.id}`,
+    lead:`${esc(o.name)} has been stuck in manual review for ${p.days} days. The household is currently ${o.status}. Pick how it should land.`,
+    consequences:[esc(p.detail)],
+    outcome:[
+      ['completed','Complete the pause as the family requested'],
+      ['cancelled','Cancel the pause and keep the account billing'],
+      ['escalated','Send to billing engineering with notes']
+    ],
+    reasonLabel:'What you found',
+    reasonPlaceholder:'What was blocking it, and what did you do about it?',
+    cta:'Clear this pause',
+    onConfirm(){
+      const m=S.modal;
+      const label={completed:'Completed pause',cancelled:'Cancelled pause',escalated:'Escalated pause'}[m.v.outcome];
+      S.pauses=S.pauses.filter(x=>x.id!==p.id);
+      logAudit({action:label, target:p.id+' — '+o.name, reason:m.v.reason.trim(), ref:m.v.ref.trim()});
+      toast('Pause cleared', p.id+' left the queue');
+    }
+  },key);
+}
+
+/* ---- Backstage moderation, through the same confirm component ---- */
+function flagById(id){ return S.bsFlags.find(f=>f.id===id); }
+
+function confirmRemoveContent(id,key){
+  const f=flagById(id);
+  openConfirm({
+    title:`Remove this ${esc(f.kind)}?`,
+    lead:`It disappears from Backstage for every member. ${esc(f.who)} keeps their access.`,
+    consequences:[
+      'The content is removed from the feed and from search.',
+      'The author is not notified by this action on its own.',
+      'The flag leaves the moderation queue.'
+    ],
+    cta:`Remove ${esc(f.kind)}`,
+    destructive:true,
+    refLabel:'Flag or ticket reference',
+    refPlaceholder:f.id,
+    refPrefill:f.id,
+    refHelp:'Prefilled from the flag that surfaced this.',
+    onConfirm(){
+      S.bsFlags=S.bsFlags.filter(x=>x.id!==f.id);
+      logAudit({action:'Removed Backstage '+f.kind, target:f.target,
+        reason:S.modal.v.reason.trim(), ref:S.modal.v.ref.trim()});
+      toast('Content removed', f.target);
+    }
+  },key);
+}
+
+function confirmRemoveMember(orgId, flagId, key){
+  const o=orgById(orgId), owner=userById(o.owner), f=flagId?flagById(flagId):null;
+  openConfirm({
+    title:`Remove ${esc(o.name)} from Backstage?`,
+    lead:'They lose the Backstage space. Their subscription, their learners, and their logins are untouched.',
+    consequences:[
+      'Backstage disappears from their navigation on the next access check.',
+      'Their existing posts and replies stay unless you remove them separately.',
+      'They keep Founding Member status — this console cannot revoke that.',
+      'Nothing about billing, lessons, or sign-in changes.'
+    ],
+    cta:'Remove from Backstage',
+    destructive:true,
+    refLabel:'Flag or ticket reference',
+    refPlaceholder:f?f.id:'SM-1042',
+    refPrefill:f?f.id:'',
+    refHelp:f?'Prefilled from the flag that surfaced this.':'Ties this removal to what prompted it.',
+    onConfirm(){
+      o.bsRemoved=true;
+      if(f) S.bsFlags=S.bsFlags.filter(x=>x.id!==f.id);
+      logAudit({action:'Removed member from Backstage',
+        target:o.id+' — '+(owner?owner.email:o.name),
+        reason:S.modal.v.reason.trim(), ref:S.modal.v.ref.trim()});
+      toast('Member removed from Backstage', o.name+' — account and billing untouched');
+    }
+  },key);
+}
+
+function confirmEscalate(id,key){
+  const f=flagById(id);
+  openConfirm({
+    title:'Escalate this flag',
+    lead:'Hands the decision to whoever owns community policy. The content stays visible until someone acts.',
+    consequences:[
+      'The flag leaves your queue and is recorded as escalated.',
+      'The content is not removed by escalating.'
+    ],
+    cta:'Escalate',
+    refLabel:'Flag or ticket reference',
+    refPlaceholder:f.id,
+    refPrefill:f.id,
+    refHelp:'Prefilled from the flag that surfaced this.',
+    reasonLabel:'What needs a decision',
+    reasonPlaceholder:'What is ambiguous here, and what would you need to resolve it?',
+    onConfirm(){
+      S.bsFlags=S.bsFlags.filter(x=>x.id!==f.id);
+      logAudit({action:'Escalated Backstage flag', target:f.target,
+        reason:S.modal.v.reason.trim(), ref:S.modal.v.ref.trim()});
+      toast('Flag escalated', f.target);
+    }
+  },key);
+}
+
+/* ============================================================
+   Render + events
+============================================================ */
+function render(){
+  document.body.classList.toggle('gaps-on', S.showGaps);
+  el('root').innerHTML = S.signedIn ? viewShell() : viewSignin();
+  renderModal();
+  if(!S.signedIn && S.wantFocus){
+    S.wantFocus=false;
+    const f = el('username');
+    if(f) f.focus();
+  }
+}
+
+document.addEventListener('click', e=>{
+  const t=e.target.closest('[data-act]');
+  if(!t) return;
+  const a=t.dataset.act;
+
+  if(a==='scrim'){ if(e.target===t) closeModal(); return; }
+  if(a==='noop'){ e.preventDefault(); return; }
+
+  // Real links: let modified clicks (new tab, middle-click) through.
+  if(t.tagName==='A' && (e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)) return;
+  if(t.tagName==='A') e.preventDefault();
+
+  switch(a){
+    /* --- sign-in --- */
+    case 'remember': S.remember=!S.remember; render(); break;
+    case 'customer-signin':
+      S.signinMsg='Family accounts sign in here. This build only demonstrates the staff path — use the bolt below.';
+      render(); break;
+    case 'signin': S.signedIn=true; go('inbox'); break;
+    case 'signout':
+      S={...S, signedIn:false, signinMsg:'', ticket:null, from:null,
+         q:{accounts:''}, statusFilter:'all', planPanel:null, view:{name:'inbox'}, wantFocus:true};
+      history.replaceState(null,'',location.pathname+location.search);
+      render(); break;
+
+    /* --- navigation --- */
+    case 'go': go(t.dataset.name, t.dataset.id); break;
+    case 'rowgo':
+      if(e.target.closest('a')) return;   // the link handles itself
+      go('account', t.dataset.id); break;
+    case 'back': {
+      const v=S.view;
+      if(v.name==='account') go(S.from==='inbox'?'inbox':'accounts');
+      else if(v.name==='plans') go('accounts');
+      else go('inbox');
+      break;
+    }
+    case 'lookup': {
+      const tk=ticketById(t.dataset.id);
+      S.ticket={id:tk.id, subject:tk.subject, email:tk.email};
+      S.from='inbox';
+      S.q.accounts=tk.email;
+      S.statusFilter='all';
+      const u=S.users.find(x=>x.email===tk.email);
+      if(u) go('account', u.id); else go('accounts');
+      break;
+    }
+    case 'dropticket': S.ticket=null; S.from=null; render(); break;
+
+    /* --- list controls --- */
+    case 'gaps': S.showGaps=!S.showGaps; render(); break;
+    case 'filter':
+      S.statusFilter=t.dataset.k;
+      el('acct-results').innerHTML=accountsResultsHTML();
+      document.querySelectorAll('[data-act="filter"]').forEach(c=>
+        c.setAttribute('aria-pressed', String(c.dataset.k===S.statusFilter)));
+      break;
+    case 'clearsearch':
+      S.q.accounts=''; S.statusFilter='all'; render();
+      { const box=el('q-accounts'); if(box) box.focus(); }
+      break;
+
+    /* --- disclosures --- */
+    case 'planpanel':
+      S.planPanel = S.planPanel===t.dataset.code ? null : t.dataset.code;
+      render(); break;
+    case 'foldlocked': S.foldLocked=!S.foldLocked; render(); break;
+
+    /* --- backstage --- */
+    case 'bstab': S.bsTab=t.dataset.k; S.bsPrompt=null; render(); break;
+    case 'gobs': S.bsTab=t.dataset.tab||'feed'; go('backstage'); break;
+    case 'bsprompt': S.bsPrompt=t.dataset.id||null; render(); break;
+    case 'attach': {
+      const kind=t.dataset.t;
+      if(kind==='pdf'){
+        S.draft.err='PDF is not a supported attachment in Backstage. Post a link to the file instead, or attach a video, audio clip, or GIF.';
+      } else {
+        const sample={video:'walkthrough.mp4', link:'strongmind.com/roadmap', audio:'voice-note.m4a', gif:'reaction.gif'}[kind];
+        S.draft.attach.push({t:kind, label:sample});
+        S.draft.err='';
+      }
+      render(); break;
+    }
+    case 'unattach': S.draft.attach.splice(Number(t.dataset.i),1); render(); break;
+    case 'publishpost': {
+      const d=S.draft;
+      if(!d.title.trim()||!d.body.trim()) break;
+      S.bsPosts.unshift({id:'bs_'+Math.floor(Math.random()*900+100), author:STAFF.person.name,
+        role:STAFF.label, when:'today', pinned:false, pinOrder:0,
+        title:d.title.trim(), body:d.body.trim(), attach:d.attach.slice(), reactions:0, replies:0});
+      logAudit({action:'Published Backstage roadmap update', target:d.title.trim(), reason:'', ref:''});
+      S.draft={title:'', body:'', attach:[], err:''};
+      toast('Update published', 'Visible to every Founding Member');
+      render(); break;
+    }
+    case 'pin': {
+      const kind=t.dataset.kind;
+      const list = kind==='poll'?S.bsPolls:S.bsPosts;
+      const item=list.find(x=>x.id===t.dataset.id);
+      const maxOrder=Math.max(0,...pinnedItems().map(x=>x.pinOrder));
+      item.pinned=true; item.pinOrder=maxOrder+1;
+      logAudit({action:'Pinned Backstage '+kind, target:kind==='poll'?item.q:item.title, reason:'', ref:''});
+      toast('Pinned to the top of Backstage');
+      render(); break;
+    }
+    case 'unpin': {
+      const kind=t.dataset.kind;
+      const list = kind==='poll'?S.bsPolls:S.bsPosts;
+      const item=list.find(x=>x.id===t.dataset.id);
+      item.pinned=false; item.pinOrder=0;
+      logAudit({action:'Unpinned Backstage '+kind, target:kind==='poll'?item.q:item.title, reason:'', ref:''});
+      toast('Unpinned', 'Back to its date order in the feed');
+      render(); break;
+    }
+    case 'pinup': {
+      const pins=pinnedItems();
+      const i=pins.findIndex(x=>x.id===t.dataset.id);
+      if(i>0){
+        const a=pins[i], b=pins[i-1];
+        const findIn=x=>(x.type==='poll'?S.bsPolls:S.bsPosts).find(y=>y.id===x.id);
+        const oa=findIn(a), ob=findIn(b);
+        const tmp=oa.pinOrder; oa.pinOrder=ob.pinOrder; ob.pinOrder=tmp;
+      }
+      render(); break;
+    }
+    case 'newpoll': S.pollDraft={q:'', options:['','',''], opens:'2026-09-05', closes:''}; render(); break;
+    case 'cancelpoll': S.pollDraft=null; render(); break;
+    case 'poll-addopt': S.pollDraft.options.push(''); render(); break;
+    case 'createpoll': {
+      const d=S.pollDraft;
+      S.bsPolls.unshift({id:'bs_poll_'+Math.floor(Math.random()*90+10), q:d.q.trim(),
+        opens:d.opens.trim()||'today', closes:d.closes.trim(), state:'open', pinned:false, pinOrder:0,
+        options:d.options.filter(o=>o.trim()).map(o=>({l:o.trim(), v:0}))});
+      logAudit({action:'Published Backstage poll', target:d.q.trim(), reason:'', ref:''});
+      S.pollDraft=null;
+      toast('Poll published', 'Open until '+(d.closes.trim()||'—'));
+      render(); break;
+    }
+    case 'closepoll': {
+      const poll=S.bsPolls.find(x=>x.id===t.dataset.id);
+      poll.state='closed';
+      logAudit({action:'Closed Backstage poll', target:poll.q, reason:'', ref:''});
+      toast('Poll closed', 'It stays in Backstage with its final tally');
+      render(); break;
+    }
+    case 'removecontent': confirmRemoveContent(t.dataset.id, t.dataset.focusKey); break;
+    case 'removemember': confirmRemoveMember(t.dataset.id, t.dataset.flag, t.dataset.focusKey); break;
+    case 'escalate': confirmEscalate(t.dataset.id, t.dataset.focusKey); break;
+    case 'dismissflag': {
+      const f=flagById(t.dataset.id);
+      S.bsFlags=S.bsFlags.filter(x=>x.id!==f.id);
+      logAudit({action:'Cleared Backstage flag with no action', target:f.target, reason:'', ref:''});
+      toast('Flag cleared', 'No action taken');
+      render(); break;
+    }
+
+    /* --- writes --- */
+    case 'userstatus': confirmUserStatus(t.dataset.id, t.dataset.to, t.dataset.focusKey); break;
+    case 'orgstatus': confirmOrgStatus(t.dataset.id, t.dataset.to, t.dataset.focusKey); break;
+    case 'resolvepause': confirmPause(t.dataset.id, t.dataset.focusKey); break;
+    case 'closemodal': closeModal(); break;
+    case 'ack': S.modal.ack=!S.modal.ack; renderModal(); break;
+    case 'confirm': {
+      if(!modalReady()) break;
+      const key=S.modal.triggerKey;
+      S.modal.cfg.onConfirm();
+      S.modal=null;
+      render();
+      if(key){ const b=document.querySelector(`[data-focus-key="${key}"]`); if(b) b.focus(); }
+      break;
+    }
+  }
+});
+
+document.addEventListener('input', e=>{
+  const t=e.target.closest('[data-act]'); if(!t) return;
+  const a=t.dataset.act;
+  if(a==='search'){
+    S.q.accounts=t.value;
+    el('acct-results').innerHTML=accountsResultsHTML();   // results only; input keeps focus and caret
+    return;
+  }
+  if(a==='draft-title'){ S.draft.title=t.value; syncPublish(); return; }
+  if(a==='draft-body'){ S.draft.body=t.value; syncPublish(); return; }
+  if(a==='poll-q'){ S.pollDraft.q=t.value; syncCreatePoll(); return; }
+  if(a==='poll-opt'){ S.pollDraft.options[Number(t.dataset.i)]=t.value; syncCreatePoll(); return; }
+  if(a==='poll-opens'){ S.pollDraft.opens=t.value; return; }
+  if(a==='poll-closes'){ S.pollDraft.closes=t.value; syncCreatePoll(); return; }
+  if(!S.modal) return;
+  if(a==='reason'){ S.modal.v.reason=t.value; syncModalConfirm(); }
+  if(a==='ref'){ S.modal.v.ref=t.value; syncModalConfirm(); }
+});
+
+document.addEventListener('change', e=>{
+  const t=e.target.closest('[data-act]'); if(!t) return;
+  if(t.dataset.act==='outcome' && S.modal){ S.modal.v.outcome=t.value; syncModalConfirm(); }
+});
+
+document.addEventListener('keydown', e=>{
+  // Enter in the customer password field fires the primary button
+  if(!S.signedIn && e.key==='Enter' && e.target.id==='password'){
+    e.preventDefault();
+    const b=el('customer-signin'); if(b) b.click();
+    return;
+  }
+  if(!S.modal) return;
+  if(e.key==='Escape'){ e.preventDefault(); closeModal(); return; }
+  if(e.key!=='Tab') return;
+  const f=focusables(el('modal-root'));
+  if(!f.length) return;
+  const first=f[0], last=f[f.length-1];
+  if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  else if(!el('modal-root').contains(document.activeElement)){ e.preventDefault(); first.focus(); }
+});
+
+if(location.hash) S.view=parseHash();
+render();
+</script>
+</body>
+</html>
