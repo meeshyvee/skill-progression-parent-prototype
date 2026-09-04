@@ -279,6 +279,9 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .nav-item:hover{background:var(--background-medium)}
 .nav-item[aria-current="page"]{background:var(--lilac-bush-50);color:var(--lilac-bush-800);font-weight:600}
 .nav-item i{width:18px;text-align:center;color:var(--lilac-bush-600)}
+.nav-item__count{display:grid;place-items:center;min-width:22px;height:22px;padding:0 6px;margin-left:auto;
+  border-radius:var(--corner-pill);background:var(--cinnabar-600);color:var(--neutral-0);
+  font-family:var(--font-primary);font-size:11.5px;font-weight:600}
 .nav-group{display:flex;flex-direction:column;gap:var(--space-sm)}
 .nav-group__title{font-family:var(--font-primary);font-size:12px;font-weight:600;color:var(--foreground-medium);letter-spacing:.06em;padding-left:var(--space-lg)}
 .learner-row{display:flex;align-items:center;gap:var(--space-md);padding:var(--space-sm) var(--space-lg);border-radius:var(--corner-xl);width:100%;text-align:left;font-size:14px}
@@ -294,10 +297,6 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .breadcrumb{display:flex;align-items:center;gap:var(--space-sm);font-size:15px;color:var(--foreground-medium);min-width:0}
 .topbar__actions{display:flex;align-items:center;gap:var(--space-sm);margin-left:auto}
 .icon-frame{border:1px solid var(--neutral-200);border-radius:var(--corner-xl);color:var(--neutral-700)}
-.ticket-button{display:inline-flex;align-items:center;gap:var(--space-sm);padding:var(--space-md) var(--space-lg);border-radius:var(--corner-xl);border:1.5px solid var(--casablanca-400);background:var(--casablanca-100);color:var(--casablanca-800);font-family:var(--font-primary);font-weight:600;font-size:14px}
-.ticket-button:hover{background:var(--casablanca-200)}
-.ticket-button__count{display:grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:var(--corner-pill);background:var(--cinnabar-600);color:var(--neutral-0);font-size:11px}
-
 .page{display:flex;flex-direction:column;gap:var(--space-xl);padding:var(--space-xl);width:100%;max-width:1120px;margin-inline:auto}
 
 /* ---------- dashboard ---------- */
@@ -348,32 +347,36 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .bs-hero h1{color:var(--pearl-brush-50);font-size:40px;letter-spacing:-.01em}
 .bs-hero__eyebrow{display:flex;align-items:center;gap:var(--space-sm);flex-wrap:wrap}
 .bs-hero p{max-width:56ch;color:var(--lilac-bush-100)}
-.bs-hero__stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:var(--space-lg);
-  padding-top:var(--space-lg);border-top:1px solid var(--lilac-bush-700)}
-.bs-hero__stat{display:flex;flex-direction:column;gap:2px}
-.bs-hero__stat b{font-family:var(--font-primary);font-size:26px;font-weight:600;color:var(--casablanca-300);line-height:1.15}
-.bs-hero__stat span{font-size:13px;color:var(--lilac-bush-100)}
+.bs-hero__note{display:inline-flex;align-items:center;gap:var(--space-md);width:fit-content;
+  padding:var(--space-sm) var(--space-lg);border-radius:var(--corner-pill);
+  background:var(--lilac-bush-700);border:1px solid var(--lilac-bush-600);
+  font-size:14px;color:var(--lilac-bush-100)}
+.bs-hero__note b{font-family:var(--font-primary);font-weight:600;color:var(--pearl-brush-50)}
+.bs-hero__dot{width:8px;height:8px;border-radius:50%;background:var(--highland-400);flex-shrink:0}
 
-/* membership card — sits beside the hero copy */
-.member-card{display:flex;flex-direction:column;gap:var(--space-lg);padding:var(--space-xl);
-  border-radius:var(--corner-xl);background:var(--lilac-bush-900);border:1px solid var(--casablanca-400);
-  background-image:radial-gradient(260px 140px at 100% 0%,var(--lilac-bush-800),transparent 75%)}
-.member-card__top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md)}
-.member-card__ticket{display:grid;place-items:center;width:40px;height:40px;border-radius:var(--corner-lg);
-  background:var(--casablanca-300);color:var(--casablanca-800);font-size:17px;flex-shrink:0}
-.member-card__who{display:flex;align-items:center;gap:var(--space-md);min-width:0}
-.member-card__who h4{color:var(--pearl-brush-50);font-size:15px}
-.member-card__who span{font-size:12.5px;color:var(--lilac-bush-100)}
-.member-card__meta{display:flex;flex-direction:column;gap:var(--space-sm);padding-top:var(--space-lg);
-  border-top:1px dashed var(--lilac-bush-700)}
-.member-card__row{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-md);font-size:13px;color:var(--lilac-bush-100)}
-.member-card__row b{font-family:var(--font-primary);font-weight:600;font-size:13.5px;color:var(--pearl-brush-50)}
+/* founding member medallion — sits beside the hero copy */
+.member-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-lg)}
+.medallion{display:flex;flex-direction:column;align-items:center;gap:0}
+.medallion__ring{display:grid;place-items:center;width:150px;height:150px;border-radius:50%;
+  padding:7px;background:var(--casablanca-300);
+  background-image:radial-gradient(circle at 30% 20%,var(--casablanca-200),transparent 55%);
+  box-shadow:0 4px 4px rgba(0,0,0,.25)}
+.medallion__face{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-xs);
+  width:100%;height:100%;border-radius:50%;background:var(--lilac-bush-900);
+  background-image:radial-gradient(circle at 50% 15%,var(--lilac-bush-800),transparent 70%);
+  border:1px solid var(--lilac-bush-700);text-align:center;padding:var(--space-md)}
+.medallion__star{font-size:24px;color:var(--casablanca-300)}
+.medallion__label{font-family:var(--font-primary);font-size:11px;font-weight:600;line-height:1.25;
+  letter-spacing:.1em;color:var(--casablanca-200)}
+.medallion__ribbon{transform:translateY(-12px);padding:var(--space-sm) var(--space-lg);border-radius:var(--corner-pill);
+  border:2px solid var(--lilac-bush-800);white-space:nowrap;
+  background:var(--casablanca-300);color:var(--casablanca-800);
+  font-family:var(--font-primary);font-size:10.5px;font-weight:600;letter-spacing:.1em}
+.medallion--staff .medallion__ring{background:var(--cello-300);background-image:radial-gradient(circle at 30% 20%,var(--cello-200),transparent 55%)}
+.medallion--staff .medallion__star,.medallion--staff .medallion__label{color:var(--cello-200)}
+.medallion--staff .medallion__ribbon{background:var(--cello-300);color:var(--cello-900)}
+
 @media (max-width:900px){.bs-hero{grid-template-columns:minmax(0,1fr)}}
-
-.next-step{display:flex;align-items:center;gap:var(--space-lg);padding:var(--space-lg) var(--space-xl);border-radius:var(--corner-xl);background:var(--highland-50);border:1px solid var(--highland-200);flex-wrap:wrap}
-.next-step__body{display:flex;flex-direction:column;gap:var(--space-xs);min-width:220px;flex:1}
-.next-step__body h4{color:var(--highland-900)}
-.next-step__body p{font-size:14px;color:var(--neutral-700)}
 
 .tabs{display:flex;gap:var(--space-xs);border-bottom:1px solid var(--neutral-200);flex-wrap:wrap}
 .tabs button{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-md) var(--space-lg);border-radius:var(--corner-lg) var(--corner-lg) 0 0;font-family:var(--font-primary);font-weight:500;color:var(--foreground-medium);border-bottom:3px solid transparent}
@@ -401,6 +404,10 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .reaction{display:inline-flex;align-items:center;gap:6px;padding:6px var(--space-md);border-radius:var(--corner-pill);border:1px solid var(--neutral-200);background:var(--neutral-0);font-size:13px}
 .reaction:hover{background:var(--background-medium)}
 .reaction[aria-pressed="true"]{border-color:var(--lilac-bush-600);background:var(--lilac-bush-50);color:var(--lilac-bush-800);font-weight:600}
+.save-button{display:inline-flex;align-items:center;gap:6px;padding:6px var(--space-md);border-radius:var(--corner-pill);
+  border:1px solid var(--neutral-200);background:var(--neutral-0);font-size:13px;color:var(--foreground-medium)}
+.save-button:hover{background:var(--background-medium);color:var(--neutral-700)}
+.save-button[aria-pressed="true"]{border-color:var(--casablanca-400);background:var(--casablanca-100);color:var(--casablanca-800);font-weight:600}
 .mod-tools{display:flex;gap:var(--space-sm);margin-left:auto;flex-wrap:wrap}
 
 .thread{display:flex;flex-direction:column;gap:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid var(--neutral-200)}
@@ -480,7 +487,7 @@ const ROLES = {
 
 const state = {
   role:'founding', view:'dashboard', tab:'roadmap',
-  accepted:{}, showGate:false, errorMode:false, hooks:false,
+  accepted:{}, showGate:false, errorMode:false, hooks:false, saved:[],
   openThread:null, composerError:null, attachments:[]
 };
 
@@ -631,6 +638,19 @@ function vote(pollId,optionId){
   render();
 }
 
+/* Saving a post — members can keep anything to come back to later */
+function isSaved(id){ return state.saved.includes(id); }
+function toggleSave(id){
+  const item=findItem(id); if(!item) return;
+  const at=state.saved.indexOf(id);
+  if(at>-1){ state.saved.splice(at,1); toast('Removed from your saved posts','fa-bookmark'); }
+  else { state.saved.unshift(id); toast('Saved. Find it any time under Saved.','fa-bookmark'); }
+  render();
+}
+function savedItems(){
+  return state.saved.map(findItem).filter(Boolean);
+}
+
 function openThread(id){ state.openThread = state.openThread===id ? null : id; state.composerError=null; state.attachments=[]; render(); }
 function toggleAttachment(kind){
   if(kind==='.exe'){ state.composerError='We cannot take .exe files here. A video, audio clip, link, or GIF works.'; render(); return; }
@@ -718,6 +738,16 @@ function threadBlock(item){
     </div>
   </div>`;
 }
+function saveButton(item){
+  const saved=isSaved(item.id);
+  return `<div class="hs-tooltip-wrapper">
+    <button type="button" class="save-button" aria-pressed="${saved}"
+      aria-label="${saved?'Remove from saved posts':'Save this post for later'}" onclick="toggleSave('${item.id}')">
+      <i class="fa-${saved?'solid':'light'} fa-bookmark" aria-hidden="true"></i>${saved?'Saved':'Save'}</button>
+    <div class="hs-tooltip hs-tooltip--dark"><p class="hs-tooltip__text">${saved?'Remove from your saved list':'Keep this to come back to later'}</p></div>
+  </div>`;
+}
+
 function moderatorTools(item){
   if(!isModerator()) return '';
   return `<div class="mod-tools">
@@ -750,6 +780,7 @@ function postCard(item,kind){
     <div class="card__footer">
       ${reactionRow(item)}
       ${threadBlock(item)}
+      ${saveButton(item)}
       ${moderatorTools(item)}
     </div>
   </article>`;
@@ -794,6 +825,7 @@ function pollCard(poll){
     ${!showResults?hook('Variable reward','Results are hidden until you act, so voting reveals something new every time.'):''}
     <div class="card__footer">
       ${reactionRow(poll)}
+      ${saveButton(poll)}
       ${moderatorTools(poll)}
     </div>
   </article>`;
@@ -820,7 +852,8 @@ function sidebar(active){
       <button type="button" class="nav-item" onclick="goDashboard()">
         <i class="fa-duotone fa-solid fa-calendar-days" aria-hidden="true"></i>Planner</button>
       ${canEnter()?`<button type="button" class="nav-item" ${active==='backstage'?'aria-current="page"':''} onclick="openBackstage()">
-        <i class="fa-duotone fa-solid fa-ticket" aria-hidden="true"></i>Backstage</button>`:''}
+        <i class="fa-duotone fa-solid fa-ticket" aria-hidden="true"></i>Backstage
+        ${active!=='backstage'?`<span class="nav-item__count" aria-label="3 new items">3</span>`:''}</button>`:''}
     </nav>
 
     <div class="nav-group">
@@ -849,13 +882,6 @@ function topbar(where){
       <i class="fa-light fa-arrow-left" aria-hidden="true"></i></button>
     <p class="breadcrumb"><a href="#" onclick="goDashboard();return false;">Home</a><span>/</span>${esc(where)}</p>
     <div class="topbar__actions">
-      ${canEnter()?`<div class="hs-tooltip-wrapper">
-        <button type="button" class="ticket-button" onclick="openBackstage()">
-          <i class="fa-duotone fa-solid fa-ticket" aria-hidden="true"></i>Backstage
-          ${state.view!=='backstage'?`<span class="ticket-button__count">3</span>`:''}
-        </button>
-        <div class="hs-tooltip hs-tooltip--dark"><p class="hs-tooltip__text">Your Founding Member space — new this week</p></div>
-      </div>`:''}
       <button type="button" class="hs-button hs-button--no-outline hs-button--icon-only icon-frame" aria-label="Notifications">
         <i class="fa-light fa-bell" aria-hidden="true"></i></button>
       <button type="button" class="hs-button hs-button--no-outline hs-button--icon-only icon-frame" aria-label="Settings">
@@ -968,6 +994,18 @@ function backstage(){
       : `<div class="state-panel"><span class="state-panel__icon"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i></span>
          <h3>No polls open right now</h3><p>When a decision is close, we bring it here and let you settle it.</p></div>`;
   }
+  if(state.tab==='saved'){
+    const kept=savedItems();
+    body = kept.length
+      ? `<div class="feed">
+          <p class="u-muted">Only you can see this list. Unsave anything and it drops straight off.</p>
+          ${kept.map(i=>polls.includes(i)?pollCard(i):postCard(i,i.channel==='feedback'?'feedback':'roadmap')).join('')}
+         </div>`
+      : `<div class="state-panel"><span class="state-panel__icon"><i class="fa-solid fa-bookmark" aria-hidden="true"></i></span>
+         <h3>Nothing saved yet</h3><p>Tap Save on any update, poll, or question and it will wait for you right here — handy for the ones you want to answer when the house is quiet.</p>
+         <button type="button" class="hs-button hs-button--primary hs-button--medium" onclick="setTab('roadmap')">
+           <i class="fa-solid fa-map" aria-hidden="true"></i>Browse the updates</button></div>`;
+  }
   if(state.tab==='feedback'){
     const aggregate = isModerator() ? `<section class="aggregate">
       <h3>Everything families told us, in one place</h3>
@@ -980,18 +1018,6 @@ function backstage(){
     body = `<div class="feed">${aggregate}${prompts.map(p=>postCard(p,'feedback')).join('')}</div>`;
   }
 
-  const waiting = needsMyVote();
-  const nextStep = (!isModerator() && waiting)
-    ? `<section class="next-step">
-        <span class="stat-card__icon"><i class="fa-solid fa-hand-point-right" aria-hidden="true"></i></span>
-        <div class="next-step__body"><h4>One thing needs you today</h4>
-          <p>A poll is open on what we build in November. It takes about twenty seconds and your answer counts the same as ours.</p></div>
-        <button type="button" class="hs-button hs-button--primary hs-button--medium" onclick="setTab('polls')">
-          <i class="fa-solid fa-check-double" aria-hidden="true"></i>Cast your vote</button>
-      </section>
-      ${hook('Action','The smallest possible next step, named plainly and always visible.')}`
-    : '';
-
   return `<div class="app-shell">
     ${sidebar('backstage')}
     <div class="main-column">
@@ -1001,40 +1027,30 @@ function backstage(){
           <div class="bs-hero__lead">
             <div class="bs-hero__title">
               <div class="bs-hero__eyebrow">
-                <span class="hs-label hs-label--yellow"><span class="hs-label__icon"><i class="fa-solid fa-ticket" aria-hidden="true"></i></span><span class="hs-label__text">Founding Members</span></span>
-                <span class="hs-label hs-label--purple"><span class="hs-label__text">Building in the open since Sept 2026</span></span>
+                <span class="hs-label hs-label--yellow"><span class="hs-label__icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span><span class="hs-label__text">Founding Member · Backstage</span></span>
               </div>
               <h1>Backstage</h1>
             </div>
             <p>Good to see you, ${esc(u.first)}. This is where we build alongside the first families on the platform — what just shipped, what is coming next, and the questions we still need your help answering.</p>
-            <div class="bs-hero__stats">
-              <span class="bs-hero__stat"><b>86</b><span>Founding families here</span></span>
-              <span class="bs-hero__stat"><b>3</b><span>New updates this week</span></span>
-              <span class="bs-hero__stat"><b>${openPolls()}</b><span>Poll open right now</span></span>
-              <span class="bs-hero__stat"><b>7</b><span>Ideas shipped from your feedback</span></span>
-            </div>
+            <p class="bs-hero__note">
+              <span class="bs-hero__dot" aria-hidden="true"></span>
+              <span><b>86 founding families</b> are building alongside you</span>
+            </p>
           </div>
 
-          <aside class="member-card">
-            <div class="member-card__top">
-              <div class="member-card__who">
-                <span class="avatar avatar--md avatar--${u.tone}" aria-hidden="true">${esc(u.initial)}</span>
-                <span class="byline__who"><h4>${esc(u.name)}</h4><span>${esc(u.staff?u.sub:'Admin parent')}</span></span>
+          <aside class="member-badge">
+            <div class="medallion ${u.staff?'medallion--staff':''}">
+              <div class="medallion__ring">
+                <div class="medallion__face">
+                  <i class="fa-solid ${u.staff?'fa-shield-halved':'fa-star'} medallion__star" aria-hidden="true"></i>
+                  <span class="medallion__label">${u.staff?'STRONGMIND<br>TEAM':'FOUNDING<br>MEMBER'}</span>
+                </div>
               </div>
-              <span class="member-card__ticket"><i class="fa-solid fa-ticket" aria-hidden="true"></i></span>
+              <span class="medallion__ribbon">${u.staff?'MODERATOR · PLATFORM-WIDE':'MEMBER SINCE SEPT 2026'}</span>
             </div>
-            ${u.staff
-              ? `<span class="hs-label hs-label--blue"><span class="hs-label__icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span><span class="hs-label__text">${esc(u.sub)}</span></span>`
-              : `<span class="hs-label hs-label--yellow"><span class="hs-label__icon"><i class="fa-solid fa-ticket" aria-hidden="true"></i></span><span class="hs-label__text">Founding Member</span></span>`}
-            <div class="member-card__meta">
-              <p class="member-card__row">${u.staff?'Access':'Member since'}<b>${u.staff?'Moderator, platform-wide':'Sept 30, 2026'}</b></p>
-              <p class="member-card__row">Your votes<b>4 polls</b></p>
-              <p class="member-card__row">Your replies<b>11 posts</b></p>
-            </div>
+
           </aside>
         </section>
-
-        ${nextStep}
 
         <div class="tabs" role="tablist">
           <button type="button" role="tab" aria-selected="${state.tab==='roadmap'}" onclick="setTab('roadmap')">
@@ -1045,6 +1061,9 @@ function backstage(){
           <button type="button" role="tab" aria-selected="${state.tab==='feedback'}" onclick="setTab('feedback')">
             <i class="fa-duotone fa-solid fa-comments" aria-hidden="true"></i>We are asking you
             <span class="hs-label hs-label--neutral"><span class="hs-label__text">${prompts.length}</span></span></button>
+          <button type="button" role="tab" aria-selected="${state.tab==='saved'}" onclick="setTab('saved')">
+            <i class="fa-duotone fa-solid fa-bookmark" aria-hidden="true"></i>Saved
+            ${state.saved.length?`<span class="hs-label hs-label--teal"><span class="hs-label__text">${state.saved.length}</span></span>`:''}</button>
         </div>
 
         ${body}
