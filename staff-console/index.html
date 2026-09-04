@@ -112,19 +112,20 @@ a{color:var(--purple);text-decoration:none}
 .mark{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:-.02em;color:var(--rail-text)}
 .mark svg{width:24px;height:24px;flex:none}
 .staff-tag{display:inline-block;margin-top:12px;font-size:10.5px;font-weight:600;letter-spacing:.11em;color:#F0C87A;border:1px solid #5B4A2E;background:#3A2F1D;border-radius:5px;padding:3px 7px}
-nav{padding:16px 10px;flex:1;overflow-y:auto;border-top:1px solid var(--rail-2)}
+nav{padding:14px 10px;flex:1;overflow-y:auto}
 .nav-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 10px;border-radius:9px;color:#D8D0C6;font-size:14px;transition:background .12s,color .12s}
 .nav-item:hover{background:var(--rail-2);color:#fff}
 .nav-item[aria-current=page]{background:#3D342D;color:#fff;font-weight:600}
 .nav-item svg{width:17px;height:17px;flex:none;opacity:.85}
 .nav-item .count{margin-left:auto;font-size:11.5px;font-family:"IBM Plex Mono",monospace;background:#4A3F36;color:#E4DACB;border-radius:5px;padding:1px 6px}
 .nav-item .count.hot{background:#5C2E1E;color:#FFC7B2}
-.rail-foot{border-top:1px solid var(--rail-2);padding:14px;display:grid;gap:12px}
-.who-row{display:flex;gap:11px;align-items:center}
+.who{padding:6px 18px 20px;text-align:center;border-bottom:1px solid var(--rail-2)}
+.who-av{width:52px;height:52px;font-size:18px;margin:0 auto 10px}
+.who-nm{font-weight:600;font-size:16px;line-height:1.2;letter-spacing:-.01em}
+.who-rl{font-size:12px;color:var(--rail-muted);margin-top:2px}
+.rail-foot{border-top:1px solid var(--rail-2);padding:14px;display:grid;gap:10px}
 .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:13.5px;flex:none}
-.who-row .nm{font-weight:600;font-size:14px;line-height:1.2}
-.who-row .rl{font-size:11.5px;color:var(--rail-muted)}
-.signout{margin-left:auto;font-size:12.5px;color:#BFB5A9;border:1px solid var(--rail-2);border-radius:8px;padding:5px 10px}
+.signout{width:100%;font-size:13px;color:#BFB5A9;border:1px solid var(--rail-2);border-radius:9px;padding:9px 12px;text-align:center}
 .signout:hover{background:var(--rail-2);color:#fff}
 .toggle{display:flex;align-items:center;gap:9px;font-size:12.5px;color:#CFC6BB;padding:4px;width:100%;text-align:left}
 .sw{width:34px;height:19px;border-radius:999px;background:#4A4038;position:relative;flex:none;transition:background .15s}
@@ -140,6 +141,18 @@ main{min-width:0;display:flex;flex-direction:column}
 .crumb .now{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .back{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;color:var(--ink-2);flex:none}
 .back:hover{background:var(--line-soft)}
+.topbar{min-height:63px}
+.topdate{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500;color:var(--ink-2)}
+.topdate svg{color:var(--muted);flex:none}
+.icon-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:9px;display:grid;place-items:center;color:var(--ink-2);flex:none}
+.icon-btn:hover{background:var(--line-soft)}
+.icon-btn[aria-current=page]{background:var(--purple-soft);border-color:#DFD2F0;color:var(--purple-ink)}
+.setrow{display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line-soft);width:100%;text-align:left}
+.setrow:last-child{border-bottom:0}
+.setrow .si{width:34px;height:34px;border-radius:9px;background:var(--purple-soft);color:var(--purple-ink);display:grid;place-items:center;flex:none}
+.setrow .st{font-weight:600;font-size:14.5px}
+.setrow .sd{font-size:13px;color:var(--muted);margin-top:2px}
+.setrow .sr{margin-left:auto;flex:none}
 .env{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--gap);background:var(--gap-soft);border:1px solid #EBD6AE;border-radius:6px;padding:4px 8px;flex:none}
 .page{padding:26px 30px 70px;max-width:1180px;width:100%}
 .page-head{margin-bottom:20px}
@@ -219,6 +232,7 @@ textarea{resize:vertical;min-height:76px}
 .worm{font-size:12px;color:var(--muted);display:flex;gap:7px;align-items:center}
 
 .ctx{display:flex;align-items:center;gap:12px;background:var(--purple-soft);border:1px solid #DFD2F0;border-radius:12px;padding:11px 15px;margin-bottom:18px;font-size:13.5px;color:var(--purple-ink);flex-wrap:wrap}
+.ctx svg{width:16px;height:16px;flex:none}
 .ctx .x{margin-left:auto;color:var(--purple-ink);opacity:.6;font-size:13px;padding:2px 6px}
 .ctx .x:hover{opacity:1;text-decoration:underline}
 
@@ -236,11 +250,6 @@ textarea{resize:vertical;min-height:76px}
 .pausecard{border:1px solid #EBDCBC;background:#FFFCF4;border-radius:12px;padding:14px 16px}
 .pausecard + .pausecard{margin-top:10px}
 
-.audit-row{display:grid;grid-template-columns:78px 1fr;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line-soft)}
-.audit-row:last-child{border-bottom:0}
-.audit-row .when{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);padding-top:2px}
-.audit-row .meta{font-size:12.5px;color:var(--muted);margin-top:3px}
-.audit-row .reason{font-size:13px;color:var(--ink-2);margin-top:6px;border-left:2px solid var(--line);padding-left:10px}
 
 .tick{display:flex;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line-soft);align-items:flex-start}
 .tick:last-child{border-bottom:0}
@@ -280,6 +289,31 @@ textarea{resize:vertical;min-height:76px}
 .flagcard{border:1px solid #EBC9BE;background:#FFFAF8;border-radius:12px;padding:15px 17px}
 .flagcard + .flagcard{margin-top:12px}
 .flagcard .excerpt{font-size:13.5px;color:var(--ink-2);border-left:2px solid #E3B6A6;padding-left:11px;margin:10px 0}
+
+/* ============ mail inbox ============ */
+.mailrow{display:flex;gap:14px;padding:15px 20px;border-bottom:1px solid var(--line-soft);cursor:pointer;align-items:flex-start}
+.mailrow:last-child{border-bottom:0}
+.mailrow:hover{background:#FCFAF6}
+.mailmain{min-width:0;flex:1}
+.mailtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+.mailsub{font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+.mailsnip{font-size:13.5px;color:var(--muted);margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+.msg{border-top:1px solid var(--line-soft);padding:16px 0}
+.msg:first-child{border-top:0;padding-top:4px}
+.msghead{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:9px}
+.msgbody{font-size:14px;color:var(--ink-2);white-space:pre-wrap}
+.msg.staff .msgbody{background:var(--purple-soft);border-radius:12px;padding:13px 15px;color:var(--purple-ink)}
+
+.linked{display:flex;align-items:center;gap:9px;background:var(--purple-soft);color:var(--purple-ink);border-radius:10px;padding:11px 13px;font-size:13.5px;font-weight:500}
+.linked svg{width:16px;height:16px;flex:none}
+
+/* ============ audit entries ============ */
+.audit-row{display:grid;grid-template-columns:74px 1fr;gap:14px;padding:11px 0}
+.audit-row:first-child{padding-top:2px}
+.audit-row:last-child{padding-bottom:2px}
+.audit-row .when{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);padding-top:2px}
+.audit-row .meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+.audit-row .reason{font-size:13px;color:var(--ink-2);margin-top:6px;border-left:2px solid var(--line);padding-left:10px}
 
 /* ============ gap annotation ============ */
 .gap{position:relative}
@@ -339,14 +373,16 @@ const I = {
   users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M2.8 20c0-3.4 2.8-5.6 6.2-5.6s6.2 2.2 6.2 5.6"/><path d="M16.5 5.6a3 3 0 0 1 0 5.6M18 14.6c2 .7 3.3 2.3 3.3 4.4"/></svg>',
   pause:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.4"/><path d="M10 9.2v5.6M14 9.2v5.6"/></svg>',
   audit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3.2h8.5L19 7.8V20.8H6z"/><path d="M9 11h7M9 15h7M9 7h3"/></svg>',
-  ticket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.2 8.2A2 2 0 0 1 5.2 6h13.6a2 2 0 0 1 2 2.2 2 2 0 0 0 0 3.9 2 2 0 0 1-2 2.2H5.2a2 2 0 0 1-2-2.2 2 2 0 0 0 0-3.9z"/><path d="M9.6 6v9.2"/></svg>',
+  ticket:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.2 8.2A2 2 0 0 1 5.2 6h13.6a2 2 0 0 1 2 2.2 2 2 0 0 0 0 3.9 2 2 0 0 1-2 2.2H5.2a2 2 0 0 1-2-2.2 2 2 0 0 0 0-3.9z"/><path d="M9.6 6v9.2"/></svg>',
   search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10.5" cy="10.5" r="6.4"/><path d="M15.4 15.4 20 20"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" width="15" height="15"><path d="M11 6l-5 6 5 6M6.5 12H19"/></svg>',
-  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12.6l4.4 4.4L19 7.4"/></svg>',
+  check:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12.6l4.4 4.4L19 7.4"/></svg>',
   lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="14" height="14"><rect x="5" y="10.4" width="14" height="9.6" rx="2.2"/><path d="M8.4 10.4V8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>',
   lockField:'<svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="10.4" width="14" height="9.6" rx="2.4"/><path d="M8.4 10.4V8a3.6 3.6 0 0 1 7.2 0v2.4"/></svg>',
   personField:'<svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8.4" r="3.6"/><path d="M4.8 20c0-3.7 3.2-6 7.2-6s7.2 2.3 7.2 6"/></svg>',
   arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" width="15" height="15"><path d="M5 12h13M13 6.5l5.5 5.5L13 17.5"/></svg>',
+  gear:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="2.9"/><path d="M19.3 14.2a1.6 1.6 0 0 0 .3 1.8l.1.1a1.9 1.9 0 1 1-2.7 2.7l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5v.2a1.9 1.9 0 1 1-3.8 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a1.9 1.9 0 1 1-2.7-2.7l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H2.3a1.9 1.9 0 1 1 0-3.8h.2a1.6 1.6 0 0 0 1.4-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a1.9 1.9 0 1 1 2.7-2.7l.1.1a1.6 1.6 0 0 0 1.8.3h.1a1.6 1.6 0 0 0 1-1.5V2.3a1.9 1.9 0 1 1 3.8 0v.2a1.6 1.6 0 0 0 1 1.4 1.6 1.6 0 0 0 1.8-.3l.1-.1a1.9 1.9 0 1 1 2.7 2.7l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1h.2a1.9 1.9 0 1 1 0 3.8h-.2a1.6 1.6 0 0 0-1.4 1z"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.6" y="5.4" width="16.8" height="15" rx="2.4"/><path d="M3.6 10.2h16.8M8.4 3.4v3.4M15.6 3.4v3.4"/></svg>',
   stage:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.4 9.2h17.2v10.4H3.4z"/><path d="M6.8 9.2 12 4l5.2 5.2M8.6 19.6v-4.2h6.8v4.2"/></svg>',
   chev:'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M9 5.5l6.5 6.5L9 18.5"/></svg>'
 };
@@ -389,11 +425,73 @@ const SEED_PLANS = [
 ];
 
 const SEED_TICKETS = [
-  {id:'SM-1042', subject:'Charged twice for August', email:'danny.thompson@gmail.com', body:'We were billed on the 2nd and again on the 14th. Can you check what happened and refund the second one?', from:'Danny T.', age:'2h', kind:'Billing'},
-  {id:'SM-1038', subject:'Why is our account frozen?', email:'britt.halvorsen@icloud.com', body:'We paused billing through September like your team suggested, but now nobody can log in at all. The kids are mid-unit.', from:'Britt H.', age:'5h', kind:'Account'},
-  {id:'SM-1033', subject:'Cancelling — still being charged', email:'mercer.kids@yahoo.com', body:'I cancelled three weeks ago and the account still shows open. I do not want another invoice.', from:'Renata M.', age:'1d', kind:'Billing'},
-  {id:'SM-1031', subject:'Cannot get into our account', email:'k.whitfield.hs@gmail.com', body:'My wife set this up and I have never been able to log in with my own email. Can you look me up?', from:'Ken W.', age:'1d', kind:'Account'},
-  {id:'SM-1029', subject:'Which plan are we actually on?', email:'a.okonkwo@outlook.com', body:'The site says Core but I thought we upgraded last spring. What does my account say on your end?', from:'Amara O.', age:'2d', kind:'Billing'}
+  {id:'t_1042', status:'open', who:'Danny Thompson', email:'danny.thompson@gmail.com',
+   subject:'Charged twice for August', age:'2h', kind:'Billing', assignee:null,
+   messages:[
+     {from:'customer', who:'Danny Thompson', when:'Today, 7:12 AM',
+      text:'We were billed on the 2nd and again on the 14th. Can you check what happened and refund the second one? Same card both times.'}
+   ]},
+  {id:'t_1038', status:'open', who:'Britt Halvorsen', email:'britt.halvorsen@icloud.com',
+   subject:'Why is our account frozen?', age:'5h', kind:'Account', assignee:'Priya Raman',
+   messages:[
+     {from:'customer', who:'Britt Halvorsen', when:'Today, 4:02 AM',
+      text:'We paused billing through September like your team suggested, but now nobody can log in at all. The kids are mid-unit and Ingrid has a milestone due.'},
+     {from:'staff', who:'Priya Raman', when:'Today, 8:15 AM',
+      text:'Thanks for flagging this — I can see the pause on your household and I am checking whether it took access down with it. I will have an answer for you within the hour.'},
+     {from:'customer', who:'Britt Halvorsen', when:'Today, 8:31 AM',
+      text:'Appreciated. We can work offline today but I would rather not lose the week.'}
+   ]},
+  {id:'t_1033', status:'open', who:'Renata Mercer', email:'mercer.kids@yahoo.com',
+   subject:'Cancelling — still being charged', age:'1d', kind:'Billing', assignee:null,
+   messages:[
+     {from:'customer', who:'Renata Mercer', when:'Yesterday, 2:44 PM',
+      text:'I cancelled three weeks ago and the account still shows open. I do not want another invoice.'}
+   ]},
+  {id:'t_1031', status:'open', who:'Ken Whitfield', email:'k.whitfield.hs@gmail.com',
+   subject:'Cannot get into our account', age:'1d', kind:'Account', assignee:null,
+   messages:[
+     {from:'customer', who:'Ken Whitfield', when:'Yesterday, 9:07 AM',
+      text:'My wife set this up and I have never been able to log in with my own email. Can you look me up?'}
+   ]},
+  {id:'t_1029', status:'closed', who:'Amara Okonkwo', email:'a.okonkwo@outlook.com',
+   subject:'Which plan are we actually on?', age:'2d', kind:'Billing', assignee:'Priya Raman',
+   resolvedBy:'Priya Raman', resolvedAt:'2 days ago',
+   resolution:'Confirmed from the catalog that the household is on Homeschool Core monthly. No upgrade was ever completed — the checkout was abandoned last spring. Sent her the upgrade link.',
+   messages:[
+     {from:'customer', who:'Amara Okonkwo', when:'Sep 1, 11:20 AM',
+      text:'The site says Core but I thought we upgraded last spring. What does my account say on your end?'},
+     {from:'staff', who:'Priya Raman', when:'Sep 1, 12:05 PM',
+      text:'You are on Homeschool Core, billed monthly. I checked the catalog and there is no record of an upgrade completing — it looks like the checkout was started but not finished. Nothing was charged for it. Want me to send you the link to upgrade now?'},
+     {from:'customer', who:'Amara Okonkwo', when:'Sep 1, 1:14 PM', text:'That explains it. Yes please.'}
+   ]},
+  {id:'t_1024', status:'closed', who:'Danny Thompson', email:'danny.thompson@gmail.com',
+   subject:'Remove my old work email from the account', age:'5d', kind:'Account', assignee:'Priya Raman',
+   resolvedBy:'Priya Raman', resolvedAt:'5 days ago',
+   resolution:'Deactivated the duplicate login. Confirmed with him first that no learner work was attached to it.',
+   messages:[
+     {from:'customer', who:'Danny Thompson', when:'Aug 30, 8:40 AM',
+      text:'I signed up twice by mistake — once with my work email. Can you get rid of that one? I never used it.'},
+     {from:'staff', who:'Priya Raman', when:'Aug 30, 9:02 AM',
+      text:'Done. That login had no learner profiles attached so nothing was lost. Your main account is untouched.'}
+   ]}
+];
+
+/* Member-side activity, for the audit log. Staff actions live in S.audit. */
+const SEED_MEMBER_LOG = [
+  {t:'today', who:'Britt Halvorsen', org:'o_5120', action:'Replied to a Backstage post', target:'Offline mode is coming to the lesson player'},
+  {t:'today', who:'Danny Thompson', org:'o_4417', action:'Voted in a poll', target:'Which should we build next in the Planner?'},
+  {t:'today', who:'Renata Mercer', org:'o_5566', action:'Posted in Backstage', target:'Anyone else using paper planners alongside this?'},
+  {t:'today', who:'Amara Okonkwo', org:'o_3902', action:'Accepted community guidelines', target:'Backstage first entry'},
+  {t:'Yest', who:'Danny Thompson', org:'o_4417', action:'Responded to a feedback prompt', target:'What is the biggest barrier to getting daily lessons done?'},
+  {t:'Yest', who:'Britt Halvorsen', org:'o_5120', action:'Voted in a poll', target:'Which should we build next in the Planner?'},
+  {t:'Yest', who:'Renata Mercer', org:'o_5566', action:'Reacted to a post', target:'Planner redesign — what changed and why'},
+  {t:'Yest', who:'Danny Thompson', org:'o_4417', action:'Reacted to a post', target:'Welcome, Founding Members'},
+  {t:'Sep 2', who:'Amara Okonkwo', org:'o_3902', action:'Posted in Backstage', target:'Anyone else in Mesa?'},
+  {t:'Sep 2', who:'Britt Halvorsen', org:'o_5120', action:'Responded to a feedback prompt', target:'What is the biggest barrier to getting daily lessons done?'},
+  {t:'Sep 1', who:'Danny Thompson', org:'o_4417', action:'Posted in Backstage', target:'Three learners, one of me'},
+  {t:'Sep 1', who:'Renata Mercer', org:'o_5566', action:'Accepted community guidelines', target:'Backstage first entry'},
+  {t:'Aug 31', who:'Britt Halvorsen', org:'o_5120', action:'Accepted community guidelines', target:'Backstage first entry'},
+  {t:'Aug 30', who:'Danny Thompson', org:'o_4417', action:'Accepted community guidelines', target:'Backstage first entry'}
 ];
 
 const STAFF = {label:'Support & Operations', person:{name:'Priya Raman', initials:'PR', color:'#6D4AA7'}};
@@ -464,6 +562,11 @@ let S = {
   planPanel:null,
   foldLocked:false,
   bsTab:'feed',
+  inboxTab:'open',
+  logTab:'staff',
+  reply:'',
+  resolving:false,
+  resolveNote:'',
   bsPrompt:null,
   draft:{title:'', body:'', attach:[], err:''},
   pollDraft:null,
@@ -474,6 +577,8 @@ let S = {
   bsPolls:JSON.parse(JSON.stringify(SEED_BS_POLLS)),
   bsPrompts:JSON.parse(JSON.stringify(SEED_BS_PROMPTS)),
   bsFlags:JSON.parse(JSON.stringify(SEED_BS_FLAGS)),
+  tickets:JSON.parse(JSON.stringify(SEED_TICKETS)),
+  memberLog:JSON.parse(JSON.stringify(SEED_MEMBER_LOG)),
   audit:[
     {t:'09:14', actor:'Marcus Lyle', action:'Deactivated user', target:'lvasquez.home@gmail.com', reason:'Duplicate household created during migration; consolidating onto o_2288.', ref:'SM-0994'},
     {t:'08:47', actor:'Priya Raman', action:'Deactivated user', target:'d.thompson.work@gmail.com', reason:'Parent asked us to remove the work email that never finished onboarding.', ref:'SM-1017'},
@@ -486,7 +591,7 @@ const el = id => document.getElementById(id);
 const orgById = id => S.orgs.find(o=>o.id===id);
 const userById = id => S.users.find(u=>u.id===id);
 const planByCode = c => SEED_PLANS.find(p=>p.code===c);
-const ticketById = id => SEED_TICKETS.find(t=>t.id===id);
+const ticketById = id => S.tickets.find(t=>t.id===id);
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gapTag = t => `<span class="gap-tag">${esc(t)}</span>`;
 const statusPill = s => s==='active'
@@ -507,6 +612,7 @@ function logAudit(entry){ S.audit.unshift(Object.assign({t:'now', actor:STAFF.pe
 ============================================================ */
 function routeToHash(v){
   if(v.name==='account') return '#/account/'+v.id;
+  if(v.name==='ticket') return '#/ticket/'+v.id;
   return '#/'+v.name;
 }
 function parseHash(){
@@ -514,7 +620,8 @@ function parseHash(){
   if(!h) return {name:'inbox'};
   const [a,b]=h.split('/');
   if(a==='account' && userById(b)) return {name:'account', id:b};
-  if(['inbox','accounts','pauses','audit','plans','backstage'].includes(a)) return {name:a};
+  if(a==='ticket' && S.tickets.find(t=>t.id===b)) return {name:'ticket', id:b};
+  if(['inbox','accounts','audit','plans','backstage','settings'].includes(a)) return {name:a};
   return {name:'inbox'};
 }
 let suppressHash=false;
@@ -582,28 +689,44 @@ function viewSignin(){
 const NAV = [
   {k:'inbox', label:'Support inbox', icon:'ticket'},
   {k:'backstage', label:'Backstage', icon:'stage'},
-  {k:'pauses', label:'Parked pauses', icon:'pause'},
   {k:'accounts', label:'Accounts', icon:'users'},
   {k:'audit', label:'Activity log', icon:'audit'}
 ];
 
+const TOP_LEVEL=['inbox','backstage','accounts','audit'];
+const isDetail = () => !TOP_LEVEL.includes(S.view.name);
+
+function today(){
+  return new Date().toLocaleDateString('en-US',
+    {weekday:'long', month:'long', day:'numeric'});
+}
+
+/* Only detail views get a trail. A top-level section is not "inside" the inbox,
+   and the h1 right below already names it. */
 function crumbFor(){
   const v=S.view;
-  const root=`<a href="#/inbox" data-act="go" data-name="inbox">Support inbox</a>`;
-  const labels={accounts:'Accounts', pauses:'Parked pauses', audit:'Activity log',
-    plans:'Plans &amp; pricing', backstage:'Backstage'};
-  if(v.name==='inbox') return `<span class="now">Support inbox</span>`;
+  const link=(href,name,label,id)=>
+    `<a href="${href}" data-act="go" data-name="${name}"${id?` data-id="${id}"`:''}>${label}</a>`;
+  const sep=`<span class="sep">/</span>`;
+
+  if(v.name==='ticket'){
+    const tk=ticketById(v.id);
+    return link('#/inbox','inbox','Support inbox')+sep+
+      `<span class="now">${esc(tk?tk.who:'—')}</span>`;
+  }
   if(v.name==='account'){
     const u=userById(v.id);
-    const mid = S.from==='inbox' && S.ticket
-      ? `<a href="#/inbox" data-act="go" data-name="inbox">${esc(S.ticket.id)}</a>`
-      : `<a href="#/accounts" data-act="go" data-name="accounts">Accounts</a>`;
-    return root+`<span class="sep">/</span>`+mid+`<span class="sep">/</span><span class="now">${esc(u?u.email:'—')}</span>`;
+    const parent = S.from==='inbox' && S.ticket
+      ? link('#/ticket/'+S.ticket.id,'ticket',esc(S.ticket.who||'Conversation'),S.ticket.id)
+      : link('#/accounts','accounts','Accounts');
+    return parent+sep+`<span class="now">${esc(u?u.email:'—')}</span>`;
   }
   if(v.name==='plans'){
-    return root+`<span class="sep">/</span><a href="#/accounts" data-act="go" data-name="accounts">Accounts</a><span class="sep">/</span><span class="now">Plans &amp; pricing</span>`;
+    return link('#/accounts','accounts','Accounts')+sep+
+      `<span class="now">Plans &amp; pricing</span>`;
   }
-  return root+`<span class="sep">/</span><span class="now">${labels[v.name]||''}</span>`;
+  if(v.name==='settings') return `<span class="now">Console settings</span>`;
+  return '';
 }
 
 function viewShell(){
@@ -614,13 +737,20 @@ function viewShell(){
         <div class="mark">${I.bolt}<span>strongmind</span></div>
         <span class="staff-tag">STAFF CONSOLE</span>
       </div>
+      <div class="who">
+        <div class="av who-av" style="background:${STAFF.person.color};color:#fff">${STAFF.person.initials}</div>
+        <div class="who-nm">${esc(STAFF.person.name)}</div>
+        <div class="who-rl">${esc(STAFF.label)}</div>
+      </div>
       <nav>
         ${NAV.map(n=>{
           const active = S.view.name===n.k
             || (n.k==='accounts' && (S.view.name==='account'||S.view.name==='plans'));
           let count='';
-          if(n.k==='pauses') count=`<span class="count ${S.pauses.length?'hot':''}">${S.pauses.length}</span>`;
-          if(n.k==='inbox') count=`<span class="count">${SEED_TICKETS.length}</span>`;
+        if(n.k==='inbox'){
+            const open=S.tickets.filter(x=>x.status==='open').length;
+            count=`<span class="count ${open?'hot':''}">${open}</span>`;
+          }
           if(n.k==='backstage' && S.bsFlags.length) count=`<span class="count hot">${S.bsFlags.length}</span>`;
           return `<button class="nav-item" data-act="go" data-name="${n.k}" ${active?'aria-current="page"':''}>
             ${I[n.icon]}<span>${n.label}</span>${count}</button>`;
@@ -630,18 +760,18 @@ function viewShell(){
         <button class="toggle" data-act="gaps" aria-pressed="${S.showGaps}">
           <span class="sw"></span><span>Show backend gaps</span>
         </button>
-        <div class="who-row">
-          <div class="av" style="background:${STAFF.person.color};color:#fff">${STAFF.person.initials}</div>
-          <div><div class="nm">${esc(STAFF.person.name)}</div><div class="rl">${esc(STAFF.label)}</div></div>
-          <button class="signout" data-act="signout">Sign out</button>
-        </div>
+        <button class="signout" data-act="signout">Sign out</button>
       </div>
     </aside>
     <main>
       <div class="topbar">
-        <button class="back" data-act="back" aria-label="Back">${I.back}</button>
-        <div class="crumb">${crumbFor()}</div>
+        ${isDetail()?`
+          <button class="back" data-act="back" aria-label="Back">${I.back}</button>
+          <div class="crumb">${crumbFor()}</div>`
+        :`<div class="topdate">${I.cal}<span>${today()}</span></div>`}
         <span class="env">PROTOTYPE DATA</span>
+        <button class="icon-btn" data-act="go" data-name="settings" aria-label="Console settings"
+          ${S.view.name==='settings'?'aria-current="page"':''}>${I.gear}</button>
       </div>
       <div class="page">${pageBody()}</div>
     </main>
@@ -651,12 +781,13 @@ function viewShell(){
 function pageBody(){
   switch(S.view.name){
     case 'inbox': return pageInbox();
+    case 'ticket': return pageTicket(S.view.id);
     case 'accounts': return pageAccounts();
     case 'account': return pageAccount(S.view.id);
-    case 'pauses': return pagePauses();
     case 'backstage': return pageBackstage();
     case 'plans': return pagePlans();
     case 'audit': return pageAudit();
+    case 'settings': return pageSettings();
   }
   return '';
 }
@@ -665,42 +796,190 @@ function ctxStrip(){
   if(!S.ticket) return '';
   return `<div class="ctx">
     ${I.ticket}
-    <span>Working ticket <span class="mono em">${esc(S.ticket.id)}</span> &mdash; ${esc(S.ticket.subject)}</span>
-    <a href="#/inbox" data-act="go" data-name="inbox">Back to ticket</a>
+    <span>Working: <span class="em">${esc(S.ticket.who||'')}</span> &mdash; ${esc(S.ticket.subject)}</span>
+    <a href="#/ticket/${esc(S.ticket.id)}" data-act="go" data-name="ticket" data-id="${esc(S.ticket.id)}">Back to conversation</a>
     <button class="x" data-act="dropticket">Clear</button>
   </div>`;
 }
 
 /* ============================================================
-   Support inbox
+   Support inbox — a conversation list, not a queue of numbers
 ============================================================ */
+function initials(name){ return name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
+function avColor(name){
+  const palette=['#6D4AA7','#1E7D8C','#D9583A','#B8860B','#2C7A57','#8A5A9E'];
+  return palette[name.length % palette.length];
+}
+function lastMessage(tk){ return tk.messages[tk.messages.length-1]; }
+
 function pageInbox(){
+  const open=S.tickets.filter(t=>t.status==='open');
+  const closed=S.tickets.filter(t=>t.status==='closed');
+  const rows = S.inboxTab==='open'?open:closed;
   return `
   <div class="page-head">
     <h1>Support inbox</h1>
-    <p>Tickets arrive naming a customer by email and nothing else. Each one starts the same way:
-       find the account, read its real state, act if it is one of the three things staff can change.</p>
+    <p>Conversations from families, newest first. Each one names a person, not a case number
+       &mdash; finding their account is the first move on almost every one.</p>
   </div>
   <div class="note warn gap-block" style="margin-bottom:18px">
-    The inbox itself lives in the ticketing tool, not in this console. It is here so the prototype
-    starts where the work actually starts. ${gapTag('no endpoint — external system')}
+    Mail lives in the ticketing tool, not in this console. It is here so the prototype starts where
+    the work starts. ${gapTag('no endpoint — external system')}
+  </div>
+  <div class="seg">
+    <button data-act="inboxtab" data-k="open" aria-pressed="${S.inboxTab==='open'}">Open<span class="n">${open.length}</span></button>
+    <button data-act="inboxtab" data-k="closed" aria-pressed="${S.inboxTab==='closed'}">Resolved<span class="n">${closed.length}</span></button>
   </div>
   <div class="card">
-    <div class="card-head"><h2>Open tickets</h2><span class="hint">${SEED_TICKETS.length} unassigned</span></div>
-    ${SEED_TICKETS.map(t=>{
-      const u=S.users.find(x=>x.email===t.email);
-      return `<div class="tick">
-        <div>
-          <div class="sub">${esc(t.subject)} <span class="pill pill-flat">${esc(t.kind)}</span></div>
-          <div class="body">${esc(t.body)}</div>
-          <div class="from">${esc(t.from)} &middot; <span class="mono">${esc(t.email)}</span> &middot; ${esc(t.age)} ago &middot; <span class="mono">${t.id}</span></div>
-        </div>
-        <div class="act">
-          <button class="btn btn-ghost btn-sm" data-act="lookup" data-id="${t.id}">Find this account ${I.arrow}</button>
-          ${u?'':`<span class="t-sub">no account under this email</span>`}
+    ${rows.length?rows.map(tk=>{
+      const last=lastMessage(tk);
+      const waiting = last.from==='customer';
+      return `<div class="mailrow" data-act="openticket" data-id="${tk.id}">
+        <div class="av" style="background:${avColor(tk.who)};color:#fff">${initials(tk.who)}</div>
+        <div class="mailmain">
+          <div class="mailtop">
+            <span class="em">${esc(tk.who)}</span>
+            ${tk.status==='open'&&waiting?'<span class="pill pill-off"><span class="bud"></span>Awaiting reply</span>':''}
+            ${tk.status==='open'&&!waiting?'<span class="pill pill-paused">Replied</span>':''}
+            ${tk.status==='closed'?`<span class="pill pill-active"><span class="bud"></span>Resolved by ${esc(tk.resolvedBy)}</span>`:''}
+            <span class="pill pill-flat">${esc(tk.kind)}</span>
+            <span class="t-sub" style="margin-left:auto">${esc(tk.age)}</span>
+          </div>
+          <div class="mailsub">${esc(tk.subject)}</div>
+          <div class="mailsnip">${esc(last.text)}</div>
         </div>
       </div>`;
-    }).join('')}
+    }).join(''):`
+    <div class="empty">
+      <h3>${S.inboxTab==='open'?'Inbox is clear':'Nothing resolved yet'}</h3>
+      <p>${S.inboxTab==='open'
+        ?'No family is waiting on a reply right now.'
+        :'Conversations move here once you resolve them, with a note about how.'}</p>
+    </div>`}
+  </div>`;
+}
+
+function pageTicket(id){
+  const tk=ticketById(id); if(!tk) return '';
+  const u=S.users.find(x=>x.email===tk.email);
+  const o=u?orgById(u.org):null;
+  return `
+  <div class="page-head">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <h1 style="margin:0">${esc(tk.subject)}</h1>
+      ${tk.status==='closed'?'<span class="pill pill-active"><span class="bud"></span>Resolved</span>':''}
+    </div>
+    <p style="margin-top:6px">${esc(tk.who)} &middot; <span class="mono">${esc(tk.email)}</span>
+      &middot; ${esc(tk.kind)} &middot; opened ${esc(tk.age)} ago</p>
+  </div>
+
+  <div class="split">
+    <div class="stack">
+      <div class="card">
+        <div class="card-head"><h2>Conversation</h2>
+          <div class="right"><span class="hint">${tk.messages.length} messages</span></div>
+        </div>
+        <div class="card-pad">
+          ${tk.messages.map(m=>`
+            <div class="msg ${m.from}">
+              <div class="msghead">
+                <div class="av" style="background:${m.from==='staff'?STAFF.person.color:avColor(m.who)};color:#fff;width:28px;height:28px;font-size:11.5px">${initials(m.who)}</div>
+                <span class="em">${esc(m.who)}</span>
+                ${m.from==='staff'?`<span class="sbadge">StrongMind &mdash; ${esc(STAFF.label)}</span>`:'<span class="pill pill-flat">Customer</span>'}
+                <span class="t-sub" style="margin-left:auto">${esc(m.when)}</span>
+              </div>
+              <div class="msgbody">${esc(m.text)}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      ${tk.status==='open'?`
+      <div class="card">
+        <div class="card-head"><h2>Reply to ${esc(tk.who.split(' ')[0])}</h2>
+          <div class="right"><span class="sbadge">Sending as ${esc(STAFF.person.name)}</span></div>
+        </div>
+        <div class="card-pad">
+          <label class="field" style="margin-bottom:10px">
+            <textarea data-act="reply-text" placeholder="Write your reply. They receive this as an email from support.">${esc(S.reply)}</textarea>
+          </label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary" data-act="sendreply" data-id="${tk.id}" ${S.reply.trim()?'':'disabled'}>Send reply</button>
+            <button class="btn btn-ghost" data-act="startresolve" data-id="${tk.id}">Send and resolve</button>
+          </div>
+        </div>
+      </div>
+
+      ${S.resolving?`
+      <div class="card">
+        <div class="card-head"><h2>Resolve this conversation</h2></div>
+        <div class="card-pad">
+          <label class="field">
+            <span class="lb">How was it resolved?</span>
+            <textarea data-act="resolve-note" placeholder="What was actually wrong, and what did you do? The next person to open this account reads this.">${esc(S.resolveNote)}</textarea>
+            <span class="help">Kept with the conversation and recorded in the activity log under your name.</span>
+          </label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary" data-act="resolveticket" data-id="${tk.id}" ${S.resolveNote.trim()?'':'disabled'}>Mark resolved</button>
+            <button class="btn btn-ghost" data-act="cancelresolve">Cancel</button>
+          </div>
+        </div>
+      </div>`:''}
+      `:`
+      <div class="card">
+        <div class="card-head"><h2>Resolution</h2>
+          <div class="right"><span class="hint">${esc(tk.resolvedBy)} &middot; ${esc(tk.resolvedAt)}</span></div>
+        </div>
+        <div class="card-pad">
+          <div class="msgbody" style="margin:0">${esc(tk.resolution)}</div>
+          <div style="margin-top:16px">
+            <button class="btn btn-ghost btn-sm" data-act="reopenticket" data-id="${tk.id}">Reopen conversation</button>
+          </div>
+        </div>
+      </div>`}
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <div class="card-head"><h2>Who this is</h2></div>
+        <div class="card-pad">
+          ${u&&o?`
+          <dl class="kv" style="grid-template-columns:120px 1fr">
+            <dt>Household</dt><dd>${esc(o.name)}</dd>
+            <dt>Login</dt><dd>${statusPill(u.status)}</dd>
+            <dt>Household</dt><dd>${statusPill(o.status)}</dd>
+            ${o.founding?'<dt>Backstage</dt><dd><span class="fbadge">Founding Member</span></dd>':''}
+          </dl>
+          <div style="margin-top:16px">
+            <button class="btn btn-primary btn-full" data-act="lookup" data-id="${tk.id}">Open their account ${I.arrow}</button>
+          </div>
+          <p class="t-sub" style="margin:12px 0 0">Anything you change over there stays linked to this
+            conversation, so the reason lands in the log with their name on it.</p>
+          `:`
+          <p class="t-sub" style="margin:0 0 14px">No account is registered to
+            <span class="mono">${esc(tk.email)}</span>. They may be a second parent who was never added
+            as a learning coach, or writing from a different address than the one on the account.</p>
+          <button class="btn btn-ghost btn-full" data-act="lookup" data-id="${tk.id}">Search accounts anyway ${I.arrow}</button>
+          `}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>History</h2></div>
+        <div class="card-pad">
+          ${(() => {
+            const others=S.tickets.filter(x=>x.email===tk.email && x.id!==tk.id);
+            if(!others.length) return '<p class="t-sub" style="margin:0">First time they have written in.</p>';
+            return others.map(x=>`
+              <div style="border-top:1px solid var(--line-soft);padding:11px 0">
+                <button class="rowlink" data-act="openticket" data-id="${x.id}">${esc(x.subject)}</button>
+                <div class="t-sub">${x.status==='closed'
+                  ? `resolved by ${esc(x.resolvedBy)} &middot; ${esc(x.resolvedAt)}`
+                  : 'still open'}</div>
+              </div>`).join('');
+          })()}
+        </div>
+      </div>
+    </div>
   </div>`;
 }
 
@@ -1025,55 +1304,6 @@ function pageAccount(id){
 }
 
 /* ============================================================
-   Parked pauses queue
-============================================================ */
-function pagePauses(){
-  return `
-  <div class="page-head">
-    <h1>Parked pauses</h1>
-    <p>Offboarding pauses that stalled in manual review. Every day one sits here is a day a family
-       is billed, locked out, or both, with no way to tell which.</p>
-  </div>
-  <div class="legend note warn" style="margin-bottom:18px">
-    This whole screen is the deepest gap in the blueprint.
-    <span class="mono">POST /admin/offboarding/pauses/{id}/resolve</span> already works, but there is
-    no list endpoint &mdash; today it can only be called by someone who already has a
-    <span class="mono">pause_id</span> in hand from an escalation.
-  </div>
-  ${S.pauses.length?`
-  <div class="card gap-block">
-    <div class="card-head"><h2>Stuck in manual review</h2>${gapTag('needs list endpoint')}
-      <div class="right"><span class="hint">${S.pauses.length} parked</span></div></div>
-    <table>
-      <thead><tr><th>Pause</th><th>Household</th><th class="gap">Household status</th><th>Stuck</th><th>Why it parked</th><th></th></tr></thead>
-      <tbody>
-      ${S.pauses.map(p=>{
-        const o=orgById(p.org);
-        const owner=o?userById(o.owner):null;
-        return `<tr>
-          <td class="mono">${p.id}<div class="t-sub">requested ${esc(p.requested)}</div></td>
-          <td>${o?`${owner
-              ? `<a class="rowlink" href="#/account/${owner.id}" data-act="go" data-name="account" data-id="${owner.id}">${esc(o.name)}</a>`
-              : esc(o.name)}<div class="t-sub mono">${o.id}</div>`:'—'}</td>
-          <td class="gap">${o?statusPill(o.status):'—'}</td>
-          <td><span class="pill ${p.days>20?'pill-off':'pill-paused'}">${p.days} days</span></td>
-          <td style="max-width:320px">${esc(p.detail)}<div class="t-sub mono">${esc(p.stage)}</div></td>
-          <td style="text-align:right">
-            <button class="btn btn-primary btn-sm" data-act="resolvepause" data-id="${p.id}" data-focus-key="pause-${p.id}">Resolve</button>
-          </td>
-        </tr>`;
-      }).join('')}
-      </tbody>
-    </table>
-  </div>`:`
-  <div class="card empty">
-    <h3>Nothing is parked</h3>
-    <p>Pauses land here when the offboarding job cannot finish on its own. An empty queue is the goal state.</p>
-  </div>`}`;
-}
-
-
-/* ============================================================
    Backstage — Founding Member space, staff side
    Staff author here through the Platform Admin Account (R-22), which is a
    different identity and a different permission check (NFR-06) from the
@@ -1173,8 +1403,8 @@ function bsFeed(){
       ${d.err?`<div class="inline-err">${esc(d.err)}</div>`:''}
       <div style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap">
         <button class="btn btn-primary" data-act="publishpost" ${d.title.trim()&&d.body.trim()?'':'disabled'}>Publish update</button>
-        <span class="t-sub">Publishing is not one of the audited account writes &mdash; no reason field.
-          It is still recorded in the activity log.</span>
+        <span class="t-sub">Publishing does not require a reason the way an account change does.
+          It is still recorded in the activity log under your name.</span>
       </div>
     </div>
   </div>
@@ -1435,28 +1665,127 @@ function pagePlans(){
 }
 
 /* ============================================================
-   Activity log
+   Activity log — an audit trail of staff and member actions
 ============================================================ */
 function pageAudit(){
-  const rows=S.audit;
+  const staff=S.audit, members=S.memberLog;
+  const tabs=[['staff','Staff',staff.length],['members','Members',members.length]];
   return `
   <div class="page-head">
     <h1>Activity log</h1>
-    <p>Every staff write, in order, with the reason attached. Entries cannot be edited or removed
-       once written &mdash; that is what makes a reason field enough on its own.</p>
+    <p>An append-only record of what happened and who did it. Nothing here can be edited or
+       removed once recorded.</p>
+  </div>
+  <div class="seg">
+    ${tabs.map(([k,l,n])=>`<button data-act="logtab" data-k="${k}" aria-pressed="${S.logTab===k}">
+      ${l}<span class="n">${n}</span></button>`).join('')}
+  </div>
+  ${S.logTab==='staff'?staffLog(staff):memberLogView(members)}`;
+}
+
+function staffLog(rows){
+  return `
+  <div class="card">
+    <div class="card-head"><h2>Staff actions</h2>
+      <span class="hint">every account change, moderation call, and Backstage publish</span>
+      <div class="right"><span class="worm">${I.lock} Append-only</span></div>
+    </div>
+    <div class="card-pad">
+      ${rows.length?rows.map(a=>`
+        <div class="audit-row">
+          <div class="when">${esc(a.t)}</div>
+          <div>
+            <div><strong>${esc(a.action)}</strong> &mdash; <span class="mono">${esc(a.target)}</span></div>
+            <div class="meta">${esc(a.actor)}${a.ref?` &middot; linked to ${esc(a.ref)}`:''}${a.override?' &middot; overrode a family billing pause':''}</div>
+            ${a.reason?`<div class="reason">${esc(a.reason)}</div>`:''}
+          </div>
+        </div>`).join('')
+      :`<div class="empty" style="padding:24px 0"><h3>Nothing recorded yet</h3>
+         <p>Change an account status or moderate a Backstage post and it appears here immediately.</p></div>`}
+    </div>
+  </div>`;
+}
+
+function memberLogView(rows){
+  return `
+  <div class="note read" style="margin-bottom:16px">
+    Member activity is what families did, not what staff did to them. Reading it is unrestricted;
+    there is nothing here to act on. ${I.lock}
   </div>
   <div class="card">
-    <div class="card-head"><h2>Writes</h2>
-      <div class="right"><span class="worm">${I.lock} Append-only</span></div></div>
-    ${rows.length?rows.map(a=>`
-      <div class="audit-row">
-        <div class="when">${esc(a.t)}</div>
+    <div class="card-head"><h2>Member actions</h2>
+      <span class="hint">Backstage posts, replies, votes, and guideline acceptances</span>
+      <div class="right"><span class="gap"><span class="t-sub">last 7 days</span>${gapTag('no member event stream yet')}</span></div>
+    </div>
+    <div class="card-pad">
+      ${rows.map(m=>{
+        const o=orgById(m.org); const owner=o?userById(o.owner):null;
+        return `<div class="audit-row">
+          <div class="when">${esc(m.t)}</div>
+          <div>
+            <div><strong>${esc(m.action)}</strong> &mdash; <span class="mono">${esc(m.target)}</span></div>
+            <div class="meta">${owner
+              ? `<a href="#/account/${owner.id}" data-act="go" data-name="account" data-id="${owner.id}">${esc(m.who)}</a>`
+              : esc(m.who)}${o?` &middot; ${esc(o.name)}`:''}</div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   Console settings — scaffolding. Only the real preference is wired.
+============================================================ */
+const SETTINGS_ROWS = [
+  {icon:'users', t:'Staff access', d:'Who at StrongMind can open this console, and what the SSO claim grants.',
+   note:'There is one staff role today and it comes from the InternalSupport claim. A settings screen only earns its place here if that ever tiers.'},
+  {icon:'ticket', t:'Saved replies', d:'Reusable answers for the questions families ask most.',
+   note:'Would live with the ticketing tool, not here, unless replies start referencing account state.'},
+  {icon:'stage', t:'Backstage policy', d:'The community guidelines text and the moderation thresholds behind AI flagging.',
+   note:'Erin owns the policy text. Nothing to configure until it is approved.'},
+  {icon:'audit', t:'Log retention', d:'How long staff and member activity is kept before archival.',
+   note:'The log is append-only by design. Retention is a compliance decision, not a preference.'},
+  {icon:'pause', t:'Notifications', d:'What reaches you when a conversation waits too long or a flag lands.',
+   note:'No notification service is defined in any PRD yet.'}
+];
+
+function pageSettings(){
+  return `
+  <div class="page-head">
+    <h1>Console settings</h1>
+    <p>One preference is real. The rest is a placeholder for the settings this console will
+       plausibly need, so the entry point exists before the screens do.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-head"><h2>Your preferences</h2></div>
+    <div class="setrow" style="border-bottom:0">
+      <div class="si">${I.lock}</div>
+      <div>
+        <div class="st">Show backend gaps</div>
+        <div class="sd">Marks every field and screen the API cannot feed yet. On while this is a prototype.</div>
+      </div>
+      <div class="sr">
+        <button class="chip" data-act="gaps" aria-pressed="${S.showGaps}">${S.showGaps?'On':'Off'}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Not built yet</h2>
+      <span class="hint">listed so the shape of the section is visible, not to imply it is coming</span>
+    </div>
+    ${SETTINGS_ROWS.map(r=>`
+      <div class="setrow">
+        <div class="si">${I[r.icon]}</div>
         <div>
-          <div><strong>${esc(a.action)}</strong> &mdash; <span class="mono">${esc(a.target)}</span></div>
-          <div class="meta">${esc(a.actor)}${a.ref?` &middot; ticket <span class="mono">${esc(a.ref)}</span>`:''}${a.override?' &middot; overrode a family billing pause':''}</div>
-          ${a.reason?`<div class="reason">${esc(a.reason)}</div>`:''}
+          <div class="st">${esc(r.t)}</div>
+          <div class="sd">${esc(r.d)}</div>
+          <div class="sd" style="margin-top:6px;color:var(--gap)">${esc(r.note)}</div>
         </div>
-      </div>`).join(''):`<div class="empty"><h3>No writes yet</h3><p>Deactivate a user or clear a parked pause and it shows up here immediately.</p></div>`}
+        <div class="sr"><span class="pill pill-flat">${I.lock} Not built</span></div>
+      </div>`).join('')}
   </div>`;
 }
 
@@ -1466,7 +1795,7 @@ function pageAudit(){
 function openConfirm(cfg, triggerKey){
   S.modal={
     cfg,
-    v:{reason:'', ref:cfg.refPrefill||(S.ticket?S.ticket.id:''), outcome:''},
+    v:{reason:'', ref:cfg.refPrefill||(S.ticket?((S.ticket.who?S.ticket.who+' — ':'')+S.ticket.subject):''), outcome:''},
     ack:false,
     triggerKey:triggerKey||null
   };
@@ -1521,12 +1850,17 @@ function modalHTML(){
           <textarea data-act="reason" placeholder="${esc(reasonPlaceholder)}">${esc(m.v.reason)}</textarea>
           <span class="help">Written to the append-only log and can't be edited later. This is the record of why, so write what the next person would need.</span>
         </label>
+        ${S.ticket && !c.refPrefill ? `
+        <div class="field">
+          <span class="lb">Linked conversation</span>
+          <div class="linked">${I.ticket}<span>${esc(S.ticket.who||'')} &mdash; ${esc(S.ticket.subject)}</span></div>
+          <span class="help">Attached automatically from the conversation you have open.</span>
+        </div>` : `
         <label class="field">
-          <span class="lb">${c.refLabel||'Ticket reference'}</span>
-          <input type="text" data-act="ref" placeholder="${esc(c.refPlaceholder||'SM-1042')}" value="${esc(m.v.ref)}">
-          <span class="help">${c.refHelp
-            || (S.ticket?'Prefilled from the ticket you are working.':'Ties this write back to the request that prompted it.')}</span>
-        </label>
+          <span class="lb">${c.refLabel||'Reference'}</span>
+          <input type="text" data-act="ref" placeholder="${esc(c.refPlaceholder||'What prompted this?')}" value="${esc(m.v.ref)}">
+          <span class="help">${c.refHelp||'Ties this back to the request that prompted it.'}</span>
+        </label>`}
       </div>
       <div class="modal-foot">
         <button class="btn btn-ghost" data-act="closemodal">Cancel</button>
@@ -1779,14 +2113,15 @@ document.addEventListener('click', e=>{
       go('account', t.dataset.id); break;
     case 'back': {
       const v=S.view;
-      if(v.name==='account') go(S.from==='inbox'?'inbox':'accounts');
+      if(v.name==='ticket'||v.name==='settings') go('inbox');
+      else if(v.name==='account') go(S.from==='inbox'?'inbox':'accounts');
       else if(v.name==='plans') go('accounts');
       else go('inbox');
       break;
     }
     case 'lookup': {
       const tk=ticketById(t.dataset.id);
-      S.ticket={id:tk.id, subject:tk.subject, email:tk.email};
+      S.ticket={id:tk.id, subject:tk.subject, email:tk.email, who:tk.who};
       S.from='inbox';
       S.q.accounts=tk.email;
       S.statusFilter='all';
@@ -1814,6 +2149,52 @@ document.addEventListener('click', e=>{
       S.planPanel = S.planPanel===t.dataset.code ? null : t.dataset.code;
       render(); break;
     case 'foldlocked': S.foldLocked=!S.foldLocked; render(); break;
+
+    /* --- inbox --- */
+    case 'inboxtab': S.inboxTab=t.dataset.k; render(); break;
+    case 'logtab': S.logTab=t.dataset.k; render(); break;
+    case 'openticket': {
+      const tk=ticketById(t.dataset.id);
+      S.ticket={id:tk.id, subject:tk.subject, email:tk.email, who:tk.who};
+      S.from='inbox'; S.reply=''; S.resolving=false; S.resolveNote='';
+      go('ticket', tk.id); break;
+    }
+    case 'sendreply': {
+      const tk=ticketById(t.dataset.id);
+      if(!S.reply.trim()) break;
+      tk.messages.push({from:'staff', who:STAFF.person.name, when:'Just now', text:S.reply.trim()});
+      logAudit({action:'Replied to', target:tk.who+' — '+tk.subject, reason:'', ref:''});
+      S.reply='';
+      toast('Reply sent', tk.who+' will get it as an email');
+      render(); break;
+    }
+    case 'startresolve': S.resolving=true; render(); break;
+    case 'cancelresolve': S.resolving=false; S.resolveNote=''; render(); break;
+    case 'resolveticket': {
+      const tk=ticketById(t.dataset.id);
+      if(!S.resolveNote.trim()) break;
+      if(S.reply.trim()){
+        tk.messages.push({from:'staff', who:STAFF.person.name, when:'Just now', text:S.reply.trim()});
+      }
+      tk.status='closed';
+      tk.resolvedBy=STAFF.person.name;
+      tk.resolvedAt='just now';
+      tk.resolution=S.resolveNote.trim();
+      tk.assignee=STAFF.person.name;
+      logAudit({action:'Resolved conversation', target:tk.who+' — '+tk.subject,
+        reason:S.resolveNote.trim(), ref:''});
+      S.reply=''; S.resolving=false; S.resolveNote='';
+      toast('Marked resolved', tk.who+' — moved to Resolved');
+      render(); break;
+    }
+    case 'reopenticket': {
+      const tk=ticketById(t.dataset.id);
+      tk.status='open';
+      logAudit({action:'Reopened conversation', target:tk.who+' — '+tk.subject, reason:'', ref:''});
+      S.inboxTab='open';
+      toast('Conversation reopened');
+      render(); break;
+    }
 
     /* --- backstage --- */
     case 'bstab': S.bsTab=t.dataset.k; S.bsPrompt=null; render(); break;
@@ -1927,6 +2308,18 @@ document.addEventListener('input', e=>{
   if(a==='search'){
     S.q.accounts=t.value;
     el('acct-results').innerHTML=accountsResultsHTML();   // results only; input keeps focus and caret
+    return;
+  }
+  if(a==='reply-text'){
+    S.reply=t.value;
+    const b=document.querySelector('[data-act="sendreply"]');
+    if(b) b.disabled=!S.reply.trim();
+    return;
+  }
+  if(a==='resolve-note'){
+    S.resolveNote=t.value;
+    const b=document.querySelector('[data-act="resolveticket"]');
+    if(b) b.disabled=!S.resolveNote.trim();
     return;
   }
   if(a==='draft-title'){ S.draft.title=t.value; syncPublish(); return; }
