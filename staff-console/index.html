@@ -290,6 +290,16 @@ textarea{resize:vertical;min-height:76px}
 .flagcard + .flagcard{margin-top:12px}
 .flagcard .excerpt{font-size:13.5px;color:var(--ink-2);border-left:2px solid #E3B6A6;padding-left:11px;margin:10px 0}
 
+.ownernote{display:flex;gap:9px;align-items:flex-start;background:var(--purple-soft);color:var(--purple-ink);border-radius:10px;padding:11px 13px;font-size:12.5px;margin-bottom:16px}
+.ownernote svg{flex:none;margin-top:2px}
+.prd-note{display:flex;gap:11px;align-items:baseline;flex-wrap:wrap;
+  border-top:1px dashed #D8D0C4;border-bottom:1px dashed #D8D0C4;
+  padding:11px 2px;margin:0 0 22px}
+.prd-label{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.12em;
+  color:#9C948A;flex:none;text-transform:uppercase}
+.prd-body{font-size:12.5px;line-height:1.55;color:#8C847A;max-width:84ch}
+.prd-body .mono{font-size:12px;color:#7A736A}
+
 /* ============ mail inbox ============ */
 .mailrow{display:flex;gap:14px;padding:15px 20px;border-bottom:1px solid var(--line-soft);cursor:pointer;align-items:flex-start}
 .mailrow:last-child{border-bottom:0}
@@ -397,6 +407,8 @@ const SEED_USERS = [
   {id:'u_8776', email:'lvasquez.home@gmail.com', provider:'google', profiles:4, onboarded:true, created:'2025-01-14', trial:null, status:'deactivated', org:'o_2288'},
   {id:'u_8903', email:'nguyen.family22@gmail.com', provider:'google', profiles:2, onboarded:false, created:'2026-08-28', trial:{ends:'2026-09-09'}, status:'active', org:'o_6003'},
   {id:'u_8712', email:'d.thompson.work@gmail.com', provider:'password', profiles:0, onboarded:false, created:'2025-07-30', trial:null, status:'deactivated', org:'o_4417'},
+  {id:'u_8845', email:'maya.thompson@gmail.com', provider:'google', profiles:3, onboarded:true, created:'2025-08-04', trial:null, status:'active', org:'o_4417'},
+  {id:'u_8861', email:'j.mercer@yahoo.com', provider:'password', profiles:2, onboarded:true, created:'2025-11-05', trial:null, status:'active', org:'o_5566'},
   {id:'u_8858', email:'mercer.kids@yahoo.com', provider:'password', profiles:2, onboarded:true, created:'2025-11-03', trial:null, status:'active', org:'o_5566'}
 ];
 
@@ -499,14 +511,14 @@ const STAFF = {label:'Support & Operations', person:{name:'Priya Raman', initial
 /* Backstage — Founding-Member-only space. Staff author here through the Platform
    Admin Account (R-22), a different identity from the account-lookup work above. */
 const SEED_BS_POSTS = [
-  {id:'bs_31', author:'Erin Dow', role:'Product Manager', when:'2026-08-28', pinned:true, pinOrder:2,
+  {id:'bs_31', author:'Erin Dow', when:'2026-08-28', pinned:true, pinOrder:2,
    title:'Welcome, Founding Members', reactions:14, replies:6, attach:[],
    body:'You are the first fifty families on the platform. This space is where we show you what we are building before it ships, and where we ask you what to build next. Everything here is a draft until you tell us otherwise.'},
-  {id:'bs_29', author:'Erin Dow', role:'Product Manager', when:'2026-08-24', pinned:false, pinOrder:0,
+  {id:'bs_29', author:'Erin Dow', when:'2026-08-24', pinned:false, pinOrder:0,
    title:'Offline mode is coming to the lesson player', reactions:22, replies:11,
    attach:[{t:'video', label:'offline-walkthrough.mp4'}],
    body:'Lessons will download for a week at a time and sync evidence uploads when you reconnect. Targeting late October. The open question we need your read on: how many weeks ahead is actually useful?'},
-  {id:'bs_27', author:'Michelle Vilavanh', role:'UX Lead', when:'2026-08-15', pinned:false, pinOrder:0,
+  {id:'bs_27', author:'Michelle Vilavanh', when:'2026-08-15', pinned:false, pinOrder:0,
    title:'Planner redesign — what changed and why', reactions:9, replies:4,
    attach:[{t:'link', label:'figma.com/file/planner-v2'}],
    body:'The week view now leads with what is unfinished rather than what is scheduled. This came almost entirely out of the feedback prompt on daily barriers.'}
@@ -885,7 +897,7 @@ function pageTicket(id){
               <div class="msghead">
                 <div class="av" style="background:${m.from==='staff'?STAFF.person.color:avColor(m.who)};color:#fff;width:28px;height:28px;font-size:11.5px">${initials(m.who)}</div>
                 <span class="em">${esc(m.who)}</span>
-                ${m.from==='staff'?`<span class="sbadge">StrongMind &mdash; ${esc(STAFF.label)}</span>`:'<span class="pill pill-flat">Customer</span>'}
+                ${m.from==='staff'?'<span class="sbadge">StrongMind Staff</span>':'<span class="pill pill-flat">Customer</span>'}
                 <span class="t-sub" style="margin-left:auto">${esc(m.when)}</span>
               </div>
               <div class="msgbody">${esc(m.text)}</div>
@@ -1109,6 +1121,7 @@ function pageAccount(id){
   const plan=o?planByCode(o.plan):null;
   const uActive=u.status==='active';
   const oActive=o&&o.status==='active';
+  const isOwner=!!(o&&o.owner===u.id);
 
   return `
   ${ctxStrip()}
@@ -1154,7 +1167,7 @@ function pageAccount(id){
                 aria-expanded="${S.planPanel===o.plan}">${esc(plan?plan.name:o.plan)}</button></dd>
             <dt>Seats</dt><dd>${o.seats}</dd>
             <dt>Learners</dt><dd>${o.learners.map(esc).join(', ')}</dd>
-            <dt>Account owner</dt><dd>${owner?`<span class="mono">${esc(owner.email)}</span>${owner.id===u.id?' <span class="pill pill-flat">this login</span>':''}`:'—'}</dd>
+            <dt>Admin parent</dt><dd>${owner?`<span class="mono">${esc(owner.email)}</span>${owner.id===u.id?' <span class="pill pill-trial">this login</span>':''}`:'—'}</dd>
             <dt>Customer since</dt><dd class="mono">${esc(o.since)}</dd>
             <dt>Billing pause</dt><dd>${o.parentPause?`<span class="pill pill-paused"><span class="bud"></span>Set by the family</span>`:'None'}</dd>
           </dl>
@@ -1188,7 +1201,8 @@ function pageAccount(id){
                 <a class="rowlink" href="#/account/${x.id}" data-act="go" data-name="account" data-id="${x.id}">${esc(x.email)}</a>
                 <div class="t-sub mono">${x.id} &middot; ${esc(x.provider)}</div>
               </td>
-              <td style="text-align:right">${statusPill(x.status)}</td>
+              <td style="text-align:right">
+                ${o.owner===x.id?'<span class="pill pill-trial">Admin parent</span> ':''}${statusPill(x.status)}</td>
             </tr>`).join('')}
         </tbody></table>
       </div>`:''}
@@ -1217,6 +1231,12 @@ function pageAccount(id){
       <div class="card">
         <div class="card-head"><h2>Actions</h2></div>
         <div class="card-pad">
+          ${isOwner?`
+          <div class="ownernote">
+            ${I.lock} <span>This login is the <strong>admin parent</strong> for ${esc(o.name)}.
+            The household must always have exactly one, so deactivating this login transfers the
+            role first.</span>
+          </div>`:''}
           <div class="gap-block">
             <div class="t-sub" style="margin-bottom:7px">This login only</div>
             ${uActive
@@ -1232,6 +1252,18 @@ function pageAccount(id){
 
           ${o?`
           <div class="gap-block" style="border-top:1px solid var(--line-soft);padding-top:16px">
+            <div class="t-sub" style="margin-bottom:7px">Who controls the household</div>
+            <button class="btn btn-ghost btn-full" data-act="transferowner" data-id="${o.id}" data-focus-key="transfer-owner">
+              Change the admin parent</button>
+            ${gapTag('no transfer endpoint today')}
+          </div>
+          <p class="t-sub" style="margin:10px 0 20px">
+            ${isOwner
+              ? 'Hands billing, settings, and learner management to another login in this household.'
+              : `${esc(owner?owner.email:'Another login')} holds the role now. Swapping it does not change anyone's sign-in.`}
+          </p>
+
+          <div class="gap-block" style="border-top:1px solid var(--line-soft);padding-top:16px">
             <div class="t-sub" style="margin-bottom:7px">The whole household &mdash; ${o.seats} ${o.seats===1?'seat':'seats'}</div>
             ${oActive
               ? `<button class="btn btn-danger btn-full" data-act="orgstatus" data-id="${o.id}" data-to="deactivated" data-focus-key="org-status">Deactivate this household</button>`
@@ -1240,8 +1272,8 @@ function pageAccount(id){
           </div>
           <p class="t-sub" style="margin:10px 0 0">
             ${oActive
-              ? 'Locks out every login in the household and stops billing at the end of the cycle.'
-              : 'Restores access for every login in the household and resumes billing on the next cycle.'}
+              ? 'Ends learner access and stops billing at the end of the cycle. The admin parent keeps their login and can still see the account and its history.'
+              : 'Restores learner access and resumes billing on the next cycle.'}
           </p>`:''}
         </div>
       </div>
@@ -1334,6 +1366,12 @@ function pageBackstage(){
        can see that &mdash; your name carries a staff badge on everything you publish.
        The community guidelines gate is a member-side screen; staff go straight in.</p>
   </div>
+  <div class="prd-note">
+    <span class="prd-label">PROTOTYPE NOTE</span>
+    <span class="prd-body">This section is scoped by <span class="mono">PMTS2-21514 &mdash; Backstage</span>,
+      not the staff console PRD. Anything unresolved here traces to that document's open questions
+      rather than a gap in the console.</span>
+  </div>
   <div class="seg">
     ${tabs.map(([k,l,n])=>`<button data-act="bstab" data-k="${k}" aria-pressed="${S.bsTab===k}">
       ${l}${n?`<span class="n">${n}</span>`:''}</button>`).join('')}
@@ -1353,7 +1391,7 @@ function postCard(p){
     <h3>${esc(p.title)}</h3>
     <div class="byline">
       <span class="em" style="color:var(--ink)">${esc(p.author)}</span>
-      <span class="sbadge">StrongMind &mdash; ${esc(p.role)}</span>${gapTag('role/title source TBD')}
+      <span class="sbadge">StrongMind Staff</span>
       <span>${esc(p.when)}</span>
     </div>
     <div class="body">${esc(p.body)}</div>
@@ -1373,13 +1411,12 @@ function postCard(p){
 }
 
 function bsFeed(){
-  const pins=pinnedItems();
   const unpinned=S.bsPosts.filter(p=>!p.pinned);
   const d=S.draft;
   return `
   <div class="card" style="margin-bottom:18px">
     <div class="card-head"><h2>Post a roadmap update</h2>
-      <div class="right"><span class="sbadge">Posting as StrongMind &mdash; ${esc(STAFF.label)}</span></div>
+      <div class="right"><span class="sbadge">Posting as StrongMind Staff</span></div>
     </div>
     <div class="card-pad">
       <label class="field">
@@ -1408,20 +1445,6 @@ function bsFeed(){
       </div>
     </div>
   </div>
-
-  ${pins.length>1?`
-  <div class="note" style="margin-bottom:14px">
-    ${pins.length} items are pinned to the top of Backstage, labelled by type. Members see them
-    in this order.
-    <div style="margin-top:10px;display:grid;gap:7px">
-      ${pins.map((it,i)=>`<div style="display:flex;align-items:center;gap:9px;font-size:13px">
-        <span class="pill pill-flat">${it.type==='poll'?'Poll':'Post'}</span>
-        <span>${esc(it.type==='poll'?it.q:it.title)}</span>
-        ${i>0?`<button class="btn btn-ghost btn-sm" style="margin-left:auto"
-          data-act="pinup" data-kind="${it.type}" data-id="${it.id}">Move up</button>`:'<span style="margin-left:auto" class="t-sub">Top</span>'}
-      </div>`).join('')}
-    </div>
-  </div>`:''}
 
   ${S.bsPosts.filter(p=>p.pinned).map(postCard).join('')}
   ${unpinned.length?`<div style="margin-top:${S.bsPosts.some(p=>p.pinned)?'12px':'0'}">${unpinned.map(postCard).join('')}</div>`:''}`;
@@ -1795,7 +1818,7 @@ function pageSettings(){
 function openConfirm(cfg, triggerKey){
   S.modal={
     cfg,
-    v:{reason:'', ref:cfg.refPrefill||(S.ticket?((S.ticket.who?S.ticket.who+' — ':'')+S.ticket.subject):''), outcome:''},
+    v:{reason:'', ref:cfg.refPrefill||(S.ticket?((S.ticket.who?S.ticket.who+' — ':'')+S.ticket.subject):''), outcome:'', choice:''},
     ack:false,
     triggerKey:triggerKey||null
   };
@@ -1805,9 +1828,11 @@ function openConfirm(cfg, triggerKey){
 function modalReady(){
   const m=S.modal; if(!m) return false;
   const c=m.cfg;
+  if(c.blocked) return false;
   if(!m.v.reason.trim()) return false;
   if(c.refRequired!==false && !m.v.ref.trim()) return false;
   if(c.outcome && !m.v.outcome) return false;
+  if(c.choose && !m.v.choice) return false;
   if(c.ack && !m.ack) return false;
   return true;
 }
@@ -1830,6 +1855,18 @@ function modalHTML(){
           <div class="em" style="font-size:14px">What happens</div>
           <ul>${c.consequences.map(x=>`<li>${x}</li>`).join('')}</ul>
         </div>`:''}
+
+        ${c.blocked?`<div class="note warn" style="margin-bottom:16px">${c.blocked}</div>`:''}
+
+        ${c.choose?`
+        <label class="field">
+          <span class="lb">${c.choose.label}</span>
+          <select data-act="choose">
+            <option value="">${esc(c.choose.placeholder||'Choose one')}</option>
+            ${c.choose.options.map(([v,l])=>`<option value="${esc(v)}" ${m.v.choice===v?'selected':''}>${l}</option>`).join('')}
+          </select>
+          ${c.choose.help?`<span class="help">${c.choose.help}</span>`:''}
+        </label>`:''}
 
         ${c.ack?`
         <button class="ack" data-act="ack" aria-pressed="${m.ack}">
@@ -1906,8 +1943,19 @@ function focusables(root){
 }
 
 /* ---- the three writes, expressed through the one component ---- */
+/* A household keeps exactly one admin parent (enforced in the database).
+   Deactivating that login on a live household has to hand the role to someone else first. */
+function eligibleOwners(o, excludeId){
+  return S.users.filter(x=>x.org===o.id && x.id!==excludeId && x.status==='active');
+}
+
 function confirmUserStatus(id,to,key){
   const u=userById(id), off=to==='deactivated';
+  const o=orgById(u.org);
+  const isOwner = o && o.owner===u.id;
+
+  if(off && isOwner && o.status==='active'){ return confirmOwnerDeactivate(u,o,key); }
+
   openConfirm({
     title:`${off?'Deactivate':'Reactivate'} ${esc(u.email)}?`,
     lead: off
@@ -1930,20 +1978,96 @@ function confirmUserStatus(id,to,key){
   },key);
 }
 
+/* Deactivating the admin parent of an active household — transfer, then deactivate. */
+function confirmOwnerDeactivate(u,o,key){
+  const options=eligibleOwners(o,u.id);
+  const blocked = options.length===0;
+  openConfirm({
+    title:`Deactivate ${esc(u.email)}?`,
+    lead:`This login is the admin parent for ${esc(o.name)}. The household has to have one, so the role moves before the login goes away.`,
+    consequences: blocked?[]:[
+      'The admin parent role transfers to the login you pick, effective immediately.',
+      'The new admin parent gains billing, settings, and learner management for the household.',
+      'This login stops working. Learner work, the household, and billing are untouched.',
+      'Both steps are recorded separately in the activity log.'
+    ],
+    blocked: blocked
+      ? `<strong>No one else can take the role.</strong> Every other login in
+         ${esc(o.name)} is deactivated or absent, and a household cannot be left without an admin
+         parent. Staff cannot invite a replacement from this console &mdash; that flow is parent-side.
+         Either reactivate another login in this household first and come back, or deactivate the
+         whole household instead.`
+      : null,
+    choose: blocked?null:{
+      label:'Who becomes the admin parent?',
+      placeholder:'Choose a login in this household',
+      options:options.map(x=>[x.id, esc(x.email)+' — '+esc(x.provider)]),
+      help:'Only active logins in this household are eligible. The person you pick is not notified by this action.'
+    },
+    cta:'Transfer and deactivate',
+    destructive:true,
+    onConfirm(){
+      const next=userById(S.modal.v.choice);
+      const reason=S.modal.v.reason.trim(), ref=S.modal.v.ref.trim();
+      o.owner=next.id;
+      logAudit({action:'Transferred admin parent', target:o.id+' — '+u.email+' → '+next.email, reason, ref});
+      u.status='deactivated';
+      logAudit({action:'Deactivated user', target:u.email, reason, ref});
+      toast('Admin parent transferred', next.email+' now owns '+o.name);
+    }
+  },key);
+}
+
+/* Swapping the admin parent on its own, with no deactivation involved. */
+function confirmTransferOwner(orgId,key){
+  const o=orgById(orgId), current=userById(o.owner);
+  const options=eligibleOwners(o,o.owner);
+  const blocked=options.length===0;
+  openConfirm({
+    title:`Change the admin parent for ${esc(o.name)}?`,
+    lead:`${esc(current?current.email:'—')} holds the role now. A household has exactly one admin parent, so this is a swap, not an addition.`,
+    consequences: blocked?[]:[
+      'The new admin parent gains billing, settings, and learner management immediately.',
+      'The current admin parent keeps their login and their access to lessons, but loses account control.',
+      'Neither person is notified by this action.'
+    ],
+    blocked: blocked
+      ? `<strong>No eligible login.</strong> ${esc(o.name)} has no other active login to hand the
+         role to, and staff cannot invite one from this console. The family adds a second learning
+         coach on their side first.`
+      : null,
+    choose: blocked?null:{
+      label:'New admin parent',
+      placeholder:'Choose a login in this household',
+      options:options.map(x=>[x.id, esc(x.email)+' — '+esc(x.provider)]),
+      help:'Only active logins in this household are eligible.'
+    },
+    cta:'Transfer the role',
+    destructive:false,
+    onConfirm(){
+      const next=userById(S.modal.v.choice);
+      const from=current?current.email:'—';
+      o.owner=next.id;
+      logAudit({action:'Transferred admin parent', target:o.id+' — '+from+' → '+next.email,
+        reason:S.modal.v.reason.trim(), ref:S.modal.v.ref.trim()});
+      toast('Admin parent transferred', next.email+' now owns '+o.name);
+    }
+  },key);
+}
+
 function confirmOrgStatus(id,to,key){
   const o=orgById(id), off=to==='deactivated';
-  const logins=S.users.filter(u=>u.org===o.id).length;
   const needsAck = off && !!o.parentPause;
   openConfirm({
     title:`${off?'Deactivate':'Reactivate'} ${esc(o.name)}?`,
     lead: off
-      ? 'Every login in this household loses access, and billing stops at the end of the current cycle.'
-      : 'Access returns for every login in this household and billing resumes next cycle.',
+      ? 'Learner access ends and billing stops at the end of the current cycle. The admin parent can still sign in.'
+      : 'Learner access returns and billing resumes next cycle.',
     consequences: off?[
-      `${o.seats} learner ${o.seats===1?'seat':'seats'} lose access to lessons and evidence uploads.`,
-      `All ${logins} logins in the household stop working, including the account owner.`,
+      `${o.seats} learner ${o.seats===1?'seat':'seats'} lose access to lessons and can no longer upload evidence.`,
       'Billing stops at the end of the current cycle. No refund is issued by this action.',
-      'Lesson history is retained and returns intact on reactivation.'
+      `The admin parent keeps their login. They can still open the account and read past lessons, evidence, and records.`,
+      'Nothing is deleted. Everything returns intact on reactivation.'
     ]:[],
     ack: needsAck
       ? `<strong>This family already paused their own billing</strong> on <span class="mono">${esc(o.parentPause.requested)}</span>. Deactivating overrides that pause and replaces their choice with a staff decision. I have a reason to override it.`
@@ -2216,7 +2340,7 @@ document.addEventListener('click', e=>{
       const d=S.draft;
       if(!d.title.trim()||!d.body.trim()) break;
       S.bsPosts.unshift({id:'bs_'+Math.floor(Math.random()*900+100), author:STAFF.person.name,
-        role:STAFF.label, when:'today', pinned:false, pinOrder:0,
+        when:'today', pinned:false, pinOrder:0,
         title:d.title.trim(), body:d.body.trim(), attach:d.attach.slice(), reactions:0, replies:0});
       logAudit({action:'Published Backstage roadmap update', target:d.title.trim(), reason:'', ref:''});
       S.draft={title:'', body:'', attach:[], err:''};
@@ -2240,17 +2364,6 @@ document.addEventListener('click', e=>{
       item.pinned=false; item.pinOrder=0;
       logAudit({action:'Unpinned Backstage '+kind, target:kind==='poll'?item.q:item.title, reason:'', ref:''});
       toast('Unpinned', 'Back to its date order in the feed');
-      render(); break;
-    }
-    case 'pinup': {
-      const pins=pinnedItems();
-      const i=pins.findIndex(x=>x.id===t.dataset.id);
-      if(i>0){
-        const a=pins[i], b=pins[i-1];
-        const findIn=x=>(x.type==='poll'?S.bsPolls:S.bsPosts).find(y=>y.id===x.id);
-        const oa=findIn(a), ob=findIn(b);
-        const tmp=oa.pinOrder; oa.pinOrder=ob.pinOrder; ob.pinOrder=tmp;
-      }
       render(); break;
     }
     case 'newpoll': S.pollDraft={q:'', options:['','',''], opens:'2026-09-05', closes:''}; render(); break;
@@ -2287,6 +2400,7 @@ document.addEventListener('click', e=>{
     /* --- writes --- */
     case 'userstatus': confirmUserStatus(t.dataset.id, t.dataset.to, t.dataset.focusKey); break;
     case 'orgstatus': confirmOrgStatus(t.dataset.id, t.dataset.to, t.dataset.focusKey); break;
+    case 'transferowner': confirmTransferOwner(t.dataset.id, t.dataset.focusKey); break;
     case 'resolvepause': confirmPause(t.dataset.id, t.dataset.focusKey); break;
     case 'closemodal': closeModal(); break;
     case 'ack': S.modal.ack=!S.modal.ack; renderModal(); break;
@@ -2336,6 +2450,7 @@ document.addEventListener('input', e=>{
 document.addEventListener('change', e=>{
   const t=e.target.closest('[data-act]'); if(!t) return;
   if(t.dataset.act==='outcome' && S.modal){ S.modal.v.outcome=t.value; syncModalConfirm(); }
+  if(t.dataset.act==='choose' && S.modal){ S.modal.v.choice=t.value; syncModalConfirm(); }
 });
 
 document.addEventListener('keydown', e=>{
