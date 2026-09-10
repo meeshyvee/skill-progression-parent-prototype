@@ -254,6 +254,11 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .modal-header{display:flex;align-items:flex-start;gap:var(--space-lg);justify-content:space-between}
 .modal-content{display:flex;flex-direction:column;gap:var(--space-lg)}
 .modal-footer{display:flex;padding-top:var(--space-sm)}
+.rule-list{display:flex;flex-direction:column;gap:0;list-style:none;padding:0;margin:0}
+.rule{display:flex;align-items:flex-start;gap:var(--space-lg);padding:var(--space-lg) 0;
+  border-top:1px solid var(--neutral-200);font-size:14px;color:var(--neutral-700)}
+.rule i{color:var(--lilac-bush-600);font-size:16px;padding-top:2px;width:20px;text-align:center;flex-shrink:0}
+.rule b{font-family:var(--font-primary);font-weight:600;color:var(--neutral-800)}
 
 /* ============================================================
    LAYOUT — flex/grid only, no absolute positioning for layout
@@ -392,13 +397,31 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .byline__name{display:flex;align-items:center;gap:var(--space-sm);flex-wrap:wrap;font-family:var(--font-primary);font-weight:600;font-size:15px;color:var(--neutral-800)}
 .byline__time{font-size:12.5px;color:var(--foreground-medium)}
 .card__body{color:var(--neutral-700);max-width:74ch}
-.attachments{display:flex;flex-wrap:wrap;gap:var(--space-md)}
-.attachment{display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md);border:1px solid var(--neutral-200);border-radius:var(--corner-xl);background:var(--background-light);max-width:340px}
-.attachment__thumb{display:grid;place-items:center;width:48px;height:34px;border-radius:var(--corner-md);background:var(--pearl-brush-200);color:var(--pearl-brush-700);flex-shrink:0}
-.attachment__meta{display:flex;flex-direction:column;min-width:0}
-.attachment__meta b{font-family:var(--font-primary);font-weight:500;font-size:13.5px;color:var(--neutral-800)}
-.attachment__meta span{font-size:12px;color:var(--foreground-medium)}
-
+.attachments{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md)}
+.media{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--neutral-200);
+  border-radius:var(--corner-xl);background:var(--neutral-0)}
+.media__frame{display:grid;place-items:center;aspect-ratio:16/9;position:relative;
+  background:var(--pearl-brush-100);
+  background-image:radial-gradient(340px 160px at 20% 10%,var(--lilac-bush-100),transparent 70%),
+                   radial-gradient(300px 150px at 90% 100%,var(--breaker-bay-100),transparent 70%)}
+.media__mock{display:flex;flex-direction:column;gap:6px;width:74%;padding:var(--space-md);
+  border-radius:var(--corner-lg);background:var(--neutral-0);border:1px solid var(--neutral-200)}
+.media__mock-bar{height:8px;border-radius:var(--corner-sm);background:var(--pearl-brush-200)}
+.media__mock-bar--accent{background:var(--lilac-bush-300)}
+.media__mock-bar--short{width:52%}
+.media__mock-row{display:flex;gap:6px;align-items:center}
+.media__mock-dot{width:14px;height:14px;border-radius:50%;background:var(--casablanca-300);flex-shrink:0}
+.media__play{position:absolute;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;
+  background:var(--neutral-0);color:var(--lilac-bush-700);font-size:18px;box-shadow:0 4px 4px rgba(0,0,0,.25)}
+.media__chip{position:absolute;inset-block-end:var(--space-sm);inset-inline-end:var(--space-sm);
+  padding:2px var(--space-sm);border-radius:var(--corner-md);background:var(--neutral-800);
+  color:var(--pearl-brush-50);font-family:var(--font-mono);font-size:11px}
+.media__caption{display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-md) var(--space-lg);
+  border-top:1px solid var(--neutral-200);font-size:13px;color:var(--foreground-medium)}
+.media__caption b{font-family:var(--font-primary);font-weight:500;font-size:13.5px;color:var(--neutral-800)}
+.media__caption i{color:var(--lilac-bush-600)}
+.media--link .media__frame{aspect-ratio:auto;padding:var(--space-xl);place-items:start}
+.media--link .media__mock{width:100%}
 .card__footer{display:flex;align-items:center;gap:var(--space-sm);flex-wrap:wrap;padding-top:var(--space-md);border-top:1px solid var(--neutral-200)}
 .reactions{display:flex;gap:var(--space-sm);flex-wrap:wrap}
 .reaction{display:inline-flex;align-items:center;gap:6px;padding:6px var(--space-md);border-radius:var(--corner-pill);border:1px solid var(--neutral-200);background:var(--neutral-0);font-size:13px}
@@ -410,12 +433,14 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .save-button[aria-pressed="true"]{border-color:var(--casablanca-400);background:var(--casablanca-100);color:var(--casablanca-800);font-weight:600}
 .mod-tools{display:flex;gap:var(--space-sm);margin-left:auto;flex-wrap:wrap}
 
-.thread{display:flex;flex-direction:column;gap:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid var(--neutral-200)}
+.thread{display:flex;flex-direction:column;gap:var(--space-lg);width:100%;padding-top:var(--space-lg);border-top:1px solid var(--neutral-200)}
 .reply{display:flex;gap:var(--space-md)}
 .reply--child{padding-left:var(--space-2xl)}
 .reply__bubble{display:flex;flex-direction:column;gap:var(--space-sm);padding:var(--space-lg);border-radius:var(--corner-xl);background:var(--background-light);flex:1;min-width:0}
 .reply__bubble p{font-size:14px;color:var(--neutral-700)}
 .composer{display:flex;flex-direction:column;gap:var(--space-md);padding:var(--space-lg);border:1px solid var(--neutral-200);border-radius:var(--corner-xl);background:var(--neutral-0)}
+.composer__lead{display:flex;align-items:flex-start;gap:var(--space-md)}
+.composer__lead textarea{flex:1;min-width:0}
 .composer textarea{width:100%;min-height:72px;resize:vertical;border:1px solid var(--neutral-200);border-radius:var(--corner-lg);padding:var(--space-md);font-family:var(--font-secondary);font-size:14px;color:var(--neutral-700);background:var(--neutral-0)}
 .composer textarea:focus{outline:2px solid var(--lilac-bush-600);outline-offset:1px}
 .composer__row{display:flex;align-items:center;gap:var(--space-sm);flex-wrap:wrap}
@@ -434,11 +459,10 @@ button{font-family:var(--font-secondary);font-size:inherit;cursor:pointer;border
 .poll-option__pct{margin-left:auto;font-family:var(--font-primary);font-weight:600}
 .poll-option--mine{border-color:var(--lilac-bush-600)}
 
-/* aggregate + you-shaped-this */
+/* aggregate feedback panel */
 .aggregate{display:flex;flex-direction:column;gap:var(--space-md);padding:var(--space-xl);border-radius:var(--corner-2xl);background:var(--cello-50);border:1px solid var(--cello-200)}
 .aggregate__row{display:flex;flex-direction:column;gap:2px;padding-top:var(--space-md);border-top:1px solid var(--cello-200);font-size:14px}
 .aggregate__row span{font-size:12.5px;color:var(--foreground-medium)}
-.shaped{display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md) var(--space-lg);border-radius:var(--corner-xl);background:var(--highland-50);border:1px solid var(--highland-200);font-size:14px;color:var(--highland-900)}
 
 /* states */
 .state-panel{display:flex;flex-direction:column;align-items:center;gap:var(--space-lg);padding:var(--space-2xl) var(--space-xl);text-align:center;background:var(--neutral-0);border:1px solid var(--neutral-200);border-radius:var(--corner-2xl);max-width:560px;margin-inline:auto}
@@ -501,7 +525,7 @@ let posts = [
    attachments:[],reactions:{'🎉':14,'💜':9},mine:[],replies:[]},
 
   {id:'p2',channel:'roadmap',pinned:false,author:'Erin Dow',isStaff:true,title:'StrongMind — Product Manager',
-   time:'2 days ago',heading:'Offline lessons are coming in October',shaped:true,
+   time:'2 days ago',heading:'Offline lessons are coming in October',
    body:'Any lesson marked Offline can be downloaded the night before and finished with no connection. Progress catches up the next time you open the app. This one came straight from the road-trip conversation three of you started in July.',
    attachments:[{type:'video',label:'offline-lessons-walkthrough.mp4',meta:'1:42 · screen recording'}],
    reactions:{'👍':21,'🎉':6,'🤔':2},mine:[],
@@ -512,7 +536,7 @@ let posts = [
      {id:'r2',author:'Tom A.',isStaff:false,time:'1 day ago',text:'Does the download include the milestone check-in, or just the lesson steps?',children:[]}
    ]},
 
-  {id:'p3',channel:'roadmap',pinned:false,author:'Mylene Biddle',isStaff:true,title:'StrongMind — Engineering Lead',
+  {id:'p3',channel:'roadmap',pinned:false,author:'Josh Brito',isStaff:true,title:'StrongMind — Engineering Lead',
    time:'Last week',heading:'Milestones are getting their own card',
    body:'Right now a milestone sits in the plan looking like every other row. Soon it becomes its own card with the evidence upload attached, so you are not hunting for where the photo of the worksheet goes. Early mockups below — tell us what feels off.',
    attachments:[{type:'link',label:'figma.com/file/milestone-check-in-v2',meta:'Figma · Milestone check-in, v2'},{type:'gif',label:'milestone-card.gif',meta:'GIF · 3 second loop'}],
@@ -549,7 +573,7 @@ let polls = [
    options:[{id:'a',text:'Plan the whole week on Sunday',votes:47},
             {id:'b',text:'Plan one day at a time',votes:19},
             {id:'c',text:'Let the platform schedule it for me',votes:11}],
-   myVote:'a',shaped:true,reactions:{},mine:[]}
+   myVote:'a',reactions:{},mine:[]}
 ];
 
 /* ============================================================
@@ -681,14 +705,45 @@ function avatar(name,isStaff,size){
 /* R-23 / NFR-06 — staff badge and Founding Member badge are never combined */
 function personBadge(isStaff,title){
   return isStaff
-    ? `<span class="hs-label hs-label--blue"><span class="hs-label__icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span><span class="hs-label__text">${esc(title||'StrongMind team')}</span></span>`
+    ? `<span class="hs-label hs-label--blue"><span class="hs-label__icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span><span class="hs-label__text">StrongMind Staff</span></span>`
     : `<span class="hs-label hs-label--yellow"><span class="hs-label__icon"><i class="fa-solid fa-ticket" aria-hidden="true"></i></span><span class="hs-label__text">Founding Member</span></span>`;
 }
-function attachmentCard(a){
-  const icon={video:'fa-circle-play',link:'fa-link',audio:'fa-headphones',gif:'fa-photo-film'}[a.type]||'fa-paperclip';
-  return `<div class="attachment"><span class="attachment__thumb"><i class="fa-solid ${icon}" aria-hidden="true"></i></span>
-    <span class="attachment__meta"><b>${esc(a.label)}</b><span>${esc(a.meta)}</span></span></div>`;
+/* Media renders as a visible preview, not a file to open (R-17 / R-18) */
+function mockFrame(){
+  return `<span class="media__mock">
+    <span class="media__mock-row"><span class="media__mock-dot"></span><span class="media__mock-bar media__mock-bar--short"></span></span>
+    <span class="media__mock-bar media__mock-bar--accent"></span>
+    <span class="media__mock-bar"></span>
+    <span class="media__mock-bar media__mock-bar--short"></span>
+  </span>`;
 }
+function attachmentCard(a){
+  if(a.type==='link'){
+    return `<div class="media media--link">
+      <span class="media__frame">${mockFrame()}</span>
+      <span class="media__caption"><i class="fa-solid fa-link" aria-hidden="true"></i>
+        <b>${esc(a.label)}</b><span>· ${esc(a.meta)}</span></span>
+    </div>`;
+  }
+  if(a.type==='audio'){
+    return `<div class="media">
+      <span class="media__frame"><span class="media__play"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+        <span class="media__chip">${esc(a.meta.split('·')[0].trim())}</span></span>
+      <span class="media__caption"><i class="fa-solid fa-headphones" aria-hidden="true"></i><b>${esc(a.label)}</b></span>
+    </div>`;
+  }
+  const isVideo = a.type==='video';
+  return `<div class="media">
+    <span class="media__frame">
+      ${mockFrame()}
+      ${isVideo?`<span class="media__play"><i class="fa-solid fa-play" aria-hidden="true"></i></span>`:''}
+      <span class="media__chip">${isVideo?esc(a.meta.split('·')[0].trim()):'GIF'}</span>
+    </span>
+    <span class="media__caption"><i class="fa-solid ${isVideo?'fa-circle-play':'fa-photo-film'}" aria-hidden="true"></i>
+      <b>${esc(a.label)}</b></span>
+  </div>`;
+}
+
 function reactionRow(item){
   return `<div class="reactions">`+['👍','💜','🎉','🤔'].map(e=>{
     const count=(item.reactions||{})[e]||0, mine=(item.mine||[]).includes(e);
@@ -712,19 +767,29 @@ function replyBlock(reply,isChild){
   </div>
   ${(reply.children||[]).map(c=>replyBlock(c,true)).join('')}`;
 }
-function threadBlock(item){
+function threadToggle(item){
   const count=(item.replies||[]).reduce((n,r)=>n+1+(r.children||[]).length,0);
-  if(state.openThread!==item.id){
-    return `<button type="button" class="hs-button hs-button--text hs-button--small" onclick="openThread('${item.id}')">
-      <i class="fa-light fa-comment" aria-hidden="true"></i>${count?`${count} replies`:'Be the first to reply'}</button>`;
-  }
+  if(!count) return '';
+  const open=state.openThread===item.id;
   return `<button type="button" class="hs-button hs-button--text hs-button--small" onclick="openThread('${item.id}')">
-      <i class="fa-light fa-chevron-up" aria-hidden="true"></i>Hide replies</button>
-  <div class="thread">
-    ${(item.replies||[]).map(r=>replyBlock(r,false)).join('') || `<p class="u-muted">Nothing here yet. Your thought would be a good place to start.</p>`}
+    <i class="fa-light fa-${open?'chevron-up':'comment'}" aria-hidden="true"></i>${open?'Hide replies':`${count} ${count===1?'reply':'replies'}`}</button>`;
+}
+
+/* Replies and the reply box sit full-width below the post, the way social feeds do */
+function threadPanel(item){
+  const count=(item.replies||[]).reduce((n,r)=>n+1+(r.children||[]).length,0);
+  const showReplies = state.openThread===item.id || count===0;
+  return `<div class="thread">
+    ${showReplies
+      ? ((item.replies||[]).map(r=>replyBlock(r,false)).join('') ||
+         `<p class="u-muted">No replies yet. Your thought would be a good place to start.</p>`)
+      : ''}
     <div class="composer">
-      <label class="hs-checkbox__label" for="reply-${item.id}">Add your reply</label>
-      <textarea id="reply-${item.id}" placeholder="What would you tell another homeschool parent about this?"></textarea>
+      <div class="composer__lead">
+        ${avatar(me().name,me().staff,'md')}
+        <textarea id="reply-${item.id}" aria-label="Add your reply"
+          placeholder="What would you tell another homeschool parent about this?"></textarea>
+      </div>
       <div class="composer__row">
         <span class="u-muted">Add:</span>
         ${['video','audio','link','GIF'].map(k=>`<button type="button" class="attach-chip" aria-pressed="${state.attachments.includes(k)}" onclick="toggleAttachment('${k}')">
@@ -738,6 +803,7 @@ function threadBlock(item){
     </div>
   </div>`;
 }
+
 function saveButton(item){
   const saved=isSaved(item.id);
   return `<div class="hs-tooltip-wrapper">
@@ -775,14 +841,14 @@ function postCard(item,kind){
     </div>
     <h3>${esc(item.heading)}</h3>
     <p class="card__body">${esc(item.body)}</p>
-    ${item.shaped?`<p class="shaped"><i class="fa-solid fa-seedling" aria-hidden="true"></i>You helped shape this one.</p>`:''}
     ${(item.attachments||[]).length?`<div class="attachments">${item.attachments.map(attachmentCard).join('')}</div>`:''}
     <div class="card__footer">
       ${reactionRow(item)}
-      ${threadBlock(item)}
+      ${threadToggle(item)}
       ${saveButton(item)}
       ${moderatorTools(item)}
     </div>
+    ${threadPanel(item)}
   </article>`;
 }
 
@@ -802,7 +868,6 @@ function pollCard(poll){
     </div>
     <h3>${esc(poll.heading)}</h3>
     <p class="card__body">${esc(poll.body)}</p>
-    ${poll.shaped?`<p class="shaped"><i class="fa-solid fa-seedling" aria-hidden="true"></i>Your answers changed how the planner opens.</p>`:''}
     <div class="poll-options">
       ${poll.options.map(o=>{
         const pct = total ? Math.round(o.votes/total*100) : 0;
@@ -1082,14 +1147,16 @@ function guidelinesModal(){
       </header>
       <div class="modal-content">
         <p class="u-muted">Read these once. They apply to everyone here, families and StrongMind staff alike.</p>
-        <div class="hs-alert hs-alert--announce"><span class="hs-alert__icon"><i class="fa-regular fa-comments" aria-hidden="true"></i></span>
-          <p><strong>Say the real thing.</strong> Honest feedback is exactly why you are here. Be hard on the product, easy on each other.</p></div>
-        <div class="hs-alert hs-alert--info"><span class="hs-alert__icon"><i class="fa-regular fa-lock" aria-hidden="true"></i></span>
-          <p><strong>What is here stays here.</strong> Roadmap posts cover things we have not released yet, so please keep screenshots out of public places.</p></div>
-        <div class="hs-alert hs-alert--warning"><span class="hs-alert__icon"><i class="fa-regular fa-user-shield" aria-hidden="true"></i></span>
-          <p><strong>Grown-ups only.</strong> Backstage is for admin parents. Please do not share your login or post on a learner's behalf.</p></div>
-        <div class="hs-alert hs-alert--success"><span class="hs-alert__icon"><i class="fa-regular fa-shield-halved" aria-hidden="true"></i></span>
-          <p><strong>We keep an eye on it.</strong> StrongMind moderators review flagged posts so this stays a place you feel safe writing in.</p></div>
+        <ul class="rule-list">
+          <li class="rule"><i class="fa-light fa-comments" aria-hidden="true"></i>
+            <span><b>Say the real thing.</b> Honest feedback is exactly why you are here. Be hard on the product, easy on each other.</span></li>
+          <li class="rule"><i class="fa-light fa-lock" aria-hidden="true"></i>
+            <span><b>What is here stays here.</b> Roadmap posts cover things we have not released yet, so please keep screenshots out of public places.</span></li>
+          <li class="rule"><i class="fa-light fa-user-shield" aria-hidden="true"></i>
+            <span><b>Grown-ups only.</b> Backstage is for admin parents. Please do not share your login or post on a learner's behalf.</span></li>
+          <li class="rule"><i class="fa-light fa-shield-halved" aria-hidden="true"></i>
+            <span><b>We keep an eye on it.</b> StrongMind moderators review flagged posts so this stays a place you feel safe writing in.</span></li>
+        </ul>
       </div>
       <div class="modal-footer">
         <div class="hs-button-group justify-end flex-wrap">
