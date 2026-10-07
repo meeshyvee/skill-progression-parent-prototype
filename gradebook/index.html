@@ -440,6 +440,346 @@ svg.i{width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stroke
 .pl-remove{color:var(--error-dark)}
 .pl-remove:hover{background:var(--coral-subtle)}
 .btn:disabled{opacity:.45; cursor:not-allowed}
+
+.mm-h{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; flex-wrap:wrap; margin:6px 0 14px}
+.mm-h h3{font-size:24px}
+.mm-legend{display:flex; gap:18px; align-items:center; flex-wrap:wrap; font-size:13.5px; color:var(--text-2); font-weight:600}
+.mm-legend span{display:inline-flex; gap:7px; align-items:center}
+.mm-legend b{font-family:var(--font-head); font-weight:600; color:var(--text); margin-left:6px}
+.mm-legend i{width:16px; height:16px; border-radius:50%; display:inline-block; border:2px solid #555}
+.lg-done{background:#555}
+.lg-work{background:linear-gradient(90deg,#555 50%,#fff 50%)}
+.lg-up{border-color:var(--border) !important; background:#fff}
+.mm-grid{border:1px solid var(--border-soft); border-radius:var(--r-2xl); overflow:hidden; background:var(--white)}
+.mm-row{display:grid; grid-template-columns:240px minmax(0,1fr); border-top:1px solid var(--border-soft)}
+.mm-row:first-child{border-top:0}
+.mm-cat{border-left:5px solid var(--cc); border-right:1px solid var(--border-soft); padding:22px 20px}
+.mm-cat b{display:block; font-family:var(--font-head); font-weight:600; font-size:17px; line-height:1.25}
+.mm-cat small{display:block; font-size:13px; color:var(--text-2); margin-top:4px}
+.mm-count{display:block; margin-top:10px; font-size:13px; font-weight:700; color:var(--text-2)}
+.mm-count em{font-style:normal; font-family:var(--font-head); font-weight:600; font-size:16px; color:var(--cc)}
+.mm-trackwrap{position:relative; min-width:0}
+.mm-track{display:flex; overflow-x:auto; padding:26px 16px 22px; scrollbar-width:thin}
+.mm-trackwrap.more::after{content:""; position:absolute; top:0; right:0; bottom:0; width:56px; background:linear-gradient(90deg, rgba(255,255,255,0), #fff); pointer-events:none}
+.mm-hint{position:absolute; right:12px; bottom:4px; z-index:1; display:inline-flex; gap:4px; align-items:center; font-size:11.5px; font-weight:800; color:var(--text-3); pointer-events:none}
+.mm-hint svg.i{width:13px; height:13px}
+.mn{position:relative; flex:0 0 140px; display:flex; flex-direction:column; align-items:center; gap:10px; background:none; border:0; padding:0 6px; text-align:center; cursor:pointer}
+.mn .dotc{position:relative; z-index:2; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; border:2.5px solid var(--cc); background:#fff; color:#fff; transition:transform .15s}
+.mn:hover .dotc{transform:scale(1.1)}
+.mn .dotc svg.i{width:18px; height:18px; stroke-width:2.6}
+.mn-done .dotc{background:var(--cc)}
+.mn-work .dotc{background:linear-gradient(90deg, var(--cc) 50%, #fff 50%)}
+.mn-up .dotc{border-color:#D9D4CF}
+.mn.line::before,.mn.line-on::before{content:""; position:absolute; z-index:1; top:17px; left:50%; width:140px; height:3px; background:#E7E2DD}
+.mn.line-on::before{background:var(--cc)}
+.mn-l{font-size:13.5px; line-height:1.35; color:var(--text); font-weight:600}
+.mn-up .mn-l{color:var(--text-3)}
+.mn.is-next .mn-l{font-weight:800}
+.mn-next{margin-top:-6px; font-size:11px; font-weight:800; letter-spacing:.08em; color:var(--cc)}
+.mn.sel .dotc{box-shadow:0 0 0 4px #fff, 0 0 0 6px var(--cc)}
+.mn:focus-visible{outline:none}
+.mn:focus-visible .dotc{box-shadow:0 0 0 4px #fff, 0 0 0 6px var(--primary)}
+.mm-detail{grid-column:1 / -1; border-top:1px dashed var(--border); background:#FBFAF8; padding:16px 20px 18px; border-left:5px solid var(--cc)}
+.mmd-h{display:flex; justify-content:space-between; align-items:flex-start}
+.mmd-h small{font-size:12px; font-weight:800; color:var(--text-3)}
+.mmd-h b{display:block; font-family:var(--font-head); font-weight:600; font-size:17px}
+.mmd-body{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); gap:20px; margin-top:8px; align-items:start}
+.mmd-body .lj-mark{margin-top:0}
+.mmd-body h5{font-family:var(--font-body); font-weight:800; font-size:13px; color:var(--text-3); margin:0 0 6px}
+@media (max-width:900px){ .mm-row{grid-template-columns:1fr} .mm-cat{border-right:0; border-bottom:1px solid var(--border-soft); padding:14px 16px} .mmd-body{grid-template-columns:1fr} .mn{flex-basis:118px} .mn.line::before,.mn.line-on::before{width:118px} }
+
+.sp-how{font-size:inherit; margin-left:4px; white-space:nowrap}
+.lj-zone-h p{max-width:none !important}
+.modal.spi{max-width:640px; text-align:center; padding:32px 36px 28px}
+.spi-badge{width:56px; height:56px; border-radius:50%; background:var(--primary-subtle); color:var(--primary); display:grid; place-items:center; margin:0 auto 14px}
+.spi-badge svg.i{width:26px; height:26px}
+.spi h2{font-size:24px}
+.spi-lead{color:var(--text-2); margin-top:8px}
+.spi-pts{list-style:none; padding:0; margin:22px 0 0; display:grid; gap:18px; text-align:left}
+.spi-pts li{display:flex; gap:16px; align-items:flex-start}
+.spi-ic{width:42px; height:42px; border-radius:50%; background:var(--primary-wash); color:var(--primary); display:grid; place-items:center; flex:none}
+.spi-ic svg.i{width:20px; height:20px}
+.spi-pts b{display:block; font-family:var(--font-head); font-weight:600; font-size:16px; line-height:1.35}
+.spi-pts p{color:var(--text-2); font-size:14px; margin-top:4px}
+.spi-st{background:var(--bg); border-radius:var(--r-xl); padding:6px 16px 8px; margin-top:22px; text-align:left}
+.spi-st-h{display:flex; justify-content:space-between; align-items:center; width:100%; background:none; border:0; padding:10px 0; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--text-2)}
+.spi-st-h svg.i{width:16px; height:16px}
+.spi-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-top:1px solid var(--border-soft); font-size:14px}
+.spi-row span{font-weight:700; min-width:110px}
+.spi-row em{font-style:normal; margin-left:auto; color:var(--text-2); text-align:right}
+.spi-ok{min-width:140px}
+@media (max-width:620px){ .spi-row{flex-wrap:wrap} .spi-row em{margin-left:32px; text-align:left} }
+
+.modal.msm{max-width:540px}
+.msm-top{display:flex; justify-content:space-between; align-items:center}
+.msm-top .dot{margin:0 6px; color:var(--text-3)}
+.msm h2{font-size:24px; margin-top:12px}
+.msm-cur{display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:14px; color:var(--text-2); margin-top:6px}
+.msm-cur b{color:var(--text)}
+.msm-cur .muted{margin-left:-6px}
+.msm-ask{font-size:14.5px; color:var(--text-2); margin-top:18px}
+.msm-opts{display:grid; gap:10px; margin-top:12px}
+.msm-opt{display:flex; align-items:center; gap:14px; text-align:left; border:1.5px solid var(--border-soft); background:var(--white); border-radius:var(--r-xl); padding:12px 14px}
+.msm-opt:hover{border-color:var(--primary-light)}
+.msm-opt.on{border-color:var(--primary); background:var(--primary-wash); box-shadow:0 0 0 3px var(--primary-subtle)}
+.msm-opt > span:nth-child(2){flex:1}
+.msm-opt b{display:block; font-size:15px}
+.msm-opt small{font-size:13px; color:var(--text-2)}
+.msm-radio{width:20px; height:20px; border-radius:50%; border:2px solid var(--border-hover); flex:none}
+.msm-opt.on .msm-radio{border:6px solid var(--primary)}
+.msm-foot{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:22px; flex-wrap:wrap}
+.msm-btns{display:flex; gap:10px; margin-left:auto}
+.msm-reset{display:inline-flex; gap:6px; align-items:center; color:var(--text-2); font-size:14px}
+.msm-reset svg.i{width:16px; height:16px}
+
+.mn .dia{position:relative; z-index:2; width:56px; height:56px; display:grid; place-items:center; transition:transform .15s; background:transparent}
+.mn .dia svg{width:58px; height:58px}
+.mn.today .dia svg{filter:drop-shadow(0 4px 5px rgba(46,31,28,.25))}
+.mn .dia .mb-x .dshape{fill:#fff; stroke:#D6D6D6; stroke-width:1}
+.mn:hover .dia{transform:scale(1.1)}
+.mn.line::before,.mn.line-on::before{top:26px !important}
+.mn:focus-visible .dia{outline:2px solid var(--primary); outline-offset:3px; border-radius:6px}
+
+/* today highlight */
+.mn.today .dia::before{content:""; position:absolute; inset:-14px; border-radius:50%; background:radial-gradient(circle, rgba(255,189,38,.45) 0%, rgba(255,189,38,.18) 45%, rgba(255,189,38,0) 70%); z-index:-1; animation:todayPulse 2.4s ease-in-out infinite}
+@keyframes todayPulse{50%{transform:scale(1.12); opacity:.7}}
+.mn-today{display:inline-flex; align-items:center; gap:5px; margin-top:-4px; font-size:11.5px; font-weight:800; color:#7A4E00; background:var(--yellow-subtle); border:1px solid var(--yellow-lighter); border-radius:var(--r-full); padding:2px 9px 2px 7px; white-space:nowrap}
+.mn-today svg.i{width:12px; height:12px}
+.lg-today{display:inline-flex; align-items:center; gap:7px}
+.lg-today i{width:12px; height:12px; border-radius:50%; background:var(--yellow-subtle); border:1.5px solid var(--yellow-hover)}
+/* decluttered container */
+.lj-zone{padding:30px 32px 32px !important}
+.lj-zone-h{margin-bottom:22px !important}
+.lj-zone .lj-tabs{margin-bottom:6px !important}
+.lj-subject{padding:22px 0 0 !important}
+.ss{border-bottom:0 !important; padding:4px 0 0 !important; margin-bottom:34px !important}
+.ss-row{gap:28px !important}
+.ss-fact b{font-size:34px !important}
+.ss-fact strong{font-size:15px !important}
+.ss-fact + .ss-fact{padding-left:28px !important}
+.ss-trg{padding:10px 12px !important; min-width:0 !important}
+.ss-trg b{font-size:16px !important}
+.ss-ic{width:38px !important; height:38px !important}
+.mm-h{align-items:center !important; margin:0 0 16px !important}
+.mm-h h3{font-size:21px !important}
+.mm-legend{gap:16px !important; font-size:13px !important}
+@media (max-width:760px){ .lj-zone{padding:20px 14px !important} }
+
+.mm-trackwrap.more::after{display:none}
+.mm-trackwrap::before,.mm-trackwrap::after{content:""; position:absolute; top:0; bottom:0; width:64px; pointer-events:none; z-index:3; opacity:0; transition:opacity .2s}
+.mm-trackwrap::before{left:0; background:linear-gradient(270deg, rgba(255,255,255,0), #fff 70%)}
+.mm-trackwrap::after{right:0; background:linear-gradient(90deg, rgba(255,255,255,0), #fff 70%)}
+.mm-trackwrap.can-l::before,.mm-trackwrap.can-r::after{opacity:1}
+.mm-arrow{position:absolute; top:28px; z-index:4; width:36px; height:36px; border-radius:50%; border:1px solid var(--border); background:var(--white); color:var(--text); display:none; place-items:center; box-shadow:0 4px 12px -6px rgba(46,31,28,.45)}
+.mm-arrow svg.i{width:18px; height:18px}
+.mm-arrow.l{left:8px}
+.mm-arrow.l svg{transform:rotate(180deg)}
+.mm-arrow.r{right:8px}
+.mm-trackwrap.over .mm-arrow{display:grid}
+.mm-arrow:disabled{opacity:0; pointer-events:none}
+.mm-arrow:hover{border-color:var(--primary); color:var(--primary)}
+.mm-arrow:focus-visible{outline:2px solid var(--primary); outline-offset:2px; opacity:1}
+
+.view-ans{display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:13.5px; color:var(--primary)}
+.view-ans svg.i{width:16px; height:16px}
+.done-box b{display:flex !important; justify-content:flex-end; align-items:center; gap:8px; color:var(--green-dark) !important; font-size:22px !important}
+.done-box b svg.i{width:24px; height:24px}
+
+/* fake Learnosity iframe */
+.lrn-frame{border:1px solid #C9CED6; border-radius:10px; overflow:hidden; background:#fff; box-shadow:0 8px 24px -16px rgba(0,0,0,.35); font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; color:#333}
+.lrn-chrome{display:flex; align-items:center; gap:12px; background:#ECEEF1; border-bottom:1px solid #D5D9DF; padding:8px 12px; font-size:12px; color:#5C6370}
+.lrn-chrome .dots{display:flex; gap:6px}
+.lrn-chrome .dots i{width:10px; height:10px; border-radius:50%; background:#D0D4DA}
+.lrn-url{flex:1; display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid #D5D9DF; border-radius:6px; padding:4px 10px; font-family:ui-monospace, Menlo, monospace; font-size:11.5px; color:#6B7280; max-width:420px; overflow:hidden; white-space:nowrap}
+.lrn-url svg.i{width:12px; height:12px}
+.lrn-mode{margin-left:auto; font-weight:700; color:#1F5A96; background:#E3EEFA; border-radius:4px; padding:3px 8px}
+.lrn-bar{display:flex; justify-content:space-between; align-items:center; gap:12px; background:#1F3A5A; color:#fff; padding:10px 18px; flex-wrap:wrap}
+.lrn-bar b{font-size:14px; font-weight:700}
+.lrn-pager{display:flex; gap:6px}
+.lrn-pager a{width:28px; height:28px; border-radius:4px; display:grid; place-items:center; background:rgba(255,255,255,.12); color:#fff; text-decoration:none; font-size:12.5px; font-weight:700; border-bottom:3px solid transparent}
+.lrn-pager a.ok{border-bottom-color:#5CB85C}
+.lrn-pager a.bad{border-bottom-color:#E5534B}
+.lrn-pager a:hover{background:rgba(255,255,255,.25)}
+.lrn-body{padding:6px 24px 10px}
+.lrn-item{padding:20px 0 22px; border-bottom:1px solid #E6E8EB}
+.lrn-item:last-child{border-bottom:0}
+.lrn-item-h{display:flex; align-items:center; gap:10px; font-size:12px; font-weight:700; color:#6B7280; text-transform:uppercase; letter-spacing:.04em}
+.lrn-tag{background:#F3F4F6; border-radius:3px; padding:2px 6px; color:#6B7280}
+.lrn-score{margin-left:auto; color:#333; text-transform:none; letter-spacing:0}
+.lrn-stem{font-size:17px; margin:10px 0 6px; color:#222}
+.lrn-vis{font-size:30px; letter-spacing:4px; margin:4px 0 10px}
+.lrn-opts{list-style:none; padding:0; margin:12px 0 0; display:grid; gap:8px; max-width:560px}
+.lrn-opts.dim{opacity:.5}
+.lrn-opt{display:flex; align-items:center; gap:12px; border:1px solid #D5D9DF; border-radius:4px; padding:10px 12px; font-size:15px; background:#fff}
+.lrn-radio{width:16px; height:16px; border-radius:50%; border:1.5px solid #9AA1AC; flex:none}
+.lrn-opt.chosen .lrn-radio{border:5px solid #1F5A96}
+.lrn-letter{font-weight:700; color:#6B7280; width:14px}
+.lrn-txt{flex:1}
+.lrn-opt.ok{border-color:#5CB85C; background:#F0F9F0}
+.lrn-opt.ok .lrn-radio{border-color:#3D8B37}
+.lrn-opt.bad{border-color:#E5534B; background:#FDF1F0}
+.lrn-opt.bad .lrn-radio{border-color:#C53030}
+.lrn-val{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; color:#fff}
+.lrn-val svg.i{width:14px; height:14px; stroke-width:3}
+.lrn-val.ok{background:#3D8B37}
+.lrn-val.bad{background:#C53030}
+.lrn-correct{display:flex; align-items:center; gap:10px; margin-top:12px; max-width:560px; border:1px dashed #5CB85C; background:#F6FBF6; border-radius:4px; padding:8px 12px; font-size:14px}
+.lrn-ch{font-size:12px; font-weight:700; text-transform:uppercase; color:#3D8B37; letter-spacing:.04em}
+.lrn-instr{margin-top:12px; max-width:640px; border-left:4px solid #4A78A8; background:#F3F7FB; padding:10px 14px; font-size:14px}
+.lrn-instr-h{display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700; text-transform:uppercase; color:#2F5A86}
+.lrn-instr-h svg.i{width:13px; height:13px}
+.lrn-instr p{margin-top:4px; color:#444}
+.lrn-err{display:flex; gap:8px; align-items:center; margin-top:10px; max-width:560px; background:#FFF8E5; border:1px solid #F0D58A; color:#7A5A00; border-radius:4px; padding:8px 12px; font-size:13.5px}
+.lrn-err svg.i{width:16px; height:16px}
+.lrn-foot{display:flex; justify-content:space-between; background:#F7F8FA; border-top:1px solid #E6E8EB; padding:8px 18px; font-size:11.5px; color:#8A919C}
+
+.ss2{margin-bottom:34px}
+.ss2-tiles{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px}
+.tile{position:relative; overflow:hidden; display:flex; flex-direction:column; gap:4px; text-align:left; border:0; border-radius:20px; padding:18px 20px 18px; color:var(--text); min-height:168px}
+.tile::after{content:""; position:absolute; right:-30px; top:-30px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.35)}
+.tile-ic{position:relative; z-index:1; width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,.75); display:grid; place-items:center; margin-bottom:8px}
+.tile-ic svg.i{width:20px; height:20px}
+.tile-num{display:flex; align-items:baseline; gap:8px}
+.tile-num b{font-family:var(--font-head); font-weight:600; font-size:40px; line-height:1}
+.tile-num span{font-size:14px; font-weight:700; color:var(--text-2)}
+.tile strong{font-family:var(--font-head); font-weight:600; font-size:16px}
+.tile small{font-size:13px; color:var(--text-2); font-weight:600}
+.tile .dot{margin:0 6px}
+.tile-bar{display:block; height:10px; border-radius:5px; background:rgba(255,255,255,.7); overflow:hidden; margin:8px 0 4px}
+.tile-bar i{display:block; height:100%; border-radius:5px; background:linear-gradient(90deg,#1E9DBA,#3AA97A); animation:grow 1s ease-out}
+.t-skills{background:linear-gradient(135deg,#D7F0F5,#E6F6EE)}
+.t-skills .tile-ic{color:#0E7E99}
+.t-ms{background:linear-gradient(135deg,#EFE6F7,#F8F0FB)}
+.tile-mix{display:flex; flex-wrap:wrap; gap:6px 12px; margin-top:8px; font-size:12.5px; font-weight:700; color:var(--text-2)}
+.tile-mix span{display:inline-flex; align-items:center; gap:5px}
+.t-next{background:linear-gradient(135deg,#FFF2D4,#FFE9DF); cursor:pointer; transition:transform .15s, box-shadow .15s}
+.t-next:hover{transform:translateY(-2px); box-shadow:0 12px 24px -16px rgba(46,31,28,.5)}
+.t-next .tile-ic{color:#8A5A00}
+.tile-k{font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#8A5A00}
+.tile-ms{display:flex; align-items:center; gap:10px; margin:6px 0 4px}
+.tile-ms b{font-family:var(--font-head); font-weight:600; font-size:18px; line-height:1.25}
+.ss2 .ss-trg{margin:14px 0 0 auto; width:fit-content; min-width:0 !important}
+@media (max-width:1080px){ .ss2-tiles{grid-template-columns:1fr 1fr} .t-next{grid-column:1 / -1; min-height:0} }
+@media (max-width:620px){ .ss2-tiles{grid-template-columns:1fr} .ss2 .ss-trg{width:100%} }
+
+.tile{min-height:190px !important; box-shadow:0 10px 26px -20px rgba(46,31,28,.5)}
+.tile::before{content:""; position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(circle at 18% 22%, rgba(255,255,255,.9) 0 2px, transparent 3px), radial-gradient(circle at 82% 78%, rgba(255,255,255,.8) 0 2px, transparent 3px), radial-gradient(circle at 64% 14%, rgba(255,255,255,.7) 0 1.5px, transparent 2.5px), radial-gradient(circle at 38% 88%, rgba(255,255,255,.7) 0 1.5px, transparent 2.5px)}
+.tile > *{position:relative; z-index:1}
+.tile-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px}
+.tile-ring{width:84px; height:84px; flex:none}
+.tile .tile-k{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase}
+.tile .tile-k svg.i{width:15px; height:15px}
+.t-skills .tile-k{color:#0E6F88}
+.t-ms .tile-k{color:#6A3A90}
+.t-next .tile-k{color:#8A5A00}
+.tile-num{margin-top:6px}
+.tile-num b{font-size:44px !important}
+.tile strong{margin-top:8px; font-size:17px !important}
+.tile-win{display:flex; align-items:center; gap:6px; margin-top:4px}
+.tile-win svg.i{width:15px; height:15px; color:#fff; background:#3AA97A; border-radius:50%; padding:2px; stroke-width:3}
+.tile-win b{font-weight:800; color:var(--text)}
+.t-ms small{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:auto}
+.t-ms small b{font-weight:800; color:var(--text)}
+.trail{display:flex; flex-wrap:wrap; gap:6px 10px; margin:12px 0 12px}
+.trail-cat{display:flex; gap:3px}
+.tr{width:11px; height:11px; border-radius:3px; transform:rotate(45deg); background:#fff; border:1px solid #D6D6D6; display:inline-block}
+.tr-mastered{background:#5AAA7D; border-color:#5AAA7D}
+.tr-almost{background:#F5B33C; border-color:#F5B33C}
+.tr-notyet{background:#C2553B; border-color:#C2553B}
+.tr-today{box-shadow:0 0 0 3px rgba(255,189,38,.5)}
+.t-next{min-height:190px}
+.tile-ms b{font-size:20px !important}
+.t-next small{line-height:1.4}
+.tile-cta{margin-top:auto; padding-top:10px; display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:14px; color:#7A4E00}
+.tile-cta svg.i{width:16px; height:16px; transition:transform .15s}
+.t-next:hover .tile-cta svg.i{transform:translateX(3px)}
+.ss2 .ss-trg.slim{margin:16px 0 0 0 !important; width:100% !important; box-shadow:none; border-style:dashed}
+
+/* flatter snapshot */
+.tile{box-shadow:none !important; min-height:0 !important; padding:20px 22px !important}
+.tile::before,.tile::after{display:none !important}
+.t-skills{background:#E4F3F6 !important}
+.t-ms{background:#F1EAF7 !important}
+.t-next{background:#FFF4DD !important}
+.t-next:hover{transform:none !important; box-shadow:none !important; outline:1.5px solid #F0D28C}
+.tile-bar.flat{height:8px; background:rgba(255,255,255,.9); margin:12px 0 2px}
+.tile-bar.flat i{background:#1E8FAE; animation:none}
+.tile strong{font-size:16px !important; margin-top:10px}
+.tile-num b{font-size:40px !important}
+.tile-break{font-size:13.5px; font-weight:700; color:var(--text-2); margin:12px 0 2px}
+.tile-break .dot{margin:0 6px; color:var(--text-3)}
+.t-ms small{margin-top:6px}
+.tile-ms b{font-size:19px !important}
+.tile-win svg.i{background:#3AA97A}
+
+.tile3{display:flex; flex-direction:column; text-align:left; border:0; border-radius:20px; padding:22px 24px 18px; color:var(--text); font:inherit}
+.t3-top{flex:1; display:flex; gap:18px; align-items:flex-start; padding-bottom:16px; border-bottom:1px solid rgba(0,0,0,.07)}
+.t3-ic{width:52px; height:52px; border-radius:12px; display:grid; place-items:center; flex:none}
+.t3-ic svg.i{width:26px; height:26px; stroke-width:1.9}
+.t3-foot b{overflow:hidden; text-overflow:ellipsis}
+@media (max-width:1180px){ .t3-foot{white-space:normal} }
+.t3-k{display:block; font-size:12.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-top:2px}
+.t3-num{display:flex; align-items:baseline; gap:10px; margin-top:4px}
+.t3-num b{font-family:var(--font-head); font-weight:600; font-size:40px; line-height:1.05}
+.t3-num span{font-size:15px; color:var(--text-2)}
+.t3-title{display:block; font-family:var(--font-head); font-weight:600; font-size:20px; line-height:1.25; margin-top:8px}
+.t3-sub{display:block; font-size:14.5px; color:var(--text-2); margin-top:4px}
+.t3-foot{display:flex; align-items:center; gap:6px; padding-top:14px; font-size:14px; color:var(--text-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.t3-foot b{color:var(--text); font-weight:800}
+.t3-win{width:20px; height:20px; border-radius:50%; background:#3AA97A; color:#fff; display:grid; place-items:center}
+.t3-win svg.i{width:13px; height:13px; stroke-width:3}
+.t3-dot{width:5px; height:5px; border-radius:50%; background:#8E5BB8; display:inline-block; margin:0 4px; flex:none}
+.t3-cta{display:inline-flex; align-items:center; gap:8px; font-weight:800; color:#8A5A00}
+.t3-cta svg.i{width:17px; height:17px}
+.tile3.t-skills{background:#E8F5F8}
+.t-skills .t3-ic{background:#CDE9EF; color:#0E7E99}
+.t-skills .t3-k{color:#0E7E99}
+.tile3.t-ms{background:#F3EDF8}
+.t-ms .t3-ic{background:#E3D5EF; color:#6A3A90}
+.t-ms .t3-k{color:#6A3A90}
+.tile3.t-next{background:#FFF6E3; cursor:pointer}
+.t-next .t3-ic{background:#FCE6B8; color:#9A6A00}
+.t-next .t3-k{color:#9A6A00}
+.tile3.t-next:hover{outline:1.5px solid #F0D28C}
+.tile3.t-next:hover .t3-cta svg.i{transform:translateX(3px)}
+
+/* compact tiles */
+.tile3{padding:14px 18px 10px !important; border-radius:16px !important; min-height:0 !important}
+.t3-top{gap:14px !important; padding-bottom:10px !important}
+.t3-ic{width:42px !important; height:42px !important; border-radius:10px !important}
+.t3-ic svg.i{width:21px !important; height:21px !important}
+.t3-k{font-size:11.5px !important; margin-top:0 !important}
+.t3-num{margin-top:2px !important; gap:8px !important}
+.t3-num b{font-size:30px !important}
+.t3-num span{font-size:14px !important}
+.t3-title{font-size:17px !important; margin-top:3px !important}
+.t3-sub{font-size:13.5px !important; margin-top:2px !important}
+.t3-foot{padding-top:9px !important; font-size:13.5px !important}
+.t3-foot.center{justify-content:center}
+.t3-foot.right{justify-content:flex-end}
+.t3-counts{gap:18px !important}
+.t3-c{display:inline-flex; align-items:center; gap:6px}
+.t3-c b{color:var(--text); font-weight:800; font-size:14px}
+.ss2{margin-bottom:26px !important}
+
+.mm-arrow{top:50% !important; transform:translateY(-50%); width:40px !important; height:40px !important; border:0 !important; background:var(--primary) !important; color:#fff !important; box-shadow:0 0 0 4px #fff, 0 6px 14px -6px rgba(77,26,114,.6) !important}
+.mm-arrow svg.i{width:20px !important; height:20px !important; stroke-width:2.4}
+.mm-arrow:hover{background:var(--primary-dark) !important; color:#fff !important}
+
+.mm-nav{display:none; position:absolute; right:12px; bottom:6px; z-index:4; align-items:center; gap:4px; font-size:11.5px; font-weight:800; color:var(--text-3); background:rgba(255,255,255,.9); border-radius:var(--r-full); padding:2px 4px}
+.mm-trackwrap.over .mm-nav{display:flex}
+.mm-nav .mm-arrow{position:static !important; transform:none !important; display:grid !important; width:24px !important; height:24px !important; border:1px solid var(--border) !important; background:var(--white) !important; color:var(--text) !important; box-shadow:none !important; opacity:1 !important; pointer-events:auto !important}
+.mm-nav .mm-arrow svg.i{width:14px !important; height:14px !important; stroke-width:2.2}
+.mm-nav .mm-arrow:hover:not(:disabled){border-color:var(--primary) !important; color:var(--primary) !important; background:var(--primary-wash) !important}
+.mm-nav .mm-arrow:disabled{opacity:.35 !important; cursor:default}
+.mm-track{padding-bottom:30px !important}
+
+.tile3.t-none{background:#F7F4EF}
+.t-none .t3-ic{background:#EDE6DC; color:var(--text-3)}
+.t-none .t3-k{color:var(--text-3)}
+.t-none .t3-title{color:var(--text-2)}
+.t3-next-q{font-size:13px; color:var(--text-3); overflow:hidden; text-overflow:ellipsis}
+.t3-next-q b{color:var(--text-2); font-weight:800}
 /* ===================== LEARNING JOURNEY ===================== */
 .lj-head{display:flex; gap:22px; align-items:center; padding:8px 0 22px; flex-wrap:wrap}
 .lj-av{width:88px !important; height:88px !important; font-size:40px !important}
@@ -471,11 +811,16 @@ svg.i{width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stroke
 .lj-sub{color:var(--text-2); margin-top:6px; font-size:15px; max-width:80ch}
 .lj-legend{display:flex; gap:18px; flex-wrap:wrap; margin:16px 0 18px; font-size:13px; font-weight:700; color:var(--text-2)}
 .lj-legend span{display:inline-flex; gap:6px; align-items:center}
-.mdia path:first-child{stroke-width:1.4}
-.mb-m path:first-child{fill:#4FA77A; stroke:#3A8F63}
-.mb-a path:first-child{fill:var(--yellow); stroke:var(--yellow-hover)}
-.mb-n path:first-child{fill:#CD4C35; stroke:#9C1B04}
-.mb-x path:first-child{fill:#fff; stroke:#C9C9C9}
+.mdia{overflow:visible}
+.mdia.raised .dshape{stroke-width:1.1}
+.mdia.raised.mb-m .dshape{stroke:#3B7D57}
+.mdia.raised.mb-a .dshape{stroke:#D3922A}
+.mdia.raised.mb-n .dshape{stroke:#963A25}
+.mdia.raised.mb-x .dshape{stroke:#9C9C9C}
+.mb-m .dshape{fill:#5AAA7D; stroke:none}
+.mb-a .dshape{fill:#F5B33C; stroke:none}
+.mb-n .dshape{fill:#C2553B; stroke:none}
+.mb-x .dshape{fill:#fff; stroke:#C9C9C9}
 .lj-cat{border:1.5px solid var(--border-soft); border-radius:var(--r-2xl); margin-bottom:14px; background:var(--white); overflow:hidden}
 .lj-cat.open{border-color:var(--primary-lighter)}
 .lj-crow{display:flex; align-items:center; gap:18px; width:100%; background:none; border:0; padding:20px 22px; text-align:left; flex-wrap:wrap}
@@ -2191,7 +2536,9 @@ function renderModal(){
   const d = S.dialog;
   if (!d){ root.innerHTML = ''; return; }
   let html = '';
-  if (d.type === 'rmcourse'){ html = rmCourseModal(d); }
+  if (d.type === 'msmark'){ html = msMarkModal(d); }
+  else if (d.type === 'spinfo'){ html = spInfoModal(); }
+  else if (d.type === 'rmcourse'){ html = rmCourseModal(d); }
   else if (d.type === 'mastery'){ html = masteryModal(d); }
   else if (d.type === 'complete'){ html = completeModal(d); }
   else if (d.type === 'reopen'){ html = reopenModal(d); }
@@ -2272,6 +2619,7 @@ function renderProto(){
    GRADEBOOK: data
    ========================================================= */
 Object.assign(P, {
+  barsBold:'<rect x="4" y="13" width="3.6" height="7" rx="1.2"/><rect x="10.2" y="9" width="3.6" height="11" rx="1.2"/><rect x="16.4" y="4" width="3.6" height="16" rx="1.2"/>',
   award:'<circle cx="12" cy="9" r="6"/><path d="m8.6 14-1.6 7 5-3 5 3-1.6-7"/>',
   calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 18h.01M12 18h4"/>',
   leaf:'<path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/><path d="M5 19 13 11"/>',
@@ -2363,7 +2711,7 @@ function mkItem(spec, courseYearPrev){
     const answers = questions.map((q, i) => pattern[i] === 'y' ? q.k : q.c.find(x => x !== q.k));
     attempts.push({answers, date: courseYearPrev ? new Date((courseYearPrev === 2 ? '2025' : '2026') + '-05-' + String(4 + (_iid % 20)).padStart(2,'0') + 'T15:00:00') : daysAgo(1 + (_iid % 9), 14)});
   }
-  const it = {id, title, cat, state, questions, attempts};
+  const it = {id, title, cat, state, questions, attempts, assess: spec[5] !== false};
   ITEMS[id] = it;
   return it;
 }
@@ -2393,7 +2741,7 @@ const COURSES = [
      (course_settings/assignment_groups.xml + imsmanifest.xml). Every component is in the "Learn" group (0%). */
   mkCourse({id:'k-math', learner:'michelle', title:'Kindergarten Math', icon:'calc', tone:'t-teal', year:YEAR_NOW, fromCartridge:true,
     cats:[{id:'g1', name:'Warm-Up', w:5}, {id:'g2', name:'Guided Practice', w:5}, {id:'g3', name:'Independent Practice', w:5}, {id:'g4', name:'Unit Review', w:0}, {id:'g5', name:'Final Review', w:0}, {id:'g6', name:'Checkpoint', w:20}, {id:'g7', name:'Unit Exam', w:20}, {id:'g8', name:'Final Exam', w:25}, {id:'g9', name:'Discussion', w:0}, {id:'g10', name:'Project', w:20}, {id:'g13', name:'Project Step', w:0}, {id:'learn', name:'Learn', w:0}],
-    units: [["Unit 1: Numbers 1, 2, and 3",[["The Number 1",[["Count One Thing","c"],["Know Number One","c"],["Write Number One","c"]]],["Count to 2",[["Count Two Things","c"],["Know Number Two","c"]]],["Write the Number 2",[["Draw Two Things","c"],["Write Number Two","c"]]],["Count to 3",[["Count Three Things","c"],["Know Number Three","c"]]],["Write the Number 3",[["Draw Three Things","c"],["Write Number Three","c"]]],["Show the Numbers 1, 2, and 3",[["Show One to Three with Objects","c"],["Show One to Three with Ten-Frames","c"]]]]],["Unit 2: Numbers 4 and 5",[["Count to 4",[["Count Four Things","c"],["Know Number Four","c"]]],["Write the Number 4",[["Draw Four Things","c"],["Write Number Four","c"]]],["Count to 5",[["Count Five Things","c"],["Know Number Five","c"]]],["Write the Number 5",[["Draw Five Things","c"],["Write Number Five","c"]]],["Count up to 5",[["Count Up to Three","c"],["Count Up to Four","c"],["Count Up to Five","c"]]],["Show the Numbers 4 and 5",[["Show Four and Five with Objects","c"],["Show Four and Five with a Ten-Frame","c"],["Milestone: Count Numbers 1 to 5","n"]]]]],["Unit 3: Count Every Way",[["Count Different Directions",[["Count in Different Directions","n"],["Count Things in Different Places","n"]]],["How Many?",[["How Many Things?","n"],["Write How Many Things","n"],["Milestone: Write Numbers 1 to 5","n"]]],["Recognizing Quantities",[["Recognize the Number of Objects","n"],["Milestone: Know the Amount","n"]]],["Show a Number with Cubes",[["Use Cubes to Model Numbers","n"],["Milestone: Show a Number with Objects","n"]]]]],["Unit 4: Numbers 6 and 7",[["Count to 6",[["Count Six Things","n"],["Count Up to Six","n"]]],["Show the Number 6",[["Show Six with Objects","n"],["Show Six with a Ten-Frame","n"]]],["Write the Number 6",[["Know Number Six","n"],["Write Number Six","n"]]],["Count to 7",[["Count Seven Things","n"],["Count Up to Seven","n"]]],["Show the Number 7",[["Show Seven with Objects","n"],["Show Seven with a Ten-Frame","n"]]],["Write the Number 7",[["Know Number Seven","n"],["Write Number Seven","n"]]]]],["Unit 5: Numbers 8 and 9",[["Count to 8",[["Count Eight Things","n"],["Count Up to Eight","n"]]],["Show the Number 8",[["Show Eight with Objects","n"],["Show Eight with a Ten-Frame","n"]]],["Write the Number 8",[["Know Number Eight","n"],["Write Number Eight","n"]]],["Count to 9",[["Count Nine Things","n"],["Count Up to Nine","n"]]],["Show the Number 9",[["Show Nine with Objects","n"],["Show Nine with a Ten-Frame","n"]]],["Write the Number 9",[["Know Number Nine","n"],["Write Number Nine","n"]]]]],["Unit 6: Zero and Ten",[["The Number 0",[["The Number That Means None","n"],["How to Write Zero","n"]]],["Count to 10",[["Count 10 Things","n"],["Count to 10","n"],["Milestone: Count to 10","n"]]],["Show the Number 10",[["Show 10 with Objects","n"],["Show 10 with a Ten-Frame","n"]]],["Write the Number 10",[["Know Number 10","n"],["Write Number 10","n"]]],["How Many from 0 to 10",[["Write from 0 to 10","n"],["How Many Are There?","n"],["Milestone: Write 0 to 10","n"]]],["Show a Number from 0 to 10",[["Show a Number with Objects","n"],["Show a Number with a Ten-Frame","n"],["Milestone: Show a Number with a Ten-Frame","n"]]]]],["Unit 7: Count to 15",[["Count to  11",[["Count 11 Things","n"],["Count Up to 11","n"]]],["Count to  12",[["Count 12 Things","n"],["Count Up to 12","n"]]],["Count to  13",[["Count 13 Things","n"],["Count Up to 13","n"]]],["Count to  14",[["Count 14 Things","n"],["Count Up to 14","n"]]],["Count to  15",[["Count 15 Things","n"],["Count Up to 15","n"]]]]],["Unit 8: Numbers 11 to 15",[["Write the Numbers 11 and 12",[["Identify How Many More Than 10","n"],["Identify and Write the Numbers 11 and 12","n"]]],["Count up to 15",[["Identify and Write the Numbers 13 to 15","n"],["Count 11 to 15 Using Cubes","n"],["Count 11 to 15 Using a Ten-Frame","n"]]],["Show Numbers 11 to 15",[["Model 11 to 15 Using Cubes","n"],["Model 11 to 15 Using a Ten-Frame","n"]]]]],["Unit 9: Sorting and Counting",[["Sort by Color and Size",[["Sort by Color","n"],["Sort by Size","n"]]],["Sort by Kind and Texture",[["Sort by Kind","n"],["Sort by Texture","n"]]],["Sort and Count",[["Sort by Animal and Count How Many","n"],["Milestone: Sort Objects by Attribute","n"]]]]],["Unit 10: Numbers 16 to 20",[["Numbers 16 and 17",[["Count 16 and 17 Things","n"],["Identify and Write Numbers 16 and 17","n"]]],["Numbers 18, 19, and 20",[["Count 18 to 20 Things","n"],["Identify and Write Numbers 18 to 20","n"],["Milestone: Write Numbers 11 to 20","n"]]],["Counting Numbers 16 to 20",[["Count 16 to 20 Using Cubes","n"],["Count 16 to 20 Using a Ten-Frame","n"],["Milestone: Count to 20","n"]]],["Showing Numbers 16 to 20",[["Model 16 to 20 Using Cubes","n"],["Model 16 to 20 Using a Ten-Frame","n"]]],["Building Teen Numbers with 10s and 1s",[["Show 11 to 20 as 10 Plus a Number","n"],["Milestone: Build Teen Numbers with 10 and Ones","n"]]]]],["Unit 11: Count to 20",[["Counting Forward from a Number",[["Count the Next Number","n"],["Count from a Number Between 1 and 5","n"]]],["Counting from a Number to an Ending Number",[["Count from a Number Between 6 and 10","n"],["Count from a Given Number to an Ending Number","n"],["Milestone: Count on from a Given Number","n"]]],["Order Numbers 0 to 20",[["Order Numbers up to 10 on a Number Line","n"],["Order Numbers up to 20 on a Number Line","n"],["Milestone: Order Numbers within 10","n"]]]]],["Unit 12: Comparing Numbers",[["Finding One More",[["One More Than 0 to 4","n"],["One More Than 5 to 9","n"]]],["Finding One More within 10",[["One More Than 0 to 9","n"],["Milestone: Find One More within 10","n"]]],["Comparing Numbers within 10",[["Compare 1 to 5","n"],["Compare 6 to 10","n"],["Milestone: Compare Groups within 10","n"]]],["Finding More Than, Less Than, and Equal to",[["Find Groups of the Same Value","n"],["Compare 0 to 10 on a Number Line","n"],["Milestone: Find Greater Than, Less Than, and Equal to within 10","n"]]]]],["Unit 13: Building Fact Fluency within 5",[["Addition Fluency to 5",[["Add 0 and 1","n"],["Count On to Add","n"],["Add Doubles","n"]]],["Addition Strategies",[["Use Number Bonds to Change Order","n"],["Rewrite an Addition Equation","n"]]],["Subtraction Fluency to 5",[["Subtract 0 and 1","n"],["Count Back to Subtract","n"],["Count Up to Subtract","n"]]]]],["Unit 14: Add and Subtract within 5",[["Adding and Subtracting within 5",[["Add and Subtract Using Number Lines","n"],["Break Apart Numbers 1 to 5 to Find Number Partners","n"]]],["Add within 5",[["Use Number Partners to Make Addition Sentences","n"],["Use Number Partners to Write Number Bonds","n"]]],["Addition Number Bonds within 5",[["Use Number Bonds to Make Addition Sentences","n"],["Add Up to 5","n"],["Milestone: Make Addition Number Partners within 5","n"]]],["Subtract within 5",[["Use Number Partners to Make Subtraction Sentences","n"],["Use Number Bonds to Make Subtraction Sentences","n"],["Milestone: Make Subtraction Number Partners within 5","n"]]]]],["Unit 15: Apply Fluency: Problems within 5",[["Addition and Subtraction Facts to 5",[["Create Addition Facts Using Number Bonds","n"],["Create Subtraction Facts Using Number Bonds","n"]]],["Add or Subtract",[["Add or Subtract to Solve Within 5","n"],["Solve Equations That Equal 5","n"],["Milestone: Find Number Bonds for 5","n"]]],["Prove a True Answer",[["Explain Why an Addition Equation Is True","n"],["Explain Why a Subtraction Equation Is True","n"],["Milestone: Add or Subtract Fluently within 5","n"]]]]],["Unit 16: Adding within 10",[["Add 1 to 5 with Objects and Drawings",[["Add 1 to 5 with Objects","n"],["Add 1 to 5 with Drawings","n"]]],["Add 1 to 5 with Fingers and Number Lines",[["Add 1 to 5 with Fingers","n"],["Add 1 to 5 on the Number Line","n"]]],["Adding within 10",[["Add 1 to 5 with Expressions and Equations","n"],["Milestone: Use Strategies to Add within 10","n"]]]]],["Unit 17: Subtracting within 10",[["Finding One Less",[["One Less Than 1 to 5","n"],["One Less Than 1 to 10","n"]]],["Finding One Less within 10",[["One Less Than 1 to 10 on the Number Line","n"],["Milestone: Find One Less within 10","n"]]],["Subtract 1 to 5 with Objects and Drawings",[["Subtract 1 to 5 with Objects","n"],["Subtract 1 to 5 with Drawings","n"]]],["Subtract 1 to 5 with Fingers and Number Lines",[["Subtract 1 to 5 with Fingers","n"],["Subtract 1 to 5 on the Number Line","n"]]],["Subtracting within 10",[["Subtract 1 to 5 with Expressions and Equations","n"],["Milestone: Use Strategies to Subtract within 10","n"]]]]],["Unit 18: Count to 40",[["Count to 25",[["Count to 22","n"],["Count to 25","n"]]],["Count to 30",[["Count to 27","n"],["Count to 30","n"],["Count to 30 and Within 30","n"]]],["Count to 35",[["Count to 32","n"],["Count to 35","n"]]],["Count to 40",[["Count to 37","n"],["Count to 40","n"],["Count to 40 and Within 40","n"]]]]],["Unit 19: Make 10",[["Adding and Subtracting 5",[["Add On to 5 Using a Ten-Frame","n"],["Add On to 5 Using a Drawing and Equation","n"],["Subtract a Group of 5 Using a Ten-Frame","n"]]],["Number Partners for 10",[["Find Number Partners for 10 Using a Ten-Frame","n"],["Make Number Partners for 10 with Drawings","n"]]],["Number Partners for 10 and Equations",[["Find Number Partners for 10 with Your Fingers","n"],["Solve Equations That Equal 10","n"],["Milestone: Find Number Partners for 10","n"]]],["Other Number Partners",[["Number Partners of 6 and 7","n"],["Number Partners of 8 and 9","n"]]]]],["Unit 20: Add within 10",[["Number Partners to 10",[["Find Number Partners and Bonds to 10","n"],["An Equation for the Model","n"],["Milestone: Write Addition Sentences within 10","n"]]],["Using Tools to Add to 10",[["Model Using a Ten-Frame","n"],["Model a Ten-Frame with an Equation","n"]]],["Adding within 10",[["Write Addition Equations to Model a Number Line","n"],["Milestone: Add within 10","n"]]]]],["Unit 21: Subtract within 10",[["Subtraction Sentences within 10",[["Write Subtraction Equations with Number Bonds","n"],["Match the Model for Subtraction","n"],["Milestone: Write Subtraction Sentences within 10","n"]]],["Using Tools to Subtract within 10",[["Model Subtraction from 10 with Equations","n"],["Model and Count Back Using a Ten-Frame","n"],["Model a Ten-Frame with a Subtraction Equation","n"]]],["Subtracting within 10",[["Count Back from 10 on a Number Line","n"],["Count Backward to Subtract","n"],["Milestone: Subtract within 10","n"]]]]],["Unit 22: Shapes",[["Identify Triangles",[["Triangles","n"],["Above or Below","n"]]],["Identify Rectangles",[["Squares","n"],["Rectangles","n"],["Beside and Between","n"]]],["Identify Circles",[["Circles","n"],["In Front of and Behind","n"],["Milestone: Identify Circles, Triangles, Squares, and Rectangles","n"]]],["Describe Shapes",[["Describe the Parts of Flat Shapes","n"],["Describe Where the Shapes Are","n"],["Milestone: Use Position Words","n"]]],["Patterns",[["About Patterns","n"],["Make a Pattern","n"]]]]],["Unit 23: Classify Objects and Collect Data",[["Sorting Shapes",[["Sort by Shape","n"],["Sort Flat Shapes by Size","n"]]],["Sorting Shapes by Number of Sides",[["Sort by Number of Sides and Count How Many","n"],["Sort Two-Dimensional Shapes","n"],["Milestone: Sort by Number of Sides","n"]]],["Compare Numbers",[["Which Has More or Less?","n"],["Which Have the Same?","n"]]],["Collect and Sort Data",[["Collect Data","n"],["Sort Data","n"]]],["Count and Compare Data",[["Count Data","n"],["Compare Data","n"]]]]],["Unit 24: Use and Create Picture Graphs",[["Identify and Describe Data in a Picture Graph",[["Identify Categories and Numbers in a Picture Graph","n"],["Describe Data from a Picture Graph","n"]]],["Compare Data in a Picture Graph",[["Compare Data from a Picture Graph","n"],["Identify the Categories and Number in Each Category","n"]]],["Explain Picture Graphs",[["Describe a Picture Graph","n"],["Explain a Picture Graph","n"],["Milestone: Explain Picture Graphs","n"]]],["Make a Picture Graph",[["Sort Objects to Get Data","n"],["Use Data to Make a Graph with Objects","n"]]],["Building a Picture Graph",[["Share What You Know from Your Graph","n"],["Use Data to Make a Graph with Pictures","n"],["Milestone: Build a Picture Graph","n"]]]]],["Unit 25: Count to 100",[["Count to 50",[["Count to 50 and Within 50","n"]]],["Count to 100",[["Count On from a Given Number to 100 Using a Hundreds Chart","n"],["Count Within 100 Using a Number Line","n"],["Milestone: Count to 100","n"]]],["Counting by 10s",[["Count by Tens Using the Hundreds Chart","n"],["Milestone: Skip Count By 10s to 100","n"]]]]],["Unit 26: Problem Solving Up to 5",[["Adding to 5",[["Solve an \"Add to\" Word Problem","n"],["Solve a \"Put Together\" Word Problem","n"]]],["Subtracting Within 5",[["Solve a \"Take Apart\" Word Problem","n"],["Solve a \"Take from\" Word Problem","n"]]],["Add or Subtract to 5",[["Decide What Type of Problem It Is Within 5","n"],["Take Apart or Put Together to Solve","n"]]]]],["Unit 27: Practice Addition Problem Solving Up to 10",[["Using Strategies to Solve Addition Word Problems",[["Solve Problems with Objects and Drawings","n"],["Solve Problems by Acting Them Out","n"],["Solve Addition Problems to 10 Using Number Partners","n"]]],["Addition Word Problems",[["Act Out Addition Word Problems to 10","n"],["Use Drawings and Number Bonds to Solve Addition Word Problems","n"]]],["Addition Equations",[["Match the Model for Addition","n"],["Use Objects or Drawings to Solve \"Add to\" Word Problems up to 10","n"]]],["\"Add to\" and \"Put Together\" Word Problems",[["Solve \"Add to\" Word Problems up to 10","n"],["Solve \"Put Together\" Word Problems up to 10","n"]]]]],["Unit 28: Practice Subtraction Problem Solving Up to 10",[["Use Strategies to Solve Subtraction Word Problems",[["Solve Problems with Subtraction Using Objects and Drawings","n"],["Solve Problems with Subtraction by Acting Them Out","n"]]],["Subtraction Word Problems",[["Act Out Subtraction Word Problems from 10","n"],["Solve Subtraction Word Problems from 10 Using Number Bonds","n"]]],["Solve \"Take Apart\" and \"Take from\" Word Problems",[["Solve \"Take Apart\" Word Problems up to 10","n"],["Solve \"Take from\" Word Problems up to 10","n"]]],["Solving Word Problems Within 10",[["Decide What Type of Problem It Is Within 10","n"],["Write an Equation and Solve the Problem","n"],["Milestone: Solve Word Problems within 10","n"]]]]],["Unit 29: What You Can Measure",[["Length, Width, and Height",[["Let's Talk About Length","n"],["Let's Talk About Width","n"],["Let's Talk About Height","n"],["Milestone: Describe Length, Width, and Height","n"]]],["Weight and Temperature",[["Let's Talk About Weight","n"],["Let's Talk About Temperature","n"],["Milestone: Describe Weight, Temperature, and Other Measurable Attributes","n"]]],["What Can Be Measured?",[["What Can Be Measured?","n"],["Compare Measures","n"],["Milestone: Compare Measures","n"]]]]],["Unit 30: Explore Three-Dimensional Shapes",[["Spheres",[["Identify Spheres","n"],["Describe Spheres","n"]]],["Cubes",[["Identify Cubes","n"],["Describe Cubes","n"]]],["Cylinders",[["Identify Cylinders","n"],["Describe Cylinders","n"]]],["Cones",[["Identify Cones","n"],["Describe Cones","n"],["Milestone: Identify Spheres, Cubes, Cylinders, and Cones","n"]]],["Sort 3D Shapes",[["Sort Spheres, Cubes, Cylinders, and Cones","n"],["Sort Three-Dimensional Shapes","n"]]],["Compare 3D Shapes",[["Compare the Different 3-Dimensional Shapes","n"],["Milestone: Compare 3D Shapes by Attribute","n"]]]]],["Unit 31: Draw and Model Shapes",[["Draw Circles, Triangles, Squares, and Rectangles",[["Draw Circles and Triangles","n"],["Draw Squares and Rectangles","n"]]],["Drawing 2D Shapes",[["Draw Hexagons","n"],["Milestone: Draw 2D Shapes","n"]]],["Combine Shapes",[["Combine Triangles to Form Bigger Shapes","n"],["Combine Squares and Rectangles to Form Bigger Shapes","n"]]],["Composing Shapes",[["Combine Different Shapes to Form Bigger Shapes","n"],["Milestone: Compose Shapes","n"]]],["Working with 3D Shapes",[["Find Three-Dimensional Shapes in the World","n"],["Model Three-Dimensional Shapes","n"],["Milestone: Model 3D Shapes","n"]]]]]].map(([u, ls]) => [u, ls.map(([l, its]) => [l, its.map(([t, st]) => [t, 'learn', st === 'c' ? 'complete' : 'not', null, 'count'])])])
+    units: [["Unit 1: Numbers 1, 2, and 3",[["The Number 1",[["Count One Thing","c",0],["Know Number One","c",0],["Write Number One","c",0]]],["Count to 2",[["Count Two Things","c",0],["Know Number Two","c",1]]],["Write the Number 2",[["Draw Two Things","c",0],["Write Number Two","c",0]]],["Count to 3",[["Count Three Things","c",1],["Know Number Three","c",1]]],["Write the Number 3",[["Draw Three Things","c",0],["Write Number Three","c",0]]],["Show the Numbers 1, 2, and 3",[["Show One to Three with Objects","c",0],["Show One to Three with Ten-Frames","c",0]]]]],["Unit 2: Numbers 4 and 5",[["Count to 4",[["Count Four Things","c",1],["Know Number Four","c",1]]],["Write the Number 4",[["Draw Four Things","c",0],["Write Number Four","c",0]]],["Count to 5",[["Count Five Things","c",1],["Know Number Five","c",1]]],["Write the Number 5",[["Draw Five Things","c",0],["Write Number Five","c",0]]],["Count up to 5",[["Count Up to Three","c",0],["Count Up to Four","c",0],["Count Up to Five","c",1]]],["Show the Numbers 4 and 5",[["Show Four and Five with Objects","c",1],["Show Four and Five with a Ten-Frame","c",1],["Milestone: Count Numbers 1 to 5","n",0]]]]],["Unit 3: Count Every Way",[["Count Different Directions",[["Count in Different Directions","n",1],["Count Things in Different Places","n",1]]],["How Many?",[["How Many Things?","n",1],["Write How Many Things","n",0],["Milestone: Write Numbers 1 to 5","n",0]]],["Recognizing Quantities",[["Recognize the Number of Objects","n",1],["Milestone: Know the Amount","n",0]]],["Show a Number with Cubes",[["Use Cubes to Model Numbers","n",1],["Milestone: Show a Number with Objects","n",1]]]]],["Unit 4: Numbers 6 and 7",[["Count to 6",[["Count Six Things","n",1],["Count Up to Six","n",1]]],["Show the Number 6",[["Show Six with Objects","n",1],["Show Six with a Ten-Frame","n",1]]],["Write the Number 6",[["Know Number Six","n",0],["Write Number Six","n",0]]],["Count to 7",[["Count Seven Things","n",1],["Count Up to Seven","n",1]]],["Show the Number 7",[["Show Seven with Objects","n",1],["Show Seven with a Ten-Frame","n",1]]],["Write the Number 7",[["Know Number Seven","n",0],["Write Number Seven","n",0]]]]],["Unit 5: Numbers 8 and 9",[["Count to 8",[["Count Eight Things","n",1],["Count Up to Eight","n",1]]],["Show the Number 8",[["Show Eight with Objects","n",1],["Show Eight with a Ten-Frame","n",1]]],["Write the Number 8",[["Know Number Eight","n",0],["Write Number Eight","n",0]]],["Count to 9",[["Count Nine Things","n",1],["Count Up to Nine","n",1]]],["Show the Number 9",[["Show Nine with Objects","n",1],["Show Nine with a Ten-Frame","n",1]]],["Write the Number 9",[["Know Number Nine","n",0],["Write Number Nine","n",0]]]]],["Unit 6: Zero and Ten",[["The Number 0",[["The Number That Means None","n",1],["How to Write Zero","n",0]]],["Count to 10",[["Count 10 Things","n",1],["Count to 10","n",1],["Milestone: Count to 10","n",0]]],["Show the Number 10",[["Show 10 with Objects","n",1],["Show 10 with a Ten-Frame","n",1]]],["Write the Number 10",[["Know Number 10","n",0],["Write Number 10","n",0]]],["How Many from 0 to 10",[["Write from 0 to 10","n",0],["How Many Are There?","n",1],["Milestone: Write 0 to 10","n",0]]],["Show a Number from 0 to 10",[["Show a Number with Objects","n",1],["Show a Number with a Ten-Frame","n",1],["Milestone: Show a Number with a Ten-Frame","n",0]]]]],["Unit 7: Count to 15",[["Count to  11",[["Count 11 Things","n",1],["Count Up to 11","n",1]]],["Count to  12",[["Count 12 Things","n",1],["Count Up to 12","n",0]]],["Count to  13",[["Count 13 Things","n",1],["Count Up to 13","n",0]]],["Count to  14",[["Count 14 Things","n",1],["Count Up to 14","n",1]]],["Count to  15",[["Count 15 Things","n",1],["Count Up to 15","n",0]]]]],["Unit 8: Numbers 11 to 15",[["Write the Numbers 11 and 12",[["Identify How Many More Than 10","n",1],["Identify and Write the Numbers 11 and 12","n",0]]],["Count up to 15",[["Identify and Write the Numbers 13 to 15","n",0],["Count 11 to 15 Using Cubes","n",1],["Count 11 to 15 Using a Ten-Frame","n",1]]],["Show Numbers 11 to 15",[["Model 11 to 15 Using Cubes","n",1],["Model 11 to 15 Using a Ten-Frame","n",1]]]]],["Unit 9: Sorting and Counting",[["Sort by Color and Size",[["Sort by Color","n",1],["Sort by Size","n",1]]],["Sort by Kind and Texture",[["Sort by Kind","n",1],["Sort by Texture","n",1]]],["Sort and Count",[["Sort by Animal and Count How Many","n",1],["Milestone: Sort Objects by Attribute","n",1]]]]],["Unit 10: Numbers 16 to 20",[["Numbers 16 and 17",[["Count 16 and 17 Things","n",0],["Identify and Write Numbers 16 and 17","n",1]]],["Numbers 18, 19, and 20",[["Count 18 to 20 Things","n",1],["Identify and Write Numbers 18 to 20","n",0],["Milestone: Write Numbers 11 to 20","n",0]]],["Counting Numbers 16 to 20",[["Count 16 to 20 Using Cubes","n",1],["Count 16 to 20 Using a Ten-Frame","n",1],["Milestone: Count to 20","n",0]]],["Showing Numbers 16 to 20",[["Model 16 to 20 Using Cubes","n",1],["Model 16 to 20 Using a Ten-Frame","n",1]]],["Building Teen Numbers with 10s and 1s",[["Show 11 to 20 as 10 Plus a Number","n",1],["Milestone: Build Teen Numbers with 10 and Ones","n",0]]]]],["Unit 11: Count to 20",[["Counting Forward from a Number",[["Count the Next Number","n",0],["Count from a Number Between 1 and 5","n",0]]],["Counting from a Number to an Ending Number",[["Count from a Number Between 6 and 10","n",1],["Count from a Given Number to an Ending Number","n",1],["Milestone: Count on from a Given Number","n",0]]],["Order Numbers 0 to 20",[["Order Numbers up to 10 on a Number Line","n",1],["Order Numbers up to 20 on a Number Line","n",1],["Milestone: Order Numbers within 10","n",1]]]]],["Unit 12: Comparing Numbers",[["Finding One More",[["One More Than 0 to 4","n",0],["One More Than 5 to 9","n",1]]],["Finding One More within 10",[["One More Than 0 to 9","n",1],["Milestone: Find One More within 10","n",0]]],["Comparing Numbers within 10",[["Compare 1 to 5","n",0],["Compare 6 to 10","n",1],["Milestone: Compare Groups within 10","n",0]]],["Finding More Than, Less Than, and Equal to",[["Find Groups of the Same Value","n",1],["Compare 0 to 10 on a Number Line","n",1],["Milestone: Find Greater Than, Less Than, and Equal to within 10","n",0]]]]],["Unit 13: Building Fact Fluency within 5",[["Addition Fluency to 5",[["Add 0 and 1","n",1],["Count On to Add","n",1],["Add Doubles","n",1]]],["Addition Strategies",[["Use Number Bonds to Change Order","n",0],["Rewrite an Addition Equation","n",1]]],["Subtraction Fluency to 5",[["Subtract 0 and 1","n",1],["Count Back to Subtract","n",1],["Count Up to Subtract","n",1]]]]],["Unit 14: Add and Subtract within 5",[["Adding and Subtracting within 5",[["Add and Subtract Using Number Lines","n",1],["Break Apart Numbers 1 to 5 to Find Number Partners","n",1]]],["Add within 5",[["Use Number Partners to Make Addition Sentences","n",1],["Use Number Partners to Write Number Bonds","n",0]]],["Addition Number Bonds within 5",[["Use Number Bonds to Make Addition Sentences","n",1],["Add Up to 5","n",1],["Milestone: Make Addition Number Partners within 5","n",0]]],["Subtract within 5",[["Use Number Partners to Make Subtraction Sentences","n",1],["Use Number Bonds to Make Subtraction Sentences","n",1],["Milestone: Make Subtraction Number Partners within 5","n",0]]]]],["Unit 15: Apply Fluency: Problems within 5",[["Addition and Subtraction Facts to 5",[["Create Addition Facts Using Number Bonds","n",1],["Create Subtraction Facts Using Number Bonds","n",1]]],["Add or Subtract",[["Add or Subtract to Solve Within 5","n",1],["Solve Equations That Equal 5","n",1],["Milestone: Find Number Bonds for 5","n",0]]],["Prove a True Answer",[["Explain Why an Addition Equation Is True","n",1],["Explain Why a Subtraction Equation Is True","n",1],["Milestone: Add or Subtract Fluently within 5","n",0]]]]],["Unit 16: Adding within 10",[["Add 1 to 5 with Objects and Drawings",[["Add 1 to 5 with Objects","n",1],["Add 1 to 5 with Drawings","n",1]]],["Add 1 to 5 with Fingers and Number Lines",[["Add 1 to 5 with Fingers","n",1],["Add 1 to 5 on the Number Line","n",1]]],["Adding within 10",[["Add 1 to 5 with Expressions and Equations","n",1],["Milestone: Use Strategies to Add within 10","n",0]]]]],["Unit 17: Subtracting within 10",[["Finding One Less",[["One Less Than 1 to 5","n",1],["One Less Than 1 to 10","n",1]]],["Finding One Less within 10",[["One Less Than 1 to 10 on the Number Line","n",1],["Milestone: Find One Less within 10","n",0]]],["Subtract 1 to 5 with Objects and Drawings",[["Subtract 1 to 5 with Objects","n",1],["Subtract 1 to 5 with Drawings","n",1]]],["Subtract 1 to 5 with Fingers and Number Lines",[["Subtract 1 to 5 with Fingers","n",1],["Subtract 1 to 5 on the Number Line","n",1]]],["Subtracting within 10",[["Subtract 1 to 5 with Expressions and Equations","n",1],["Milestone: Use Strategies to Subtract within 10","n",0]]]]],["Unit 18: Count to 40",[["Count to 25",[["Count to 22","n",0],["Count to 25","n",1]]],["Count to 30",[["Count to 27","n",0],["Count to 30","n",1],["Count to 30 and Within 30","n",1]]],["Count to 35",[["Count to 32","n",0],["Count to 35","n",1]]],["Count to 40",[["Count to 37","n",0],["Count to 40","n",1],["Count to 40 and Within 40","n",1]]]]],["Unit 19: Make 10",[["Adding and Subtracting 5",[["Add On to 5 Using a Ten-Frame","n",0],["Add On to 5 Using a Drawing and Equation","n",1],["Subtract a Group of 5 Using a Ten-Frame","n",1]]],["Number Partners for 10",[["Find Number Partners for 10 Using a Ten-Frame","n",1],["Make Number Partners for 10 with Drawings","n",0]]],["Number Partners for 10 and Equations",[["Find Number Partners for 10 with Your Fingers","n",1],["Solve Equations That Equal 10","n",1],["Milestone: Find Number Partners for 10","n",0]]],["Other Number Partners",[["Number Partners of 6 and 7","n",0],["Number Partners of 8 and 9","n",0]]]]],["Unit 20: Add within 10",[["Number Partners to 10",[["Find Number Partners and Bonds to 10","n",1],["An Equation for the Model","n",1],["Milestone: Write Addition Sentences within 10","n",0]]],["Using Tools to Add to 10",[["Model Using a Ten-Frame","n",0],["Model a Ten-Frame with an Equation","n",1]]],["Adding within 10",[["Write Addition Equations to Model a Number Line","n",1],["Milestone: Add within 10","n",0]]]]],["Unit 21: Subtract within 10",[["Subtraction Sentences within 10",[["Write Subtraction Equations with Number Bonds","n",1],["Match the Model for Subtraction","n",1],["Milestone: Write Subtraction Sentences within 10","n",0]]],["Using Tools to Subtract within 10",[["Model Subtraction from 10 with Equations","n",1],["Model and Count Back Using a Ten-Frame","n",1],["Model a Ten-Frame with a Subtraction Equation","n",0]]],["Subtracting within 10",[["Count Back from 10 on a Number Line","n",0],["Count Backward to Subtract","n",1],["Milestone: Subtract within 10","n",0]]]]],["Unit 22: Shapes",[["Identify Triangles",[["Triangles","n",1],["Above or Below","n",1]]],["Identify Rectangles",[["Squares","n",1],["Rectangles","n",1],["Beside and Between","n",1]]],["Identify Circles",[["Circles","n",1],["In Front of and Behind","n",1],["Milestone: Identify Circles, Triangles, Squares, and Rectangles","n",0]]],["Describe Shapes",[["Describe the Parts of Flat Shapes","n",1],["Describe Where the Shapes Are","n",1],["Milestone: Use Position Words","n",0]]],["Patterns",[["About Patterns","n",1],["Make a Pattern","n",1]]]]],["Unit 23: Classify Objects and Collect Data",[["Sorting Shapes",[["Sort by Shape","n",1],["Sort Flat Shapes by Size","n",1]]],["Sorting Shapes by Number of Sides",[["Sort by Number of Sides and Count How Many","n",1],["Sort Two-Dimensional Shapes","n",1],["Milestone: Sort by Number of Sides","n",0]]],["Compare Numbers",[["Which Has More or Less?","n",1],["Which Have the Same?","n",1]]],["Collect and Sort Data",[["Collect Data","n",1],["Sort Data","n",1]]],["Count and Compare Data",[["Count Data","n",1],["Compare Data","n",1]]]]],["Unit 24: Use and Create Picture Graphs",[["Identify and Describe Data in a Picture Graph",[["Identify Categories and Numbers in a Picture Graph","n",1],["Describe Data from a Picture Graph","n",1]]],["Compare Data in a Picture Graph",[["Compare Data from a Picture Graph","n",1],["Identify the Categories and Number in Each Category","n",1]]],["Explain Picture Graphs",[["Describe a Picture Graph","n",1],["Explain a Picture Graph","n",1],["Milestone: Explain Picture Graphs","n",0]]],["Make a Picture Graph",[["Sort Objects to Get Data","n",1],["Use Data to Make a Graph with Objects","n",1]]],["Building a Picture Graph",[["Share What You Know from Your Graph","n",1],["Use Data to Make a Graph with Pictures","n",1],["Milestone: Build a Picture Graph","n",0]]]]],["Unit 25: Count to 100",[["Count to 50",[["Count to 50 and Within 50","n",1]]],["Count to 100",[["Count On from a Given Number to 100 Using a Hundreds Chart","n",1],["Count Within 100 Using a Number Line","n",1],["Milestone: Count to 100","n",0]]],["Counting by 10s",[["Count by Tens Using the Hundreds Chart","n",1],["Milestone: Skip Count By 10s to 100","n",0]]]]],["Unit 26: Problem Solving Up to 5",[["Adding to 5",[["Solve an \"Add to\" Word Problem","n",1],["Solve a \"Put Together\" Word Problem","n",1]]],["Subtracting Within 5",[["Solve a \"Take Apart\" Word Problem","n",1],["Solve a \"Take from\" Word Problem","n",1]]],["Add or Subtract to 5",[["Decide What Type of Problem It Is Within 5","n",1],["Take Apart or Put Together to Solve","n",1]]]]],["Unit 27: Practice Addition Problem Solving Up to 10",[["Using Strategies to Solve Addition Word Problems",[["Solve Problems with Objects and Drawings","n",1],["Solve Problems by Acting Them Out","n",1],["Solve Addition Problems to 10 Using Number Partners","n",1]]],["Addition Word Problems",[["Act Out Addition Word Problems to 10","n",1],["Use Drawings and Number Bonds to Solve Addition Word Problems","n",1]]],["Addition Equations",[["Match the Model for Addition","n",1],["Use Objects or Drawings to Solve \"Add to\" Word Problems up to 10","n",1]]],["\"Add to\" and \"Put Together\" Word Problems",[["Solve \"Add to\" Word Problems up to 10","n",1],["Solve \"Put Together\" Word Problems up to 10","n",1]]]]],["Unit 28: Practice Subtraction Problem Solving Up to 10",[["Use Strategies to Solve Subtraction Word Problems",[["Solve Problems with Subtraction Using Objects and Drawings","n",1],["Solve Problems with Subtraction by Acting Them Out","n",1]]],["Subtraction Word Problems",[["Act Out Subtraction Word Problems from 10","n",1],["Solve Subtraction Word Problems from 10 Using Number Bonds","n",1]]],["Solve \"Take Apart\" and \"Take from\" Word Problems",[["Solve \"Take Apart\" Word Problems up to 10","n",1],["Solve \"Take from\" Word Problems up to 10","n",1]]],["Solving Word Problems Within 10",[["Decide What Type of Problem It Is Within 10","n",1],["Write an Equation and Solve the Problem","n",1],["Milestone: Solve Word Problems within 10","n",1]]]]],["Unit 29: What You Can Measure",[["Length, Width, and Height",[["Let's Talk About Length","n",1],["Let's Talk About Width","n",1],["Let's Talk About Height","n",1],["Milestone: Describe Length, Width, and Height","n",0]]],["Weight and Temperature",[["Let's Talk About Weight","n",1],["Let's Talk About Temperature","n",1],["Milestone: Describe Weight, Temperature, and Other Measurable Attributes","n",0]]],["What Can Be Measured?",[["What Can Be Measured?","n",1],["Compare Measures","n",1],["Milestone: Compare Measures","n",0]]]]],["Unit 30: Explore Three-Dimensional Shapes",[["Spheres",[["Identify Spheres","n",0],["Describe Spheres","n",1]]],["Cubes",[["Identify Cubes","n",0],["Describe Cubes","n",1]]],["Cylinders",[["Identify Cylinders","n",0],["Describe Cylinders","n",1]]],["Cones",[["Identify Cones","n",0],["Describe Cones","n",1],["Milestone: Identify Spheres, Cubes, Cylinders, and Cones","n",0]]],["Sort 3D Shapes",[["Sort Spheres, Cubes, Cylinders, and Cones","n",1],["Sort Three-Dimensional Shapes","n",1]]],["Compare 3D Shapes",[["Compare the Different 3-Dimensional Shapes","n",1],["Milestone: Compare 3D Shapes by Attribute","n",0]]]]],["Unit 31: Draw and Model Shapes",[["Draw Circles, Triangles, Squares, and Rectangles",[["Draw Circles and Triangles","n",0],["Draw Squares and Rectangles","n",0]]],["Drawing 2D Shapes",[["Draw Hexagons","n",0],["Milestone: Draw 2D Shapes","n",0]]],["Combine Shapes",[["Combine Triangles to Form Bigger Shapes","n",1],["Combine Squares and Rectangles to Form Bigger Shapes","n",1]]],["Composing Shapes",[["Combine Different Shapes to Form Bigger Shapes","n",1],["Milestone: Compose Shapes","n",1]]],["Working with 3D Shapes",[["Find Three-Dimensional Shapes in the World","n",1],["Model Three-Dimensional Shapes","n",0],["Milestone: Model 3D Shapes","n",0]]]]]].map(([u, ls]) => [u, ls.map(([l, its]) => [l, its.map(([t, st, as], ii) => [t, 'learn', st === 'c' ? 'complete' : 'not', st === 'c' && as ? ['yyy','yyyn','yyy','yny','yyyy'][(t.length + ii) % 5] : null, /ten-frame/i.test(t) ? 'ten' : 'count', !!as])])])
   }),
   mkCourse({id:'k-ela', learner:'michelle', title:'Language Arts', icon:'pen', tone:'t-coral', year:YEAR_NOW, graded:true, cats:[{id:'practice', name:'Practice', w:40}, {id:'quiz', name:'Quizzes', w:60}], units:[
     ['Letters A to E', [
@@ -2476,7 +2824,7 @@ const COURSES = [
 const courseById = id => COURSES.find(c => c.id === id);
 const coursesFor = lid => COURSES.filter(c => c.learner === lid);
 const catW = (c, cat) => (c.cats.find(k => k.id === cat) || {w:0}).w;
-const visItems = (c, l) => (l.items || []).filter(it => catW(c, it.cat) > 0);
+const visItems = (c, l) => (l.items || []).filter(it => it.assess && catW(c, it.cat) > 0);
 const visLessons = (c, u) => c.graded ? u.lessons.filter(l => visItems(c, l).length) : u.lessons;
 const visUnits = c => c.units.filter(u => visLessons(c, u).length);
 const allLessons = c => c.units.flatMap(u => visLessons(c, u));
@@ -2695,6 +3043,42 @@ function viewPlan(lid){
     </section>
     <div style="margin-top:12px">${assume('Prototype: only course removal and restore are mocked on this Academic Plan page')}</div>`;
 }
+const M_DESC = {mastered:'They can do this on their own, consistently.', almost:'They\u2019re getting there and need more practice.', notyet:'They\u2019re not showing this skill yet and need support.', na:'You haven\u2019t checked this milestone yet.'};
+function msMarkModal(d){
+  const ms = MS_INDEX[d.m];
+  const sp = SP.find(x => allMs(x).includes(ms)); const cat = sp.cats.find(c => c.milestones.includes(ms));
+  const L = LEARNERS[sp.learner];
+  const pick = d.pick || ms.mastery;
+  const changed = pick !== ms.mastery;
+  return `<div class="modal msm" role="dialog" aria-modal="true" aria-labelledby="msm-t">
+    <div class="msm-top"><span class="chip chip-sand">${cat.name}<span class="dot">\u2022</span>Milestone ${ms.num}</span><button class="icon-btn plain" data-act="dlg-close" aria-label="Close">${ic('x')}</button></div>
+    <h2 id="msm-t">${ms.name}</h2>
+    <p class="msm-cur">Current level: ${mBadge(ms.mastery, 18)}<b>${mById(ms.mastery).label}</b>${ms.updated ? `<span class="muted">, set by ${ms.updated.by} ${relDate(ms.updated.at).toLowerCase()}</span>` : ''}</p>
+    <p class="msm-ask">How did ${L.name} do? Choose the level that matches what you observed.</p>
+    <div class="msm-opts" role="radiogroup" aria-label="Mastery level">${MASTERY.filter(m => m.id !== 'na').map(m => `<button role="radio" aria-checked="${pick === m.id}" class="msm-opt ${pick === m.id ? 'on' : ''}" data-act="ms-pick" data-v="${m.id}">${mBadge(m.id, 26)}<span><b>${m.label}</b><small>${M_DESC[m.id]}</small></span><span class="msm-radio"></span></button>`).join('')}</div>
+    <div class="msm-foot">
+      ${ms.mastery !== 'na' ? `<button class="link-btn msm-reset" data-act="ms-reset">${ic('undo')}Reset to Not Assessed</button>` : '<span></span>'}
+      <div class="msm-btns"><button class="btn btn-quiet" data-act="dlg-close">Cancel</button><button class="btn btn-primary" data-act="ms-save" ${changed && pick !== 'na' ? '' : 'disabled'}>${ms.mastery === 'na' ? 'Save' : 'Update'} level</button></div>
+    </div></div>`;
+}
+function spInfoModal(){
+  const open = S.spStatusOpen !== false;
+  const desc = {mastered:'They can do this on their own, consistently.', almost:'They\u2019re getting there and need more practice.', notyet:'They\u2019re not showing this skill yet and need support.', na:'You haven\u2019t checked this milestone yet.'};
+  return `<div class="modal spi" role="dialog" aria-modal="true" aria-labelledby="spi-t">
+    <span class="spi-badge">${ic('diamond')}</span>
+    <h2 id="spi-t">What is Skill Progression?</h2>
+    <p class="spi-lead">Skill Progression helps you keep a running record of your learner\u2019s progress.</p>
+    <ul class="spi-pts">
+      <li><span class="spi-ic">${ic('evidence')}</span><div><b>Milestones are checkpoints that show your learner has mastered a skill.</b><p>They\u2019re completed offline, so you can watch your learner show the skill directly, sometimes using real objects.</p></div></li>
+      <li><span class="spi-ic">${ic('clock')}</span><div><b>Every milestone moves at its own pace.</b><p>Some milestones are quick and may come together in a day or two. Others take longer, with a few weeks of practice. Both are completely normal.</p></div></li>
+      <li><span class="spi-ic">${ic('pen')}</span><div><b>Once you\u2019ve observed them, record what you saw here.</b><p>What you record becomes part of a running record of their progress, helping you see where they\u2019re doing well, what they\u2019re working on, and what\u2019s next.</p></div></li>
+    </ul>
+    <div class="spi-st">
+      <button class="spi-st-h" data-act="sp-info-toggle" aria-expanded="${open}">Learn more about milestone statuses${ic(open ? 'chevUp' : 'chevDown')}</button>
+      ${open ? MASTERY.map(m => `<div class="spi-row">${mBadge(m.id, 22)}<span>${m.label}</span><em>${desc[m.id]}</em></div>`).join('') : ''}
+    </div>
+    <div class="actions" style="justify-content:center"><button class="btn btn-primary spi-ok" data-act="dlg-close">Got it</button></div></div>`;
+}
 function rmCourseModal(d){
   const c = courseById(d.c), L = LEARNERS[c.learner];
   return `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-t">
@@ -2808,19 +3192,24 @@ function lessonRowGb(c, l, lid, viewOnly){
   const stat = {complete:['l2-done','stDone','Complete'], progress:['l2-prog','alert','In progress'], not:['l2-not','stNot','Not started']}[st];
   const action = canReopen ? `<button class="l2-link" data-act="gb-reopen" data-c="${c.id}" data-l="${l.id}">${ic('undo')}Reopen</button>`
     : canComplete ? `<button class="btn btn-primary btn-sm l2-mark" data-act="gb-complete" data-c="${c.id}" data-l="${l.id}">${ic('check')}Mark complete</button>` : '<span class="l2-spacer"></span>';
-  const graded = c.graded;
+  const expandable = c.graded || (l.items && l.items.some(it => it.assess));
+  const graded = expandable;
   const lk = 'l:' + l.id, lo = graded && S.gbOpen.has(lk);
   const title = `<span class="l2-num">${l.num}</span><span class="l2-name"><span class="muted">Lesson ${l.num}</span><span class="sep">\u00b7</span><b>${l.title}</b></span>`;
   return `<div class="l2 st-${st} ${lo ? 'open' : ''}"><div class="l2-row">
     ${graded ? `<button class="l2-main" data-act="gb-toggle" data-k="${lk}" aria-expanded="${lo}">${title}<span class="l2-exp">${ic(lo ? 'chevDown' : 'chevRight')}</span></button>` : `<div class="l2-main">${title}</div>`}
     <span class="l2-stat ${stat[0]}">${ic(stat[1])}${stat[2]}</span><span class="l2-div"></span>${action}
 </div>
-    ${lo ? `<div class="gb-items">${visItems(c, l).map(it => itemRow(c, it, lid)).join('')}</div>` : ''}</div>`;
+    ${lo ? `<div class="gb-items">${(c.graded ? visItems(c, l) : l.items.filter(it => it.assess)).map(it => itemRow(c, it, lid)).join('')}</div>` : ''}</div>`;
 }
 function itemRow(c, it, lid){
   const s = itemScore(it), st = itemState(it);
-  const cat = c.cats.find(k => k.id === it.cat).name;
+  const cat = c.graded ? c.cats.find(k => k.id === it.cat).name : 'Activity';
   let score;
+  if (!c.graded){
+    score = it.attempts.length && it.state === 'complete' ? `<span class="gb-score"><span class="view-ans">${ic('eye')}View answers</span></span>` : `<span class="gb-score muted"><small>No answers yet</small></span>`;
+    return `<a class="gb-item" href="#/gradebook/${lid}/c/${c.id}/a/${it.id}"><span class="gb-ii">${ic('doc')}</span><span class="gb-in"><b>${it.title}</b><small>${cat}</small></span>${stateChip(it.state)}${score}<span class="chev">${ic('chevRight')}</span></a>`;
+  }
   if (st === 'nosub') score = `<span class="gb-score muted"><small>Not in grade</small></span>`;
   else if (!s) score = `<span class="gb-score muted"><small>No grade</small></span>`;
   else if (gradesHidden()) score = `<span class="gb-score muted"><small>Unavailable</small></span>`;
@@ -2832,6 +3221,35 @@ function itemRow(c, it, lid){
 }
 
 /* ---------- assignment view (adult + learner) ---------- */
+function lrnFrame(c, it, L, a, down){
+  const n = it.questions.length;
+  const items = it.questions.map((q, i) => {
+    const resp = a ? a.answers[i] : null;
+    const ok = resp != null && resp === q.k;
+    const opts = q.c.map((ch, oi) => {
+      const chosen = resp === ch;
+      const cls = down ? '' : chosen ? (ok ? 'ok' : 'bad') : '';
+      return `<li class="lrn-opt ${cls} ${chosen && !down ? 'chosen' : ''}"><span class="lrn-radio"></span><span class="lrn-letter">${String.fromCharCode(65 + oi)}</span><span class="lrn-txt">${esc(ch)}</span>${cls === 'ok' ? `<span class="lrn-val ok">${ic('check')}</span>` : cls === 'bad' ? `<span class="lrn-val bad">${ic('x')}</span>` : ''}</li>`;
+    }).join('');
+    const key = down ? `<div class="lrn-err">${ic('alert')}The answer key could not be loaded. Please try again later.</div>`
+      : (resp == null || !ok) ? `<div class="lrn-correct"><span class="lrn-ch">Correct answer</span><span class="lrn-ans">${String.fromCharCode(65 + q.c.indexOf(q.k))}. ${esc(q.k)}</span></div>` : '';
+    const notes = down ? `<div class="lrn-err">${ic('alert')}Grading notes could not be loaded.</div>`
+      : q.n ? `<div class="lrn-instr"><span class="lrn-instr-h">${ic('bulb')}Instructor stimulus</span><p>${esc(q.n)}</p></div>` : '';
+    return `<section class="lrn-item" id="lrn-${it.id}-${i}">
+      <div class="lrn-item-h"><span>Item ${i + 1} of ${n}</span>${resp == null && !down ? '<span class="lrn-tag">Not attempted</span>' : ''}${c.graded && !down && resp != null ? `<span class="lrn-score">Score: ${ok ? 1 : 0} / 1</span>` : ''}</div>
+      <p class="lrn-stem">${esc(q.q)}</p>${q.v ? `<div class="lrn-vis">${q.v}</div>` : ''}
+      ${down ? `<div class="lrn-err">${ic('alert')}${L.name}\u2019s response could not be loaded. Please try again later.</div>` : ''}
+      <ul class="lrn-opts ${down ? 'dim' : ''}" role="list">${opts}</ul>
+      ${key}${notes}
+    </section>`;
+  }).join('');
+  return `<div class="lrn-frame" role="region" aria-label="Learnosity assessment review">
+    <div class="lrn-chrome"><span class="dots"><i></i><i></i><i></i></span><span class="lrn-url">${ic('lock')}items.learnosity.com/review/${it.id}</span><span class="lrn-mode">Review mode</span></div>
+    <div class="lrn-bar"><b>${esc(it.title)}</b><nav class="lrn-pager" aria-label="Items">${it.questions.map((q, i) => `<a href="#" onclick="document.getElementById('lrn-${it.id}-${i}').scrollIntoView({behavior:'smooth',block:'center'});return false" class="${a && !down ? (a.answers[i] === q.k ? 'ok' : a.answers[i] == null ? '' : 'bad') : ''}">${i + 1}</a>`).join('')}</nav></div>
+    <div class="lrn-body">${items}</div>
+    <div class="lrn-foot"><span>Powered by Learnosity</span><span>${n} items</span></div>
+  </div>`;
+}
 function viewGbAssignment(lid, cid, iid, kid){
   const c = courseById(cid);
   const {u, l, it} = c ? findItem(c, iid) : {};
@@ -2848,6 +3266,7 @@ function viewGbAssignment(lid, cid, iid, kid){
   let scoreBox;
   if (down && submitted) scoreBox = `<div class="gb-grade na"><b>Unavailable</b><small>${learner ? 'Score' : 'Score, most recent attempt'}</small></div>`;
   else if (!submitted) scoreBox = `<div class="gb-grade na"><b>${st === 'nosub' ? 'No grade' : 'Not submitted'}</b><small>${st === 'nosub' ? 'Marked complete, not in the course grade' : 'No answers yet'}</small></div>`;
+  else if (!c.graded && !learner) scoreBox = `<div class="gb-grade na done-box"><b>${ic('stDone')}Complete</b><small>${it.questions.length} questions, finished ${s.date.toLocaleDateString('en-US', {month:'short', day:'numeric'})}</small></div>`;
   else if (k2) scoreBox = `<div class="kid-score">${stars(s.right, s.total, true)}<b>You got ${s.right} of ${s.total}!</b></div>`;
   else scoreBox = `<div class="gb-grade lg"><b>${s.pct}%</b><small>${s.right} of ${s.total} correct${learner ? '' : ', most recent attempt on ' + s.date.toLocaleDateString('en-US', {month:'short', day:'numeric'})}</small></div>`;
   const a = submitted ? lastAttempt(it) : null;
@@ -2860,7 +3279,7 @@ function viewGbAssignment(lid, cid, iid, kid){
     const keyBox = learner ? '' : `<div class="gb-col"><span class="gb-lbl">Answer key</span>${down ? `<div class="gb-unavail">${ic('cloudOff')}Answer key unavailable right now</div>` : `<div class="gb-key">${esc(q.k)}</div>`}</div>`;
     const notes = learner ? '' : down ? `<div class="gb-unavail notes">${ic('cloudOff')}Grading notes unavailable right now</div>`
       : q.n ? `<aside class="lrn-instructor" aria-label="Grading notes"><span class="lrn-tag">${ic('bulb')}Instructor stimulus</span><b>Grading notes</b><p>${esc(q.n)}</p></aside>` : '';
-    const qScore = learner || down ? '' : `<span class="gb-qscore">${resp == null ? 'Not scored' : (ok ? 1 : 0) + ' / 1'}</span>`;
+    const qScore = learner || down || !c.graded ? '' : `<span class="gb-qscore">${resp == null ? 'Not scored' : (ok ? 1 : 0) + ' / 1'}</span>`;
     return `<article class="gb-q ${k2 ? 'kid' : ''}">
       <div class="gb-qhead"><span class="gb-qn">${k2 ? i + 1 : 'Question ' + (i + 1)}</span>${qScore}</div>
       <p class="gb-qtext">${esc(q.q)}</p>${q.v ? `<div class="gb-visual" aria-hidden="true">${q.v}</div>` : ''}
@@ -2870,13 +3289,13 @@ function viewGbAssignment(lid, cid, iid, kid){
   return `${learner ? `<a class="back" href="${backHref}">${ic('arrowLeft')}${c.title}</a>` : ''}
     ${down ? `<div class="gb-notice" role="status"><span class="ic">${ic('cloudOff')}</span><div><b>${k2 ? 'Some of your answers can\u2019t load right now.' : 'Some assignment details are temporarily unavailable.'}</b>${k2 ? 'Try again in a little while.' : 'Responses, the answer key, and grading notes couldn\u2019t load. Everything else on this page is still here.'}</div><button class="btn btn-outline btn-sm" data-act="gb-retry">${ic('refresh')}${k2 ? 'Try again' : 'Retry'}</button></div>` : ''}
     <section class="panel gb-ahead ${k2 ? 'kid' : ''}">
-      <div><span class="chip chip-sand">${c.cats.find(x => x.id === it.cat).name}</span><h1>${it.title}</h1>
-        <p>${learner ? '' : 'Unit: ' + u.title + ', '}Lesson ${l.num}: ${l.title}</p><div style="margin-top:10px">${stateChip(st, {kid: k2})}</div></div>
+      <div><span class="chip chip-sand">${c.graded ? c.cats.find(x => x.id === it.cat).name : 'Activity'}</span><h1>${it.title}</h1>
+        <p>${learner ? '' : (/^Unit \d/.test(u.title) ? u.title.split(':')[0] + ': ' + u.title.split(':').slice(1).join(':').trim() : 'Unit: ' + u.title) + ', '}Lesson ${l.num}: ${l.title}</p><div style="margin-top:10px">${stateChip(st, {kid: k2})}</div></div>
       ${scoreBox}
     </section>
     ${!submitted && !down ? `<div class="gb-vo">${ic('doc')}<span>${st === 'nosub' ? 'This lesson was marked complete without a submission, so there are no responses to show.' : learner ? 'You haven\u2019t answered these yet.' : `${L.name} hasn\u2019t submitted this assignment yet. Questions are shown with blank responses.`}</span></div>` : ''}
     ${!learner && it.cat === 'mile' ? `<div class="lens-note small">${ic('diamond')}<div>This is ${L.name}\u2019s score on the <b>online milestone activity</b>. The milestone\u2019s mastery level is recorded separately by an adult in ${L.name}\u2019s Learning Journey, after the offline assessment.</div></div>` : ''}
-    <div class="gb-qs">${qs}</div>`;
+    ${learner ? `<div class="gb-qs">${qs}</div>` : lrnFrame(c, it, L, a, down)}`;
 }
 
 /* =========================================================
@@ -3040,6 +3459,13 @@ document.addEventListener('click', e => {
     case 'pl-remove': S.dialog = {type:'rmcourse', c:el.dataset.c}; renderModal(); break;
     case 'pl-remove-do': { const c = courseById(el.dataset.c); c.removed = true; S.dialog = null; render(); toast(`${c.title} removed from ${LEARNERS[c.learner].name}\u2019s plan`); break; }
     case 'pl-restore': { const c = courseById(el.dataset.c); c.removed = false; render(); toast(`${c.title} restored. ${LEARNERS[c.learner].name} will pick up where they left off.`); break; }
+    case 'ms-open': S.dialog = {type:'msmark', m:el.dataset.m}; renderModal(); break;
+    case 'ms-pick': S.dialog.pick = el.dataset.v; renderModal(); break;
+    case 'ms-save': { const d = S.dialog; setMastery(d.m, d.pick); S.dialog = null; if (MS_INDEX[d.m] === TODAY_MS()) S.promptDone = true; render(); toast(`${MS_INDEX[d.m].name}: ${mById(d.pick).label}`); break; }
+    case 'ms-reset': { const d = S.dialog; setMastery(d.m, 'na'); S.dialog = null; render(); toast(`${MS_INDEX[d.m].name} reset to Not Assessed`); break; }
+    case 'mm-scroll': { const t = el.closest('.mm-trackwrap').querySelector('.mm-track'); t.scrollBy({left: Number(el.dataset.dir) * t.clientWidth * 0.75, behavior:'smooth'}); break; }
+    case 'sp-info': S.dialog = {type:'spinfo'}; renderModal(); break;
+    case 'sp-info-toggle': S.spStatusOpen = S.spStatusOpen === false; renderModal(); break;
     case 'cart-toggle': S.cartOpen = !S.cartOpen; render(); break;
     case 'arch-year': S.archYear = el.dataset.v; render(); break;
     case 'gb-jumpto': document.getElementById('gbl-' + el.dataset.l)?.scrollIntoView({behavior:'smooth', block:'start'}); break;
@@ -3063,13 +3489,13 @@ Object.assign(P, {
 });
 
 const MASTERY = [
-  {id:'mastered', label:'Mastered', cls:'mb-m', glyph:'<path d="m12 8.2 1.1 2.3 2.5.4-1.8 1.7.4 2.5-2.2-1.2-2.2 1.2.4-2.5-1.8-1.7 2.5-.4z" fill="#fff"/>'},
-  {id:'almost', label:'Almost There', cls:'mb-a', glyph:'<path d="M9.8 8.5h4.4M9.8 15.5h4.4M10.3 8.5c0 2.2 3.4 2.2 3.4 3.5s-3.4 1.3-3.4 3.5M13.7 8.5c0 2.2-3.4 2.2-3.4 3.5s3.4 1.3 3.4 3.5" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>'},
-  {id:'notyet', label:'Not Yet', cls:'mb-n', glyph:'<path d="M12 8.6v4M12 15.2v.01" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>'},
-  {id:'na', label:'Not Assessed', cls:'mb-x', glyph:'<path d="M10 12h4" stroke="#A3A3A3" stroke-width="1.6" stroke-linecap="round"/>'}
+  {id:'mastered', label:'Mastered', cls:'mb-m', glyph:'<path d="m12 7.6 1.32 2.7 2.98.43-2.15 2.1.5 2.96L12 14.4l-2.65 1.39.5-2.96-2.15-2.1 2.98-.43z" fill="#fff"/>'},
+  {id:'almost', label:'Almost There', cls:'mb-a', glyph:'<path d="M9.4 7.9h5.2M9.4 16.1h5.2M10 7.9c0 2.5 4 2.5 4 4.1s-4 1.6-4 4.1M14 7.9c0 2.5-4 2.5-4 4.1s4 1.6 4 4.1" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'},
+  {id:'notyet', label:'Not Yet', cls:'mb-n', glyph:'<path d="M12 8v4.6" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15.6" r="1.05" fill="#fff"/>'},
+  {id:'na', label:'Not Assessed', cls:'mb-x', glyph:'<path d="M9.6 12h4.8" stroke="#2B2B2B" stroke-width="1.6" stroke-linecap="round"/>'}
 ];
 const mById = id => MASTERY.find(m => m.id === id);
-const mBadge = (id, size=20) => { const m = mById(id); return `<svg class="mdia ${m.cls}" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 21.5 12 12 21.5 2.5 12z"/>${m.glyph}</svg>`; };
+const mBadge = (id, size=20, raised=false) => { const m = mById(id); return `<svg class="mdia ${m.cls} ${raised ? 'raised' : ''}" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><rect class="dshape" x="4.4" y="4.4" width="15.2" height="15.2" rx="3.6" transform="rotate(45 12 12)"/>${m.glyph}</svg>`; };
 const SKST = {done:['Done','sk-done','stDone'], prog:['In Progress','sk-prog','stProg'], todo:['To Do','sk-todo','stNot']};
 
 let _msid = 0;
@@ -3101,15 +3527,37 @@ function mkSP(o){
 }
 const CUSTOM_SKILLS = {'Count Numbers 1 to 5':['Count One Thing','Know Number One','Count Two Things','Know Number Two','Count Three Things','Show the Numbers 4 and 5']};
 const NA = names => names.map(x => x + '|-|t');
+/* Kindergarten Math milestones: from K_Math_Mastery_Progression_Sample_List.docx (categories and milestones in course order;
+   subcategories ignored). Skill status comes from Michelle's progress in the kindergarten-math.imscc course. */
+const KMATH_MS = [["Number Sense",[[1,"Count Numbers 1 to 5",["Count One Thing","Know Number One","Count Two Things","Know Number Two","Draw Two Things","Count Three Things","Know Number Three","Draw Three Things","Show One to Three with Objects","Show One to Three with a Ten-Frame","Count Four Things","Know Number Four","Draw Four Things","Count Five Things","Know Number Five","Draw Five Things","Count Up to Three","Count Up to Four","Count Up to Five","Show Four and Five with Objects","Show Four and Five with a Ten-Frame"]],[3,"Know the Amount",["Count in Different Directions","Count Things in Different Places","How Many Things?","Recognize the Number of Objects"]],[4,"Show a Number with Objects",["Use Cubes to Model Numbers"]],[5,"Count to 10",["Count Six Things","Count Up to Six","Show Six with Objects","Show Six with a Ten-Frame","Know Number Six","Count Seven Things","Count Up to Seven","Show Seven with Objects","Show Seven with a Ten-Frame","Know Number Seven","Count Eight Things","Count Up to Eight","Show Eight with Objects","Show Eight with a Ten-Frame","Know Number Eight","Count Nine Things","Count Up to Nine","Show Nine with Objects","Show Nine with a Ten-Frame","Know Number Nine","The Number That Means None","Count 10 Things","Count to 10"]],[7,"Show a Number with a Ten-Frame",["Show 10 with Objects","Show 10 with a Ten-Frame","Know Number 10","How Many Are There?","Show a Number with Objects","Show a Number with a Ten-Frame"]],[10,"Count to 20",["Count 11 Things","Count Up to 11","Count 12 Things","Count Up to 12","Count 13 Things","Count Up to 13","Count 14 Things","Count Up to 14","Count 15 Things","Count Up to 15","Count 11 and 12 Things","Count 13 to 15 Things","Count 11 to 15 Using Cubes","Count 11 to 15 Using a Ten-Frame","Count 16 and 17 Things","Count 18 to 20 Things","Count 16 to 20 Using Cubes","Count 16 to 20 Using a Ten-Frame"]],[12,"Count on from a Given Number",["Count the Next Number","Count from a Number Between 1 and 5","Count from a Number Between 6 and 10","Count from a Given Number to an Ending Number"]],[34,"Count to 100",["Count to 22","Count to 25","Count to 27","Count to 30","Count to 30 and Within 30","Count to 32","Count to 35","Count to 37","Count to 40","Count to 40 and Within 40","Count to 50 and Within 50","Count On from a Given Number to 100 Using a Hundreds Chart","Count Within 100 Using a Number Line"]],[35,"Skip Count By 10s to 100",["Count by Tens Using the Hundreds Chart"]],[13,"Order Numbers within 10",["Order Numbers up to 10 on a Number Line","Order Numbers up to 20 on a Number Line"]],[14,"Find One More within 10",["One More Than 0 to 4","One More Than 5 to 9","One More Than 0 to 9"]],[15,"Compare Groups within 10",["Compare 1 to 5","Compare 6 to 10"]],[16,"Find Greater Than, Less Than, and Equal to within 10",["Find Groups of the Same Value","Compare 0 to 10 on a Number Line"]]]],["Place Value",[[2,"Write Numbers 1 to 5",["Write Number One","Write Number Two","Write Number Three","Write Number Four","Write Number Five","Write How Many Things"]],[6,"Write 0 to 10",["Write Number Six","Write Number Seven","Write Number Eight","Write Number Nine","How to Write Zero","Write Number 10","Write from 0 to 10"]],[9,"Write Numbers 11 to 20",["Identify and Write the Numbers 11 and 12","Identify and Write the Numbers 13 to 15","Identify and Write Numbers 16 and 17","Identify and Write Numbers 18 to 20"]],[11,"Build Teen Numbers with 10 and Ones",["Identify How Many More Than 10","Model 11 to 15 Using Cubes","Model 11 to 15 Using a Ten-Frame","Model 16 to 20 Using Cubes","Model 16 to 20 Using a Ten-Frame","Show 11 to 20 as 10 Plus a Number"]]]],["Data and Graphs",[[8,"Sort Objects by Attribute",["Sort by Color","Sort by Size","Sort by Kind","Sort by Texture","Sort by Animal and Count How Many"]],[31,"Sort by Number of Sides",["Sort by Shape","Sort Flat Shapes by Size","Sort by Number of Sides and Count How Many","Sort Two-Dimensional Shapes"]],[32,"Explain Picture Graphs",["Identify Categories and Numbers in a Picture Graph","Describe Data from a Picture Graph","Compare Data from a Picture Graph","Identify the Categories and Number in Each Category","Describe a Picture Graph","Explain a Picture Graph"]],[33,"Build a Picture Graph",["Use Data to Make a Graph with Objects","Share What You Know from Your Graph","Use Data to Make a Graph with Pictures"]]]],["Number Thinking",[[17,"Make Addition Number Partners within 5",["Add and Subtract Using Number Lines","Break Apart Numbers 1 to 5 to Find Number Partners","Use Number Partners to Make Addition Sentences","Use Number Partners to Write Number Bonds","Use Number Bonds to Make Addition Sentences"]],[18,"Make Subtraction Number Partners within 5",["Use Number Partners to Make Subtraction Sentences","Use Number Bonds to Make Subtraction Sentences"]],[21,"Use Strategies to Add within 10",["Create Addition Facts Using Number Bonds","Create Subtraction Facts Using Number Bonds","Add 1 to 5 with Objects","Add 1 to 5 with Drawings","Add 1 to 5 with Fingers","Add 1 to 5 on the Number Line"]],[22,"Find One Less within 10",["One Less Than 1 to 5","One Less Than 1 to 10","One Less Than 1 to 10 on the Number Line"]],[23,"Use Strategies to Subtract within 10",["Subtract 1 to 5 with Objects","Subtract 1 to 5 with Drawings","Subtract 1 to 5 with Fingers","Subtract 1 to 5 on the Number Line"]],[24,"Find Number Partners for 10",["Rewrite an Addition Equation","Solve Equations That Equal 5","Explain Why an Addition Equation Is True","Explain Why a Subtraction Equation Is True","Add 1 to 5 with Expressions and Equations","Subtract 1 to 5 with Expressions and Equations","Add On to 5 Using a Drawing and Equation","Find Number Partners for 10 Using a Ten-Frame","Make Number Partners for 10 with Drawings","Find Number Partners for 10 with Your Fingers","Solve Equations That Equal 10"]],[25,"Write Addition Sentences within 10",["Number Partners of 6 and 7","Number Partners of 8 and 9","Find Number Partners and Bonds to 10","An Equation for the Model"]],[27,"Write Subtraction Sentences within 10",["Model a Ten-Frame with an Equation","Write Addition Equations to Model a Number Line","Write Subtraction Equations with Number Bonds"]],[36,"Solve Word Problems within 10",["Model Subtraction from 10 with Equations","Model a Ten-Frame with a Subtraction Equation","Count Back from 10 on a Number Line","Count Backward to Subtract","Solve an \"Add to\" Word Problem","Solve a \"Put Together\" Word Problem","Solve a \"Take Apart\" Word Problem","Solve a \"Take from\" Word Problem","Decide What Type of Problem It Is Within 5","Take Apart or Put Together to Solve","Solve Problems with Objects and Drawings","Solve Problems by Acting Them Out","Solve Addition Problems to 10 Using Number Partners","Act Out Addition Word Problems to 10","Use Drawings and Number Bonds to Solve Addition Word Problems","Match the Model for Addition","Use Objects or Drawings to Solve \"Add to\" Word Problems up to 10","Solve \"Add to\" Word Problems up to 10","Solve \"Put Together\" Word Problems up to 10","Solve Problems with Subtraction Using Objects and Drawings","Solve Problems with Subtraction by Acting Them Out","Act Out Subtraction Word Problems from 10","Solve Subtraction Word Problems from 10 Using Number Bonds","Solve \"Take Apart\" Word Problems up to 10","Solve \"Take from\" Word Problems up to 10","Decide What Type of Problem It Is Within 10","Write an Equation and Solve the Problem"]],[19,"Find Number Bonds for 5",[]]]],["Operations and Fluency",[[26,"Add within 10",["Add 0 and 1","Count On to Add","Add Doubles","Use Number Bonds to Change Order","Add Up to 5","Add On to 5 Using a Ten-Frame","Model Using a Ten-Frame"]],[28,"Subtract within 10",["Subtract 0 and 1","Count Back to Subtract","Count Up to Subtract","Subtract a Group of 5 Using a Ten-Frame","Match the Model for Subtraction"]],[20,"Add or Subtract Fluently within 5",["Add or Subtract to Solve Within 5"]]]],["Shapes and Geometry",[[29,"Identify Circles, Triangles, Squares, and Rectangles",["Triangles","Above or Below","Squares","Rectangles","Beside and Between","Circles","In Front of and Behind"]],[30,"Use Position Words",["Describe the Parts of Flat Shapes","Describe Where the Shapes Are"]],[42,"Draw 2D Shapes",["Learn About Patterns","Make a Pattern","Sort Two-Dimensional Shapes","Draw Circles and Triangles","Draw Squares and Rectangles","Draw Hexagons"]],[43,"Compose Shapes",["Combine Triangles to Form Bigger Shapes","Combine Squares and Rectangles to Form Bigger Shapes","Combine Different Shapes to Form Bigger Shapes"]],[40,"Identify Spheres, Cubes, Cylinders, and Cones",["Identify Spheres","Describe Spheres","Identify Cubes","Describe Cubes","Identify Cylinders","Describe Cylinders","Identify Cones","Describe Cones"]],[41,"Compare 3D Shapes by Attribute",["Sort Spheres, Cubes, Cylinders, and Cones","Sort Three-Dimensional Shapes","Compare the Different 3-Dimensional Shapes"]],[44,"Model 3D Shapes",["Find Three-Dimensional Shapes in the World","Model Three-Dimensional Shapes"]]]],["Measurement",[[37,"Describe Length, Width, and Height",["Let's Talk About Length","Let's Talk About Width","Let's Talk About Height"]],[38,"Describe Weight, Temperature, and Other Measurable Attributes",["Let's Talk About Weight","Let's Talk About Temperature"]],[39,"Compare Measures",["What Can Be Measured?","Compare Measures"]]]]];
+const KMATH_ICONS = {'Number Sense':'listNum','Place Value':'grid','Data and Graphs':'bars','Number Thinking':'plusMinus','Operations and Fluency':'calc','Shapes and Geometry':'shapes','Measurement':'ruler'};
+/* Sample mastery levels so the map shows every status (prototype only). */
+const KMATH_DEMO = {'Know the Amount':['mastered',9], 'Show a Number with Objects':['almost',4], 'Write Numbers 1 to 5':['mastered',6], 'Write 0 to 10':['notyet',2],
+  'Sort Objects by Attribute':['mastered',12], 'Sort by Number of Sides':['almost',5], 'Make Addition Number Partners within 5':['mastered',8], 'Make Subtraction Number Partners within 5':['notyet',3],
+  'Identify Circles, Triangles, Squares, and Rectangles':['mastered',10], 'Use Position Words':['almost',1], 'Describe Length, Width, and Height':['mastered',7]};
+function buildKMathSP(){
+  const norm = t => t.toLowerCase().replace(/^learn:\s*/, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const states = {};
+  const kc = COURSES.find(c => c.id === 'k-math');
+  const lessonOf = {};
+  kc.units.forEach(u => u.lessons.forEach(l => (l.items || []).forEach(it => { states[norm(it.title)] = it.state; lessonOf[norm(it.title)] = l.num; })));
+  const TODAY_LESSON = 12;
+  const skSt = name => { const st = states[norm(name)]; return st === 'complete' ? 'done' : st === 'progress' ? 'prog' : 'todo'; };
+  return {id:'sp-m-math', course:'k-math', learner:'michelle', subject:'Math', icon:'calc', cats: KMATH_MS.map(([name, list], ci) => ({
+    id:'sp-m-math-c' + ci, name, icon: KMATH_ICONS[name] || 'listNum',
+    milestones: list.map(([num, mname, skills]) => {
+      const id = 'ms' + (++_msid);
+      const onlineRaw = states[norm('Milestone: ' + mname)];
+      const ms = {id, num, name:mname, sub:'', mastery:'na', online: onlineRaw === 'complete' ? 'done' : onlineRaw === 'progress' ? 'prog' : 'todo',
+        skills: skills.map(n => ({name:n, st: skSt(n)})), updated:null,
+        today: lessonOf[norm('Milestone: ' + mname)] === TODAY_LESSON || skills.some(n => lessonOf[norm(n)] === TODAY_LESSON)};
+      if (KMATH_DEMO[mname]){ ms.mastery = KMATH_DEMO[mname][0]; ms.updated = {by:'Danny', at: daysAgo(KMATH_DEMO[mname][1])}; }
+      MS_INDEX[id] = ms; return ms;
+    })
+  }))};
+}
 const SP = [
-  mkSP({id:'sp-m-math', course:'k-math', learner:'michelle', subject:'Math', icon:'calc', cats:[
-    ['Number Sense','listNum',['Counting and Cardinality','Comparing Numbers'],['Count Numbers 1 to 5|-|d','Write Numbers 0 to 5|M|d','Count Numbers 6 to 10|M|d','Write Numbers 6 to 10|M|d','Compare Groups to 5|A|d','Count to 20|N|d','Count Objects to 20|-|p', ...NA(['Write Numbers 11 to 20','Compare Numbers to 10','Count by Tens to 100','Count to 100 by Ones','Count On from Any Number','Compare Numbers to 20'])]],
-    ['Place Value','grid',['Numbers 11 to 19'],['Make Ten|M|d','Teen Numbers as Ten and Ones|A|d', ...NA(['Compose Numbers 11 to 19','Decompose Numbers 11 to 19'])]],
-    ['Data and Graphs','bars',['Sorting and Classifying'],['Sort Objects by Color|M|d','Sort and Count|A|d', ...NA(['Compare Sorted Groups','Read a Picture Graph'])]],
-    ['Geometry','shapes',['Shapes','Positions'],['Name Flat Shapes|M|d','Flat or Solid|N|d','Describe Positions|-|p', ...NA(['Name Solid Shapes','Compare Shapes','Build Shapes','Shapes in the World','Compose Simple Shapes'])]],
-    ['Measurement','ruler',['Length and Weight'],NA(['Compare Lengths','Compare Heights','Compare Weights','Describe Measurable Attributes','Order by Length','Measure with Objects','Compare Capacity'])],
-    ['Addition and Subtraction','plusMinus',['Addition','Subtraction'],NA(['Add Within 5','Subtract Within 5','Add Within 10','Subtract Within 10','Make 10','Break Apart Numbers to 10','Solve Word Problems','Fluency Within 5'])]
-  ]}),
+  buildKMathSP(),
   mkSP({id:'sp-m-ela', course:'k-ela', learner:'michelle', subject:'Language Arts', icon:'pen', cats:[
     ['Phonics and Letters','abc',['Letter Recognition','Letter Sounds'],['Know Letters A to E|M|d','Write Letters|M|d','Know Letters F to J|A|d','Short Vowel Sounds|-|p', ...NA(['Know Letters K to O','Know Letters P to T','Know Letters U to Z','Blend Sounds'])]],
     ['Reading Literature','book',['Story Elements'],['Retell a Story|M|d','Characters and Setting|N|d', ...NA(['Ask and Answer Questions','Compare Two Stories'])]],
@@ -3167,7 +3615,7 @@ function viewLearnerProfile(lid, subj){
     <div style="margin:0 0 22px">${assume('Skill progression PRD lists gradebook access from this page as out of scope')}</div>`
   : `<section class="lj-hero">
       <div class="lj-hero-in"><span class="avatar lj-av" style="background:${L.color}">${L.name[0]}</span>
-        <div class="lj-hero-t"><span class="chip chip-sand">${L.grade.toUpperCase()}</span><h1>${L.name}\u2019s Learning Journey</h1><p>Here\u2019s how ${L.name} is doing across their subjects and skills. We\u2019re cheering them on every step of the way!</p>
+        <div class="lj-hero-t"><span class="chip chip-sand">${L.grade.toUpperCase()}</span><h1>${L.name}\u2019s Learning Journey</h1>
           ${acts}</div>
       </div>
       
@@ -3178,25 +3626,96 @@ function viewLearnerProfile(lid, subj){
   const cats = sp.cats.map(c => catRow(c, L)).join('');
   return `${hero}
     <section class="lj-zone" aria-labelledby="sp-h">
-      <div class="lj-zone-h"><span class="cat-ic t-teal">${ic('chart')}</span><div><h2 id="sp-h">Skill Progression</h2><p>Skills and milestones for each subject. Choose a category to see where ${L.name} is doing well and what\u2019s next. Select a milestone to see the skills that build to it and record a mastery level.</p></div></div>
+      <div class="lj-zone-h"><span class="cat-ic t-teal">${ic('chart')}</span><div><h2 id="sp-h">Skill Progression</h2><p>Skills and milestones for each subject. Select a milestone to record a mastery level. <button class="link-btn sp-how" data-act="sp-info">How skill progression works</button></p></div></div>
       ${tabs}
       <div class="lj-subject">
         ${subjectSnapshot(sp, L)}
-        <div class="lj-legend">${MASTERY.map(m => `<span>${mBadge(m.id, 18)}${m.label}</span>`).join('')}</div>
-        ${cats}
+        ${milestoneMap(sp, L)}
       </div>
     </section>`;
 }
+const CAT_COLORS = ['#3D5FD9','#7E4BA3','#D2672E','#C23E6B','#2E8B6F','#A48A1A','#008FA9'];
+const CAT_DESC = {
+  'Number Sense':'Counting and comparing amounts', 'Place Value':'Reading, writing, and building numbers', 'Data and Graphs':'Sorting and picture graphs',
+  'Geometry':'Naming, drawing, and building shapes', 'Number Thinking':'Putting numbers together and taking them apart', 'Operations and Fluency':'Knowing math facts quickly', 'Shapes and Geometry':'Naming, drawing, and building shapes', 'Measurement':'Describing and comparing what can be measured', 'Addition and Subtraction':'Putting numbers together and taking them apart',
+  'Phonics and Letters':'Letters and the sounds they make', 'Reading Literature':'Understanding stories', 'Writing':'Putting ideas into words', 'Speaking and Listening':'Sharing ideas out loud',
+  'Operations and Algebraic Thinking':'Multiplying and finding patterns', 'Numbers and Base Ten':'Place value and multi-digit math', 'Fractions':'Parts of a whole',
+  'Measurement and Data':'Units, area, and line plots', 'Reading Informational Text':'Learning from nonfiction', 'Language':'Grammar and vocabulary'
+};
+const msState = m => m.mastery === 'mastered' ? 'done' : (m.mastery === 'almost' || m.mastery === 'notyet' || m.online !== 'todo' || m.skills.some(k => k.st !== 'todo')) ? 'work' : 'up';
+function nodesToday(all){ return all.some(m => m.today) ? `<span class="lg-today"><i></i>On today\u2019s plan</span>` : ''; }
+function updateMmArrows(){
+  document.querySelectorAll('.mm-trackwrap').forEach(w => {
+    const t = w.querySelector('.mm-track'); if (!t) return;
+    const over = t.scrollWidth > t.clientWidth + 2;
+    const l = t.scrollLeft > 2, r = t.scrollLeft + t.clientWidth < t.scrollWidth - 2;
+    w.classList.toggle('over', over); w.classList.toggle('can-l', over && l); w.classList.toggle('can-r', over && r);
+    w.querySelector('.mm-arrow.l').disabled = !l; w.querySelector('.mm-arrow.r').disabled = !r;
+  });
+}
+document.addEventListener('scroll', e => { if (e.target.classList && e.target.classList.contains('mm-track')) updateMmArrows(); }, true);
+window.addEventListener('resize', () => updateMmArrows());
+function milestoneMap(sp, L){
+  const all = allMs(sp);
+  const mastered = all.filter(m => m.mastery === 'mastered').length;
+  const nextMs = all.find(m => msState(m) === 'work');
+  const rows = sp.cats.map((c, ci) => {
+    const col = CAT_COLORS[ci % CAT_COLORS.length];
+    const ms = c.milestones, n = ms.filter(m => m.mastery === 'mastered').length;
+    const sel = ms.find(m => m.id === S.ljMs);
+    const nodes = ms.map((m, i) => {
+      const st = msState(m), nx = ms[i + 1];
+      const lineOn = nx && msState(nx) !== 'up';
+      return `<button class="mn mn-${st} ${m.today ? 'today' : ''} ${nx ? (lineOn ? 'line-on' : 'line') : ''} ${m === nextMs || m.today ? 'is-next' : ''}" data-act="ms-open" data-m="${m.id}" aria-haspopup="dialog" aria-label="${esc(m.name)}: ${mById(m.mastery).label}">
+        <span class="dia">${mBadge(m.mastery, 56, m.today)}</span><span class="mn-l">${esc(m.name)}</span>${m.today ? `<span class="mn-today">${ic('calendar')}On today\u2019s plan</span>` : m === nextMs ? '<span class="mn-next">NEXT</span>' : ''}</button>`;
+    }).join('');
+    return `<div class="mm-row" style="--cc:${col}">
+      <div class="mm-cat"><b>${c.name}</b><small>${CAT_DESC[c.name] || ''}</small><span class="mm-count"><em>${n}</em> of ${ms.length} mastered</span></div>
+      <div class="mm-trackwrap"><div class="mm-track" tabindex="-1">${nodes}</div><div class="mm-nav"><button class="mm-arrow l" data-act="mm-scroll" data-dir="-1" aria-label="Show earlier ${esc(c.name)} milestones">${ic('chevRight')}</button><span>Scroll for more</span><button class="mm-arrow r" data-act="mm-scroll" data-dir="1" aria-label="Show more ${esc(c.name)} milestones">${ic('chevRight')}</button></div></div>
+    </div>`;
+  }).join('');
+  return `<div class="mm">
+    <div class="mm-h"><h3>${L.name}\u2019s Milestones</h3><div class="mm-legend">${MASTERY.map(x => `<span>${mBadge(x.id, 20)}${x.label}</span>`).join('')}${nodesToday(all)}</div></div>
+    <div class="mm-grid">${rows}</div>
+  </div>`;
+}
+function msDetail(ms){
+  return `<div class="mmd-h"><div><small>Milestone ${ms.num}</small><b>${ms.name}</b></div><button class="icon-btn plain" data-act="lj-ms" data-m="${ms.id}" aria-label="Close">${ic('x')}</button></div>
+    <div class="mmd-body">
+      <div class="lj-mark"><div class="lj-mark-h"><b>Mastery level</b><span class="muted">${ms.updated ? `Set by ${ms.updated.by}, ${relDate(ms.updated.at).toLowerCase()}` : 'Not assessed yet'}</span></div>
+        <div class="lj-mopts" role="radiogroup" aria-label="Mastery level for ${esc(ms.name)}">${MASTERY.map(m => `<button role="radio" aria-checked="${ms.mastery === m.id}" class="lj-mopt ${ms.mastery === m.id ? 'on ' + m.cls : ''}" data-act="lj-set" data-m="${ms.id}" data-v="${m.id}">${mBadge(m.id, 18)}${m.label}</button>`).join('')}</div></div>
+      <div><h5>Skills that build to this milestone</h5>
+        <ol class="lj-skills">${ms.skills.map(s => `<li><span>${esc(s.name)}</span><span class="sk ${SKST[s.st][1]}">${ic(SKST[s.st][2])}${SKST[s.st][0]}</span></li>`).join('')}</ol></div>
+    </div>`;
+}
 function subjectSnapshot(sp, L){
   const snap = spSnapshot(sp);
+  const all = allMs(sp);
   const open = S.guideOpen.has(sp.id);
-  return `<div class="ss">
-    <h3 class="ss-h">Subject Snapshot</h3>
-    <div class="ss-row">
-      <div class="ss-fact"><b>${snap.skDone}</b><span><strong>Skills Complete</strong><small>of ${snap.skTotal} in ${sp.subject}</small></span></div>
-      <div class="ss-fact"><b>${snap.msM}</b><span><strong>Milestones Mastered</strong><small>of ${snap.msTotal} in this course</small></span></div>
-      <button class="ss-trg ${open ? 'open' : ''}" data-act="lj-eguide" data-s="${sp.id}" aria-expanded="${open}"><span class="ss-ic">${ic('bulb')}</span><span><small>Looking for teaching support?</small><b>Teaching Resource Guide</b></span><span class="go">${ic(open ? 'chevDown' : 'chevRight')}</span></button>
+  const cnt = id => all.filter(m => m.mastery === id).length;
+  const skPct = snap.skTotal ? Math.round(snap.skDone / snap.skTotal * 100) : 0;
+  const today = all.find(m => m.today);
+  const next = today || all.find(m => msState(m) === 'work') || all.find(m => m.mastery !== 'mastered');
+  const cat = next ? sp.cats.find(c => c.milestones.includes(next)) : null;
+  const doneSkills = all.flatMap(m => m.skills).filter(k => k.st === 'done');
+  const latestSkill = doneSkills[doneSkills.length - 1];
+  const recent = all.filter(m => m.mastery === 'mastered' && m.updated).sort((x, y) => y.updated.at - x.updated.at)[0];
+  const R = 34, C = 2 * Math.PI * R;
+  const ring = `<svg class="tile-ring" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="${R}" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="9"/><circle cx="42" cy="42" r="${R}" fill="none" stroke="url(#skg-${sp.id})" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - Math.max(skPct, 2) / 100)).toFixed(1)}" transform="rotate(-90 42 42)" class="ring-arc" style="--c:${C.toFixed(1)}"/><defs><linearGradient id="skg-${sp.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1E9DBA"/><stop offset="1" stop-color="#3AA97A"/></linearGradient></defs><text x="42" y="47" text-anchor="middle" font-family="Poppins" font-weight="600" font-size="16" fill="#0E6F88">${skPct}%</text></svg>`;
+  const trail = sp.cats.map((c, ci) => `<span class="trail-cat" title="${esc(c.name)}">${c.milestones.map(m => `<i class="tr tr-${m.mastery} ${m.today ? 'tr-today' : ''}" title="${esc(m.name)}: ${mById(m.mastery).label}"></i>`).join('')}</span>`).join('');
+  const ahead = snap.msTotal - snap.msM;
+  return `<div class="ss2">
+    <div class="ss2-tiles">
+      <div class="tile3 t-skills"><div class="t3-top"><span class="t3-ic">${ic('barsBold')}</span><div><span class="t3-k">Skills</span><div class="t3-num"><b>${snap.skDone}</b><span>of ${snap.skTotal} complete</span></div></div></div>
+        <div class="t3-foot">${latestSkill ? `<span class="t3-win">${ic('check')}</span>Latest win:<b>${esc(latestSkill.name)}</b>` : 'No skills complete yet'}</div></div>
+      <div class="tile3 t-ms"><div class="t3-top"><span class="t3-ic">${ic('flag')}</span><div><span class="t3-k">Milestones</span><div class="t3-num"><b>${snap.msM}</b><span>of ${snap.msTotal} mastered</span></div></div></div>
+        <div class="t3-foot center t3-counts">${['almost','notyet','na'].map(id => `<span class="t3-c" title="${mById(id).label}">${mBadge(id, 18)}<b>${cnt(id)}</b><span class="sr"> ${mById(id).label}</span></span>`).join('')}</div></div>
+      ${!today ? `<div class="tile3 t-none"><div class="t3-top"><span class="t3-ic">${ic('calendar')}</span><div><span class="t3-k">On today\u2019s plan</span><b class="t3-title">No milestones today</b><span class="t3-sub">There\u2019s nothing to record today. Keep going with today\u2019s lessons.</span></div></div>
+        <div class="t3-foot right">${next ? `<span class="t3-next-q">Next milestone: <b>${esc(next.name)}</b></span>` : '<span class="t3-next-q">Every milestone is mastered</span>'}</div></div>` : ''}
+      ${today && next ? `<button class="tile3 t-next" data-act="ms-open" data-m="${next.id}"><div class="t3-top"><span class="t3-ic">${ic(today ? 'calendar' : 'arrowRight')}</span><div><span class="t3-k">${today ? 'On today\u2019s plan' : 'Up next'}</span><b class="t3-title">${next.name}</b>${today ? '' : `<span class="t3-sub">${cat.name}</span>`}</div></div>
+        <div class="t3-foot right"><span class="t3-cta">Record mastery ${ic('arrowRight')}</span></div></button>` : ''}
     </div>
+    <button class="ss-trg slim ${open ? 'open' : ''}" data-act="lj-eguide" data-s="${sp.id}" aria-expanded="${open}"><span class="ss-ic">${ic('bulb')}</span><span><small>Looking for teaching support?</small><b>${sp.subject} Teaching Resource Guide</b></span><span class="go">${ic(open ? 'chevDown' : 'chevRight')}</span></button>
     ${open ? `<div class="lj-eguide open">${guideBody(sp, L)}</div>` : ''}
   </div>`;
 }
@@ -3347,6 +3866,7 @@ function render(){
   if (S.gbFocus && !S.gbLoading && r.parts[0] === 'gradebook' && !r.parts[2]){ const f = S.gbFocus; setTimeout(() => { const el = document.getElementById('gbl-' + f); if (el) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 30); S.gbFocus = null; }
   renderModal();
   renderProto();
+  requestAnimationFrame(updateMmArrows);
 }
 
 /* =========================================================
