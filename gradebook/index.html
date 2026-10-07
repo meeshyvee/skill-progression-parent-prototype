@@ -446,8 +446,8 @@ svg.i{width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stroke
 .lj-txt{flex:1; min-width:240px}
 .lj-txt h1{font-size:28px}
 .lj-txt p{color:var(--text-2); margin-top:6px; max-width:52ch; font-size:15.5px}
-.lj-tabs{display:flex; gap:4px; border-bottom:2px solid var(--sand); margin-bottom:26px; overflow-x:auto}
-.lj-tabs a{display:inline-flex; align-items:center; gap:10px; padding:12px 26px; font-family:var(--font-head); font-weight:600; font-size:16px; color:var(--sand-dark); text-decoration:none; border-bottom:3px solid transparent; margin-bottom:-2px; white-space:nowrap}
+.lj-tabs{display:flex; gap:4px; margin-bottom:26px; overflow-x:auto; overflow-y:hidden}
+.lj-tabs a{display:inline-flex; align-items:center; gap:10px; padding:12px 26px; font-family:var(--font-head); font-weight:600; font-size:16px; color:var(--sand-dark); text-decoration:none; border-bottom:3px solid transparent; white-space:nowrap}
 .lj-tabs a svg.i{width:22px; height:22px}
 .lj-tabs a.on{color:var(--primary-dark); border-bottom-color:var(--primary)}
 .lj-h2{display:flex; align-items:center; gap:8px; font-size:19px; margin-bottom:14px}
@@ -3161,7 +3161,7 @@ function viewLearnerProfile(lid, subj){
       <div class="lj-hero-in"><span class="avatar lj-av" style="background:${L.color}">${L.name[0]}</span>
         <div class="lj-hero-t"><span class="chip chip-sand">${L.grade.toUpperCase()}</span><h1>${L.name}\u2019s Learning Journey</h1></div>
       </div>
-      <div class="lj-hero-meta">${cur.length ? `${cur.length} courses this year` : 'No courses this year'}</div>
+      
     </section>
     <div class="lj-offset">${acts}</div>
     <div style="margin:0 0 22px">${assume('Skill progression PRD lists gradebook access from this page as out of scope')}</div>`
@@ -3170,7 +3170,7 @@ function viewLearnerProfile(lid, subj){
         <div class="lj-hero-t"><span class="chip chip-sand">${L.grade.toUpperCase()}</span><h1>${L.name}\u2019s Learning Journey</h1><p>Here\u2019s how ${L.name} is doing across their subjects and skills. We\u2019re cheering them on every step of the way!</p>
           ${acts}</div>
       </div>
-      <div class="lj-hero-meta">${cur.length ? `${cur.length} courses this year` : 'No courses this year'}</div>
+      
     </section>
     `;
   if (!sp) return `${hero}<div class="center-wrap" style="padding-top:0"><section class="panel state-card">${calmArt('#E0CEED','#CEB7A3')}<h1>No active courses</h1><p>When ${L.name} has courses this school year, their skills and milestones will show here.</p></section></div>`;
